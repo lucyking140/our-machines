@@ -2,14 +2,18 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-const root = document.documentElement;    
+//TODO: Figure out browser vs server rendering stuff
+var root: any = null;
+if (typeof document !== 'undefined') {
+    root = document.documentElement;    
+}
 const PersContext = createContext({
-    features: {backgroundColor: "", fontColor: "", font: ""},
+    features: {backgroundColor: null as string | null, fontColor: null as string | null, font: null as string | null},
     stickers: [{
-        width: "",
-        height: "",
-        x: "",
-        y: "",
+        width: 0,
+        height: 0,
+        x: 0,
+        y: 0,
         src: "",
         page: "",
         id: ""
@@ -28,9 +32,14 @@ export const PersProvider = ({ children }: any) => {
     const fOrig = root?.style.getPropertyValue("--font-family") ? root?.style.getPropertyValue("--font-family") : "Helvetica, sans-serif";
     // Initialize from localStorage if available
     return {
-        backgroundColor: localStorage.getItem('backgroundColor') ? localStorage.getItem('backgroundColor') : bgcOrig,
-        fontColor: localStorage.getItem('fontColor') ? localStorage.getItem('fontColor') : fcOrig,
-        font: localStorage.getItem('font') ? localStorage.getItem('font') : fOrig
+        // backgroundColor: localStorage.getItem('backgroundColor') ? localStorage.getItem('backgroundColor') : bgcOrig,
+        // fontColor: localStorage.getItem('fontColor') ? localStorage.getItem('fontColor') : fcOrig,
+        // font: localStorage.getItem('font') ? localStorage.getItem('font') : fOrig
+
+        //TODO: change back to finalize use of local storage
+        backgroundColor: bgcOrig,
+        fontColor: fcOrig,
+        font: fOrig
         }
     });
 
@@ -46,12 +55,13 @@ export const PersProvider = ({ children }: any) => {
     
   
   // to preserve features
-  useEffect(() => {
-    localStorage.setItem('backgroundColor', root?.style.getPropertyValue("--background-color"));
-    localStorage.setItem('fontColor', root?.style.getPropertyValue("--font-color"));
-    localStorage.setItem('font', root?.style.getPropertyValue("--font-family"));
-    // localStorage.setItem('stickers', stickers);
-  }, [features]);
+  // TODO: fix with implementation of local storage
+//   useEffect(() => {
+//     localStorage.setItem('backgroundColor', root?.style.getPropertyValue("--background-color"));
+//     localStorage.setItem('fontColor', root?.style.getPropertyValue("--font-color"));
+//     localStorage.setItem('font', root?.style.getPropertyValue("--font-family"));
+//     // localStorage.setItem('stickers', stickers);
+//   }, [features]);
   
   // toggling likes so there is an available unlike feature
 const changeFeature = (type: string, newFeature: any) => {

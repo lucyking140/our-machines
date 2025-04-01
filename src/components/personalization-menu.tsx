@@ -9,7 +9,7 @@ import { usePersContext } from '../app/contexts/usePersContext';
  
  export default function PersonalizationMenu({handleOpenStickers}: any) {
     // console.log("COLOR: ", colors.primary);
-    const root = document.documentElement;    
+    // const root = document.documentElement;    
     // const [features, setFeatures] = React.useState({
     //     backgroundColor: root?.style.getPropertyValue("--background-color"),
     //     // idk for some reason this isn't always initialized properly so this fixes it

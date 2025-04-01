@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 // TODO: could be cool to have users click to activate but not scroll 
 import { OrbitControls } from 'three/addons';
 
-const ModelViewer = ({ modelPath, width = 800, height = 600 }) => {
+const ModelViewer = ({ modelPath, width = 800, height = 600 }: any) => {
   const containerRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -70,13 +70,13 @@ const ModelViewer = ({ modelPath, width = 800, height = 600 }) => {
         },
         (err) => {
           console.error('Error loading model:', err);
-          setError('Failed to load 3D model');
+          // setError('Failed to load 3D model');
           setLoading(false);
         }
       );
     } catch (err) {
       console.error('Error in model loading process:', err);
-      setError('There was a problem loading the model');
+      // setError('There was a problem loading the model');
       setLoading(false);
     }
     
