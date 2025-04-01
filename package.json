@@ -3,22 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "sass": "sass --watch src/app/style/home.scss app/style/home.css",
+    "dev-OLD": "next dev --turbopack",
+    "dev": "concurrently \"next dev\" \"sass --watch src/styles:public/css\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^10.0.4",
+    "@react-three/fiber": "^9.1.0",
+    "@types/three": "^0.174.0",
+    "canvas": "^3.1.0",
+    "next": "15.2.2",
     "react": "^19.0.0",
+    "react-color": "^2.19.3",
     "react-dom": "^19.0.0",
-    "next": "15.2.2"
+    "react-konva": "^19.0.3",
+    "react-type-animation": "^3.2.0",
+    "react-use": "^17.6.0",
+    "sass": "^1.86.0",
+    "three": "^0.174.0",
+    "use-image": "^1.1.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "concurrently": "^9.1.2",
+    "rerun-script": "^0.6.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

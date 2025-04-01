@@ -1,0 +1,48 @@
+.personalizemenu{
+    // background: lightpink;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.menuitem{
+    padding: 3%; // same as on personalize-menu-button
+    display: flex;
+    width: 93%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hl{
+    border-top: 1px solid var(--font-color);
+    width: 100%;
+}
+
+// from https://casesandberg.github.io/react-color/#examples
+.swatch{
+    width: 14px;
+    height: 14px;
+    padding: 5px;
+    // background: #fff;
+    // border-radius: 1px;
+    // box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid var(--font-color);
+  }
+
+.popover {
+    position: absolute;
+    z-index: 2;
+    bottom: 100%;
+    left: 0;
+    border: 1px solid var(--font-color);
+}
+.cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
