@@ -1,0 +1,15 @@
+.container{
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+    color: var(--font-color);
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.bodyText{
+    font-size: 13px;
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+    color: var(--font-color);
+}

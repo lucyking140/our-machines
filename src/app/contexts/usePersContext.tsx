@@ -94,6 +94,7 @@ const changeFeature = (type: string, newFeature: any) => {
 
     const addSticker = ({src, page, width, height, x, y}: any) => {
         console.log("reaching add sticker!");
+
         const newSticker = { 
           width,
           height,

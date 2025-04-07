@@ -73,7 +73,6 @@ export default function Home() {
                     <Link key={"case-studies"}
                     href={{
                       pathname: '/intro',
-                      query: { color: features.fontColor },
                     }} > Introduction </Link>
                   </li>
                   <li className="menu-item">

@@ -1,6 +1,7 @@
 'use client';
 
 import { usePersContext } from "../app/contexts/usePersContext";
+import { usePathname } from 'next/navigation'
 
 import React, { useState } from "react";
 import { IndividualSticker } from "../components/individual-sticker";
@@ -21,6 +22,10 @@ export default function StickerContainer(){
 
     const [menu, setMenu] = useState(false);
     const [openStickers, setOpenStickers] = useState(false);
+
+    // used to get current pathname to assign stickers to pages
+    //TODO: do i need to update this? seems like it happens automatically
+    const pathname = usePathname()
   
     // both handle functions are used to open the menu and stickers page, respectively
     const handleOpenMenu = () => {
@@ -36,6 +41,25 @@ export default function StickerContainer(){
         setOpenStickers(!openStickers);
     }
 
+    // checking if a sticker belongs on a given page
+    const checkSticker = (sticker: any) => {
+        if(sticker.page == pathname){
+            return (
+                <IndividualSticker
+                    key={sticker.id}
+                    image={sticker}
+                    onDelete={() => {
+                    // console.log("Delete callback triggered for index", i);
+                    deleteSticker(sticker.id);
+                    }}
+                    onDragEnd={(event: any) => handleDragEnd(sticker.id, event)}
+                />
+            );
+        } else {
+            return null;
+        }
+    }
+
     // actual display of how users can select stickers
     const stickerSelector = (<div className="personalize-menu">
             <div className="stickers-palette">
@@ -49,13 +73,14 @@ export default function StickerContainer(){
                         className="sticker-button"
                         onClick={() => {
                             console.log("Adding new sticker");
+                            console.log("current pathname in add sticker: ", pathname);
                             addSticker({
-                            src: sticker.url,
-                            page: "test",
-                            width: sticker.width,
-                            height: sticker.height,
-                            x: 100,
-                            y: 100
+                                src: sticker.url,
+                                page: pathname,
+                                width: sticker.width,
+                                height: sticker.height,
+                                x: 100,
+                                y: 100
                             });
                             console.log("done adding sticker!");
                         }}
@@ -67,6 +92,7 @@ export default function StickerContainer(){
                                 height={sticker.height} 
                             />
                         </div>
+                       
                     ))}
                 
             </div>  
@@ -91,15 +117,7 @@ export default function StickerContainer(){
         {/* overarching div that applies stickers anywhere on the page */}
         <div className={styles.stickersContainer}>
                 {stickers.map((sticker, i) => (
-                <IndividualSticker
-                    key={sticker.id}
-                    image={sticker}
-                    onDelete={() => {
-                    // console.log("Delete callback triggered for index", i);
-                    deleteSticker(sticker.id);
-                    }}
-                    onDragEnd={(event: any) => handleDragEnd(sticker.id, event)}
-                />
+                    checkSticker(sticker)
                 ))}
         </div>
 
