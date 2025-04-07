@@ -1,145 +1,94 @@
 'use client';
 
-import React, { createRef, useState, useCallback, useEffect } from "react";
-import { IndividualSticker } from "../components/individual-sticker";
-import { stickersData } from "./stickers.data";
-import TitlePage from "../components/title_page";
-import PersonalizationMenu from "../components/personalization-menu";
+import { TypeAnimation } from 'react-type-animation';
+import * as React from "react";
+import Link from 'next/link';
 
-import styles from "../../public/css/homePage.module.css";
+import { usePersContext } from '../app/contexts/usePersContext';
+
+import styles from "../../public/css/title-page.module.css";
+
+// SVG for the menu dropdown icon so can change fill color
+const MenuIcon = (props: any) =>(
+  <div className={props.class}>
+    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512.000000 512.000000"
+      preserveAspectRatio="xMidYMid meet">
+          <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+          fill={props.fill} stroke="none">
+              <path d="M702 3557 l-142 -142 998 -998 997 -997 1003 1002 1002 1003 -140
+          140 -140 140 -860 -860 -860 -860 -858 858 -857 857 -143 -143z"/>
+          </g>
+    </svg>
+  </div>
+);
 
 export default function Home() {
-  // const [images, setImages] = useState<Array<{
-  //   width: number;
-  //   height: number;
-  //   x: number;
-  //   y: number;
-  //   src: string;
-  // }>>([]);
 
-  // const [menu, setMenu] = useState(false);
+  // for font color, used to set color of svg menu icon
+  const {features} = usePersContext();   
 
-  // const handleOpenMenu = () => {
-  //   setMenu(!menu);
-  // }
+  //open/close dropdown for project info
+  const [open, setOpen] = React.useState(false);
 
-  // // Log images whenever they change
-  // useEffect(() => {
-  //   console.log("Current images state:", images);
-  // }, [images]);
-
-  // // Adds sticker to current list of things to be generated
-  // const addStickerToPanel = ({src, width, height, x, y}: any) => {
-  //   const newSticker = { 
-  //     width,
-  //     height,
-  //     x,
-  //     y,
-  //     src,
-  //     id: `sticker-${Date.now()}-${Math.random().toString(36).substr(2, 9)}` // Generate unique ID
-  //   };
-    
-  //   setImages(prevImages => {
-  //     const updatedImages = [...prevImages, newSticker];
-  //     return updatedImages;
-  //   });
-  // };
-
-  //   // Handle deletion of a sticker
-  //   const handleDeleteSticker = (indexToDelete: number) => {
-  //     console.log("Deleting sticker at index:", indexToDelete);
-  //     console.log("Current images:", images);
-      
-  //     // Use a different approach to filter out the item
-  //     // const newImages = images.filter((_, index) => index !== indexToDelete);
-  //     // console.log("New images after deletion:", newImages);
-      
-  //     // Set the state directly
-  //     // setImages(newImages);
-  //     setImages(prevImages => {
-  //       // Create a new array without the deleted item
-  //       const updatedImages = prevImages.filter((_, index) => index !== indexToDelete);
-  //       console.log("Images after deletion:", updatedImages);
-  //       return updatedImages;
-  //     });
-  //   };
-
-  //   // Handle drag end for updating position
-  //   const handleDragEnd = (index: number, event: any) => {
-  //     setImages(prevImages => {
-  //       const updatedImages = [...prevImages];
-  //       updatedImages[index] = {
-  //         ...updatedImages[index],
-  //         x: event.target.x(),
-  //         y: event.target.y()
-  //       };
-  //       return updatedImages;
-  //     });
-  //     console.log("Setting new location");
-  //   };
+  const handleOpen = () => {
+    console.log("reaching open");
+    setOpen(!open);
+  };
 
   return (
-    <TitlePage />
-    // <div style={{ position: 'relative', minHeight: '400px' }}>
-      
-    //   <TitlePage />
-      
-    //   {/* Stickers container */}
-    //   <div className={styles.stickersContainer}>
-    //     {images.map((image, i) => (
-    //       <IndividualSticker
-    //         key={`sticker-${i}-${image.src}`}
-    //         // key = {i}
-    //         image={image}
-    //         onDelete={() => {
-    //           console.log("Delete callback triggered for index", i);
-    //           handleDeleteSticker(i);
-    //         }}
-    //         onDragEnd={(event: any) => handleDragEnd(i, event)}
-    //       />
-    //     ))}
-    //   </div>
+    <div className={styles.homecontainer}> 
+      <div className={styles.titlebox}>
+        <div className={styles.title}>
+          <TypeAnimation
+            sequence={[
+              // Same substring at the start will only be typed out once, initially
+              'OUR MACHINES',
+              3000, // wait 1s before replacing "Mice" with "Hamsters"
+              'MY DEVICES',
+              3000,
+              'THEIR COMPUTERS',
+              3000,
+              'YOUR TECHNOLOGY',
+              3000
+            ]}
+            wrapper="div"
+            speed={20}
+            style={{width: 'inherit'}}
+            repeat={Infinity}
+            preRenderFirstString={true}
+            cursor={false}
+            className={styles.animatedtitle}
+          />
+        </div>
+        {/* Menu with links to other pages */}
+        <div className={styles.menu} onClick={handleOpen}>
+          <div>
+            <MenuIcon fill={features.fontColor} class={open ? styles.menuiconopen : styles.menuicon }/>
+          </div>
+          {open ? (
+                <ul className="proj-drop-menu">
+                  
+                  <li className="menu-item">
+                    <Link key={"case-studies"}
+                    href={{
+                      pathname: '/intro',
+                      query: { color: features.fontColor },
+                    }} > Introduction </Link>
+                  </li>
+                  <li className="menu-item">
+                    {/* TODO */}
+                    <Link key={"archive"} href={`/catalogue`}> Case Studies </Link>
+                  </li>
+                  <li className="menu-item">
+                    {/* TODO */}
+                    <Link key={"gallery"} href={`/gallery`}> User Gallery </Link>
+                  </li>
+                </ul>
+              ) : null}
 
-    //   {/* palette */}
-    //   <div className={styles.personalizemenubox}>
-        
-    //     { menu ? ( 
-    //       <PersonalizationMenu />
-    //       //   <div className="personalize-menu">
-    //       //     <div className="stickers-palette">
-    //       //       <h4 className="heading">Click/Tap to add sticker to photo!</h4>
-    //       //       <div className="stickers-buttons">
-    //       //         {stickersData.map((sticker, index) => (
-    //       //           <button
-    //       //             key={`palette-${index}`}
-    //       //             className="button"
-    //       //             onClick={() => {
-    //       //               console.log("Adding new sticker");
-    //       //               addStickerToPanel({
-    //       //                 src: sticker.url,
-    //       //                 width: sticker.width,
-    //       //                 height: sticker.height,
-    //       //                 x: 100,
-    //       //                 y: 100
-    //       //               });
-    //       //             }}
-    //       //           >
-    //       //             <img 
-    //       //               alt={sticker.alt} 
-    //       //               src={sticker.url} 
-    //       //               width={sticker.width} 
-    //       //               height={sticker.height} 
-    //       //             />
-    //       //           </button>
-    //       //         ))}
-    //       //       </div>
-    //       //     </div>
-    //       //   </div>
-    //       ) : null }
-    //       <div className={styles.personalizemenubutton} onClick={handleOpenMenu}>
-    //         Add Personalization
-    //       </div>
-    //     </div>
-    // </div>
+        </div>
+      </div> 
+    </div>
   );
 }

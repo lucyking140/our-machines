@@ -38,12 +38,11 @@ const ModelViewer = ({ modelPath, width = 800, height = 600 }: any) => {
     renderer.setPixelRatio(window.devicePixelRatio);
     containerRef.current.appendChild(renderer.domElement);
     
-    // Took out orbit controls to stop user control of the models
+    // temp: took out orbit controls to stop user control of the models
     // const controls = new OrbitControls(camera, renderer.domElement);
     // controls.enableDamping = true;
     // controls.dampingFactor = 0.25;
     
-    // Load the model
     const loader = new GLTFLoader();
 
     try {
@@ -55,12 +54,11 @@ const ModelViewer = ({ modelPath, width = 800, height = 600 }: any) => {
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3()).length();
           
-          // Reset model position and scale
+          // reset model pos
           gltf.scene.position.x = -center.x;
           gltf.scene.position.y = -center.y;
           gltf.scene.position.z = -center.z;
           
-          // Adjust camera position based on model size
           camera.position.z = size * 2;
           camera.far = size * 10;
           camera.updateProjectionMatrix();

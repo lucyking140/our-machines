@@ -1,19 +1,28 @@
+'use client';
+
 import { usePersContext } from "../app/contexts/usePersContext";
 
-import React, { createRef, useState, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import { IndividualSticker } from "../components/individual-sticker";
 import { stickersData } from "../app/stickers.data";
 import PersonalizationMenu from "../components/personalization-menu";
 
 import styles from "../../public/css/homePage.module.css";
 
+/*
+Container that includes sticker overlay over all pages, and personalization menu along the 
+bottom of the page
+*/
+
 export default function StickerContainer(){
     
-    const {features, stickers, changeFeature, addSticker, deleteSticker, handleDragEnd} = usePersContext();
+    // colors/features are handled directly in PersonalizationMenu
+    const {stickers, addSticker, deleteSticker, handleDragEnd} = usePersContext();
 
     const [menu, setMenu] = useState(false);
     const [openStickers, setOpenStickers] = useState(false);
   
+    // both handle functions are used to open the menu and stickers page, respectively
     const handleOpenMenu = () => {
         // in the case we're turning the menu off completely, i want to reopen it with the main page, not the sticker selector
         if(menu){
@@ -27,48 +36,44 @@ export default function StickerContainer(){
         setOpenStickers(!openStickers);
     }
 
-    useEffect(() => {
-        console.log("reaching use effect");
-        // finalElement = menuSelector();
-    },[openStickers]);
-
+    // actual display of how users can select stickers
     const stickerSelector = (<div className="personalize-menu">
             <div className="stickers-palette">
                 <div onClick={() => handleOpenStickers()}>
                     Back
                 </div>
-                <h4 className="heading">Click/Tap to add sticker to photo!</h4>
-                <div className="stickers-buttons">
-                {stickersData.map((sticker, index) => (
-                    <button
-                    key={`palette-${index}`}
-                    className="button"
-                    onClick={() => {
-                        console.log("Adding new sticker");
-                        addSticker({
-                        src: sticker.url,
-                        page: "test",
-                        width: sticker.width,
-                        height: sticker.height,
-                        x: 100,
-                        y: 100
-                        });
-                        console.log("done adding sticker!");
-                    }}
-                    >
-                    <img 
-                        alt={sticker.alt} 
-                        src={sticker.url} 
-                        width={sticker.width} 
-                        height={sticker.height} 
-                    />
-                    </button>
-                ))}
+                <div className="sticker-buttons">
+                    {stickersData.map((sticker, index) => (
+                        <div
+                        key={`palette-${index}`}
+                        className="sticker-button"
+                        onClick={() => {
+                            console.log("Adding new sticker");
+                            addSticker({
+                            src: sticker.url,
+                            page: "test",
+                            width: sticker.width,
+                            height: sticker.height,
+                            x: 100,
+                            y: 100
+                            });
+                            console.log("done adding sticker!");
+                        }}
+                        >
+                            <img 
+                                alt={sticker.alt} 
+                                src={sticker.url} 
+                                width={sticker.width} 
+                                height={sticker.height} 
+                            />
+                        </div>
+                    ))}
                 
             </div>  
             </div>
         </div>)
 
+    // shows either regular personalization menu OR sticker page
     function menuSelector(){
         if(menu){ // the menu is opened
             if(openStickers){
@@ -81,22 +86,16 @@ export default function StickerContainer(){
         }
     }
 
-    // gets current version of the personalization menu
-    // var finalElement = menuSelector();
-
-    
-
     return(
     <div>
         {/* overarching div that applies stickers anywhere on the page */}
         <div className={styles.stickersContainer}>
                 {stickers.map((sticker, i) => (
                 <IndividualSticker
-                    key={`sticker-${i}-${sticker.src}`}
-                    // key = {i}
+                    key={sticker.id}
                     image={sticker}
                     onDelete={() => {
-                    console.log("Delete callback triggered for index", i);
+                    // console.log("Delete callback triggered for index", i);
                     deleteSticker(sticker.id);
                     }}
                     onDragEnd={(event: any) => handleDragEnd(sticker.id, event)}

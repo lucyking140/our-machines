@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import {useHover} from 'react-use';
 
 export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
-    const [deleteImage] = "/cancel.svg";
     const [showDeleteButton, setShowDeleteButton] = useState(false);
-    const [position, setPosition] = useState({ x: image.x, y: image.y });
+
+    // used to track dif between cursor and top-left corner of sticker
+    const dragOffRef = useRef({ x: 0, y: 0 });
+
+    // actual html element of the sticker -- used to avoid rerendering on drag
     const stickerRef = useRef<HTMLDivElement>(null);
-    const startPosRef = useRef({ x: 0, y: 0, mouseX: 0, mouseY: 0 });
 
+    // Used ONLY for UI (cursor icon and showing delete button)
     const [isDragging, setIsDragging] = useState(false);
-
-    // Update position if props change
-    useEffect(() => {
-        setPosition({ x: image.x, y: image.y });
-    }, [image.x, image.y]);
 
     const stickerWidth = image.width;
     const stickerHeight = image
@@ -29,106 +26,83 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         if (!isDragging) {
             setTimeout(() => {
                 setShowDeleteButton(false);
-            }, 2000);
+            }, 1000);
         }
     };
 
-    // // handling drag events to change location
-    // const handleDragStart = (e: React.DragEvent) => {
-    //     setIsDragging(true);
-    //     // Set the drag image offset (optional)
-    //     if (e.dataTransfer) {
-    //         e.dataTransfer.setData('text/plain', ''); // Required for Firefox
-    //     }
-    // };
-
-    // const handleDragEnd = (e: React.DragEvent) => {
-    //     setIsDragging(false);
-    //     if (onDragEnd) {
-    //         // Get the final position
-    //         const rect = e.currentTarget.getBoundingClientRect();
-    //         const newX = e.clientX - rect.width / 2;
-    //         const newY = e.clientY - rect.height / 2;
-            
-    //         // Call the parent's onDragEnd with position info
-    //         onDragEnd({
-    //             target: {
-    //                 x: () => newX,
-    //                 y: () => newY
-    //             }
-    //         });
-    //     }
-    // };
-
-    // Custom drag implementation
+    // drag STARTS
     const handleMouseDown = (e: React.MouseEvent) => {
 
-        // Skip if clicking the delete button
+        // no drag if clicking the delete button
         if ((e.target as HTMLElement).closest('.delete-button')) {
             return;
         }
 
+        // to avoid float back thing before changing position
         e.preventDefault();
+        // to avoid other things on top being clicked/dragged
+        e.stopPropagation();
+
         setIsDragging(true);
         
-        // Store starting positions
-        startPosRef.current = {
-            x: position.x,
-            y: position.y,
-            mouseX: e.clientX,
-            mouseY: e.clientY
+        // setting drag offset (top-left corner of image -> location of cursor)
+        dragOffRef.current = {
+            x: e.clientX - image.x,
+            y: e.clientY - image.y
         };
         
-        // Add window event listeners
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
     };
 
+    // while dragging --> only called between mouse down and mouse up
     const handleMouseMove = (e: MouseEvent) => {
-        if (isDragging) {
-            // Calculate new position
-            const dx = e.clientX - startPosRef.current.mouseX;
-            const dy = e.clientY - startPosRef.current.mouseY;
-            
-            const newX = startPosRef.current.x + dx;
-            const newY = startPosRef.current.y + dy;
-            
-            // Update position state (this will cause component to re-render with new position)
-            setPosition({ x: newX, y: newY });
+        e.preventDefault();
+        e.stopPropagation();
+
+        const newX = e.clientX - dragOffRef.current.x;
+        const newY = e.clientY - dragOffRef.current.y;
+        
+        if (stickerRef.current) {
+            stickerRef.current.style.left = `${newX}px`;
+            stickerRef.current.style.top = `${newY}px`;
         }
     };
 
+    // end drag
     const handleMouseUp = (e: MouseEvent) => {
-        if (isDragging) {
-            setIsDragging(false);
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        
+        // stops mousemove
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        
+        if (onDragEnd) {
+            const newX = e.clientX - dragOffRef.current.x;
+            const newY = e.clientY - dragOffRef.current.y;
             
-            // Remove window event listeners
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
-            
-            // Call parent's onDragEnd with the new position
-            if (onDragEnd) {
-                onDragEnd({
-                    target: {
-                        x: () => position.x,
-                        y: () => position.y
-                    }
-                });
-            }
+            onDragEnd({
+                target: {
+                    x: () => newX,
+                    y: () => newY
+                }
+            });
         }
     };
 
-    // Cleanup event listeners on unmount
+    // final cleanup
     useEffect(() => {
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
         };
     }, []);
 
+    // deleting a sticker
     const handleDelete = (e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevent event from bubbling up
-        console.log("Delete button clicked");
+        e.stopPropagation();
         if (onDelete) onDelete();
     }
 
@@ -138,8 +112,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         className="sticker-container" 
         style={{
             position: 'absolute',
-            top: `${position.y}px`, 
-            left: `${position.x}px`,
+            top: `${image.y}px`, 
+            left: `${image.x}px`,
             cursor: isDragging ? 'grabbing' : 'grab',
             userSelect: 'none',
             touchAction: 'none'
@@ -157,17 +131,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseDown={handleMouseDown}
-            // onDragStart={handleDragStart}
-            // onDragEnd={handleDragEnd}
-            style={{ userSelect: 'none', pointerEvents: 'none', zIndex: 50 }}
+            style={{ userSelect: 'none', pointerEvents: 'auto', zIndex: 500 }}
         />
-        {/* <img src={image.src} width={stickerWidth} height={stickerHeight} draggable="true"
-      style={{top:`{image.y}`, left:`{image.x}` }}
-      onDragStart={() => { setIsDragging(true); console.log("Start dragging")} }
-      onDragEnd={(event) => {
-        setIsDragging(false);
-        onDragEnd(event);
-      }} /> */}
 
         {showDeleteButton && !isDragging && (
                 <button
@@ -196,7 +161,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         width={25} 
                         height={25} 
                         alt="Delete"
-                        style={{ pointerEvents: 'none' }}
+                        style={{ pointerEvents: 'auto' }}
                     />
                 </button>
             )}

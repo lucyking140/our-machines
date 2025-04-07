@@ -17,4 +17,16 @@
   cursor: pointer;
 }
 
+.sticker-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.sticker-button {
+  padding: 5px;
+  width: 50%;
+  background-color: lightpink;
+}
+
 /*# sourceMappingURL=homePage.module.css.map */

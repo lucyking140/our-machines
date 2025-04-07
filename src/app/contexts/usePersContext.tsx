@@ -101,18 +101,21 @@ const changeFeature = (type: string, newFeature: any) => {
           y,
           src,
           page,
-          id: `sticker-${Date.now()}-${Math.random().toString(36).substr(2, 9)}` // Generate unique ID
+          id: `${src}-${Date.now()}`
         };
         
         setStickers(prevImages => {
           const updatedImages = [...prevImages, newSticker];
           return updatedImages;
         });
+        console.log("current sticker list: ", stickers);
       };
 
     const deleteSticker = (id: string) => {
         setStickers(prevImages => {
             // Create a new array without the deleted item
+            console.log("Image ID to be deleted: ", id);
+            console.log("Images before filtering: ", prevImages);
             const updatedImages = prevImages.filter((image) => image.id !== id);
             console.log("Images after deletion:", updatedImages);
             return updatedImages;
@@ -120,17 +123,21 @@ const changeFeature = (type: string, newFeature: any) => {
     };
 
     const handleDragEnd = (id: string, event: any) => {
-        setStickers(prevImages => {
-            const allOtherImages = prevImages.filter((image) => image.id !== id);
-            var changedImage = prevImages[0];
-            changedImage = {
-              ...changedImage,
-              x: event.target.x(),
-              y: event.target.y()
-            };
-            const updatedImages = [... allOtherImages, changedImage];
+
+          setStickers(prevImages => {
+            const updatedImages = prevImages.map(image => {
+                if (image.id === id) {
+                    return {
+                        ...image,
+                        x: event.target.x(),
+                        y: event.target.y()
+                    };
+                }
+                return image;
+            });
             return updatedImages;
-          });
+        });
+          
           console.log("Setting new location of image: ", id);
     }
   
