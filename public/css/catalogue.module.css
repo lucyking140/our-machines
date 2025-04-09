@@ -1,3 +1,21 @@
+.collection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
+.model {
+  width: inherit;
+}
+
+.caseStudyBox {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border: 1px solid #000000;
+  background-color: var(--background-color);
+}
 
 /*# sourceMappingURL=catalogue.module.css.map */

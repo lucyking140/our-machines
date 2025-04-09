@@ -1,6 +1,8 @@
 import * as React from "react";
 import { SketchPicker } from 'react-color';
 
+import FontPicker from "./font-picker/font-picker";
+
 import { usePersContext } from '../app/contexts/usePersContext';
 
 import styles from "../../public/css/pers-menu.module.css";
@@ -46,9 +48,13 @@ export default function PersonalizationMenu({handleOpenStickers}: any) {
             ) : null }
         </div>
         <div className={styles.hl}> </div>
-        <div className={styles.menuitem}>
-            {/* TODO */}
-            Font
+        <div className={styles.menuitem} >
+            <div>
+                Font
+            </div>
+            {/* { pickerOpen.font ? ( */}
+            <FontPicker />
+            {/* ) : null } */}
         </div>
         <div className={styles.hl}> </div>
         <div className={styles.menuitem}>

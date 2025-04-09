@@ -8,7 +8,7 @@ import { usePersContext } from '../app/contexts/usePersContext';
 
 import styles from "../../public/css/back-button.module.css";
 
-export default function BackButton({destination, color} ) {
+export default function BackButton({destination}) {
 
     const {features} = usePersContext(); 
     // TODO: do something like checking if browser is null to handle server stuff

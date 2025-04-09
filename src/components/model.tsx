@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { usePersContext } from "../app/contexts/usePersContext";
 
 // TODO: could be cool to have users click to activate but not scroll 
 import { OrbitControls } from 'three/addons';
@@ -9,13 +12,17 @@ const ModelViewer = ({ modelPath, width = 800, height = 600 }: any) => {
   const containerRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // for setting background color
+  //TODO: figure out how to reset this as it changes
+  const {features} = usePersContext();
   
   useEffect(() => {
     if (!containerRef.current) return;
     
     const scene = new THREE.Scene();
     // SET BACKGROUND TO DEFAULT EVENTUALLY 0xfff9f5
-    scene.background = new THREE.Color(0xfff9f5);
+    scene.background = new THREE.Color(features.backgroundColor);
     
     // adding lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);

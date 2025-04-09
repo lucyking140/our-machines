@@ -8,7 +8,9 @@ if (typeof document !== 'undefined') {
     root = document.documentElement;    
 }
 const PersContext = createContext({
-    features: {backgroundColor: null as string | null, fontColor: null as string | null, font: null as string | null},
+    // features: {backgroundColor: null as string | null, fontColor: null as string | null, font: null as string | null},
+    features: {backgroundColor: "" as string, fontColor: "" as string, font: "" as string},
+    // defaultFeatures: {backgroundColor: "" as string, fontColor: "" as string, font: "" as string},
     stickers: [{
         width: 0,
         height: 0,
@@ -42,6 +44,12 @@ export const PersProvider = ({ children }: any) => {
         font: fOrig
         }
     });
+
+    // const defaultFeatures = {
+    //   backgroundColor: "#fff9f5",
+    //   fontColor: "#000000",
+    //   font: "Helvetica, sans-serif"
+    // };
 
     const [stickers, setStickers] = useState<Array<{
           width: number;
@@ -84,6 +92,10 @@ const changeFeature = (type: string, newFeature: any) => {
                 setFeatures({...features, backgroundColor: newFeature.hex });
                 break;
             case "font":
+                  root?.style.setProperty(
+                    "--font-family",
+                    newFeature
+                );
                 setFeatures({...features, font: newFeature }); //TODO: figure out format for this -- is it a string??
                 break;
             };
@@ -145,6 +157,7 @@ const changeFeature = (type: string, newFeature: any) => {
   return (
     <PersContext.Provider value={{ 
       features,
+      // defaultFeatures,
       stickers,
       changeFeature,
       addSticker,
