@@ -21,16 +21,48 @@ export function fontLoader(family: string){
 };
 
 /*
+useEffect(() => {
+    async function fetchFonts() {
+      try {
+        setLoading(true);
+        // Call your Netlify function
+        const response = await fetch('/.netlify/functions/getGoogleFonts?sort=popularity');
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        setFonts(data.items || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchFonts();
+  }, []);
+
+*/
+
+/*
     Generates list of font family names
 */
 const fetchFonts = async () => {
+
     try {
-        const apiKey = 'AIzaSyDpF61PWgesaiyrQIbZxBTXp2WKSUYzoAU';
+        //const apiKey = 'AIzaSyDpF61PWgesaiyrQIbZxBTXp2WKSUYzoAU';
+        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_FONTS_API_KEY;
+
+        console.log("API KEY: ", apiKey);
+
         const response = await fetch(
             `https://www.googleapis.com/webfonts/v1/webfonts?key=${apiKey}`
         );
         
         if (!response.ok) {
+            console.log(response);
             throw new Error('Failed to fetch fonts');
         }
         

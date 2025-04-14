@@ -1,0 +1,3 @@
+[dev]
+  command = "next dev"
+  framework = "next"
