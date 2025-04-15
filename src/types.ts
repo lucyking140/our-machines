@@ -6,4 +6,3 @@ export interface Model3D {
 
 // export type {Model3D as Model3DType};
 export type Model3dType = { model: Model3D };
-

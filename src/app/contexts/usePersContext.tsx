@@ -8,9 +8,7 @@ if (typeof document !== 'undefined') {
     root = document.documentElement;    
 }
 const PersContext = createContext({
-    // features: {backgroundColor: null as string | null, fontColor: null as string | null, font: null as string | null},
     features: {backgroundColor: "" as string, fontColor: "" as string, font: "" as string},
-    // defaultFeatures: {backgroundColor: "" as string, fontColor: "" as string, font: "" as string},
     stickers: [{
         width: 0,
         height: 0,
@@ -22,6 +20,7 @@ const PersContext = createContext({
       }],
     changeFeature: (type: string, newFeature: any) => { null },
     addSticker: ({src, page, width, height, x, y}: any) => {null },
+    uploadSticker: ({src}: {src: string}) => { null},
     deleteSticker: (id: string) => { null },
     handleDragEnd: (id: string, event: any) => { null }
 });
@@ -123,6 +122,41 @@ const changeFeature = (type: string, newFeature: any) => {
         });
         console.log("current sticker list: ", stickers);
       };
+
+      const [file, setFile] = useState<File | null>(null);
+
+      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+          setFile(e.target.files[0]);
+        }
+      };
+
+      const handleUpload = async () => {
+        if (file) {
+          console.log('Uploading file...');
+      
+          const formData = new FormData();
+          formData.append('file', file);
+      
+          try {
+            // You can write the URL of your server or any other endpoint used for file upload
+            const result = await fetch('https://httpbin.org/post', {
+              method: 'POST',
+              body: formData,
+            });
+      
+            const data = await result.json();
+      
+            console.log(data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      };
+
+      // const upload_ui = <div className="input-group">
+      //     <input id="file" type="file" onChange={handleFileChange} />
+      //   </div>
 
     const deleteSticker = (id: string) => {
         setStickers(prevImages => {
