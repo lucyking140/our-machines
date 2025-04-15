@@ -31,24 +31,14 @@ export const PersProvider = ({ children }: any) => {
     const bgcOrig = root?.style.getPropertyValue("--background-color") ? root?.style.getPropertyValue("--background-color") : "#fff9f5";
     const fcOrig = root?.style.getPropertyValue("--font-color") ? root?.style.getPropertyValue("--font-color") : "#000000";
     const fOrig = root?.style.getPropertyValue("--font-family") ? root?.style.getPropertyValue("--font-family") : "Helvetica, sans-serif";
-    // Initialize from localStorage if available
     return {
-        // backgroundColor: localStorage.getItem('backgroundColor') ? localStorage.getItem('backgroundColor') : bgcOrig,
-        // fontColor: localStorage.getItem('fontColor') ? localStorage.getItem('fontColor') : fcOrig,
-        // font: localStorage.getItem('font') ? localStorage.getItem('font') : fOrig
-
+      
         //TODO: change back to finalize use of local storage
         backgroundColor: bgcOrig,
         fontColor: fcOrig,
         font: fOrig
         }
     });
-
-    // const defaultFeatures = {
-    //   backgroundColor: "#fff9f5",
-    //   fontColor: "#000000",
-    //   font: "Helvetica, sans-serif"
-    // };
 
     const [stickers, setStickers] = useState<Array<{
           width: number;
@@ -59,16 +49,6 @@ export const PersProvider = ({ children }: any) => {
           page: string;
           id: string;
         }>>([]);
-    
-  
-  // to preserve features
-  // TODO: fix with implementation of local storage
-//   useEffect(() => {
-//     localStorage.setItem('backgroundColor', root?.style.getPropertyValue("--background-color"));
-//     localStorage.setItem('fontColor', root?.style.getPropertyValue("--font-color"));
-//     localStorage.setItem('font', root?.style.getPropertyValue("--font-family"));
-//     // localStorage.setItem('stickers', stickers);
-//   }, [features]);
   
   // toggling likes so there is an available unlike feature
 const changeFeature = (type: string, newFeature: any) => {

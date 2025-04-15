@@ -7,7 +7,6 @@ export const Back = ({fillColor}: {fillColor: string}) => {
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512.000000 512.000000"
             preserveAspectRatio="xMidYMid meet">
-
                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                 fill={fillColor} stroke="none">
                     <path d="M1492 3628 l3 -213 805 -3 805 -2 -915 -915 -915 -915 153 -152 152
@@ -30,3 +29,17 @@ export const MenuIcon = (props: any) =>(
           </g>
     </svg>
 );
+
+export const PlusIcon = (props: any) => {
+    return (
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000"
+         preserveAspectRatio="xMidYMid meet" width={props.size} height={props.size}>
+            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+            fill={props.fill} stroke="none">
+                <path d="M2240 4000 l0 -1120 -1120 0 -1120 0 0 -320 0 -320 1120 0 1120 0 0
+                -1120 0 -1120 320 0 320 0 0 1120 0 1120 1120 0 1120 0 0 320 0 320 -1120 0
+                -1120 0 0 1120 0 1120 -320 0 -320 0 0 -1120z"/>
+            </g>
+        </svg>
+    );
+}

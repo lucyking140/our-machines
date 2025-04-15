@@ -5,8 +5,12 @@ import { usePathname } from 'next/navigation'
 
 import React, { useState } from "react";
 import { IndividualSticker } from "../components/individual-sticker";
-import { stickersData } from "../app/stickers.data";
+import { origStickers } from "../app/stickers.data";
 import PersonalizationMenu from "../components/personalization-menu";
+
+import {FileUploader } from "../components/fileUploader";
+
+import {Back} from "./icons";
 
 import styles from "../../public/css/homePage.module.css";
 
@@ -18,7 +22,7 @@ bottom of the page
 export default function StickerContainer(){
     
     // colors/features are handled directly in PersonalizationMenu
-    const {stickers, addSticker, deleteSticker, handleDragEnd} = usePersContext();
+    const {features, stickers, addSticker, deleteSticker, handleDragEnd} = usePersContext();
 
     const [menu, setMenu] = useState(false);
     const [openStickers, setOpenStickers] = useState(false);
@@ -103,17 +107,52 @@ export default function StickerContainer(){
         }
     }
 
+    // effect that refreshes stickersData when localStorage changes
+    const [stickersData, setStickersData] = useState<any>(origStickers);
+    
+    React.useEffect(() => {
+        const updateStickers = () => {
+            const curStickers = localStorage.getItem("stickers");
+            // need to set first batch of stickers
+            if(!curStickers){
+                localStorage.setItem("stickers", JSON.stringify(origStickers));
+                setStickersData(origStickers);
+            } else {
+                console.log("current stickers: ", curStickers);
+                setStickersData(JSON.parse(curStickers));
+            }
+            // console.log("LIST OF STICKERS: ", Array(stickersData));
+        }
+
+        updateStickers(); //setting initial conditions
+        
+        window.addEventListener('stickers-updated', updateStickers);
+
+        return () => {
+            window.removeEventListener('stickers-updated', updateStickers);
+        };
+    }, []);
+
+    
+
     // actual display of how users can select stickers
-    const stickerSelector = (<div className="personalize-menu" id="menu-deep">
-            <div className="stickers-palette">
-                <div onClick={() => handleOpenStickers()}>
-                    Back
+    const stickerSelector = stickersData ? (<div className="personalize-menu" id="menu-deep">
+            <div className={styles.stickersPalette}>
+                <div className={styles.stickerOptions}>
+                    <div onClick={() => handleOpenStickers()} style={{width: '35px', transform: 'rotate(270deg)', cursor: 'pointer'}}>
+                        <Back fillColor={features.fontColor}/>
+                    </div>
+                    <div style={{width: '35px'}}>
+                        <FileUploader />
+                    </div>
                 </div>
-                <div className="sticker-buttons">
-                    {stickersData.map((sticker, index) => (
+                
+                <div className={styles.stickerButtons}>
+                    {Array(stickersData)[0].map((sticker, index) => {
+                        return (
                         <div
                         key={`palette-${index}`}
-                        className="sticker-button"
+                        className={styles.stickerButton}
                         onClick={() => {
                             console.log("Adding new sticker");
                             console.log("current pathname in add sticker: ", pathname);
@@ -136,11 +175,11 @@ export default function StickerContainer(){
                             />
                         </div>
                        
-                    ))}
+                        )})}
                 
             </div>  
             </div>
-        </div>)
+        </div>) : null;
 
     // shows either regular personalization menu OR sticker page
     function menuSelector(){
