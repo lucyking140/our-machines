@@ -2,8 +2,11 @@
 
 import { usePersContext } from "../app/contexts/usePersContext";
 import { usePathname } from 'next/navigation'
+import Switch from '@mui/material/Switch';
+import { alpha, styled } from '@mui/material/styles';
 
-import React, { useState } from "react";
+
+import React, { useState, useRef } from "react";
 import { IndividualSticker } from "../components/individual-sticker";
 import { origStickers } from "../app/stickers.data";
 import PersonalizationMenu from "../components/personalization-menu";
@@ -14,18 +17,49 @@ import {Back} from "./icons";
 
 import styles from "../../public/css/homePage.module.css";
 
+import { createTheme } from '@mui/material/styles';
+
+
+
 /*
 Container that includes sticker overlay over all pages, and personalization menu along the 
 bottom of the page
 */
 
 export default function StickerContainer(){
+    // console.log("ORIG STICKERS: ", origStickers);
     
     // colors/features are handled directly in PersonalizationMenu
     const {features, stickers, addSticker, deleteSticker, handleDragEnd} = usePersContext();
 
+    // for switch button color
+    const theme = createTheme({
+        palette: {
+        primary: {
+            main: features.fontColor,
+        },
+        secondary: {
+            main: '#f44336',
+        },
+        },
+    });
+    // from https://mui.com/material-ui/react-switch/
+    // const MySwitch = styled(Switch)(({ theme }) => ({
+    //     '& .MuiSwitch-switchBase.Mui-checked': {
+    //         color: theme.palette.primary,
+    //     '&:hover': {
+    //         backgroundColor: theme.palette.primary,
+    //     },
+    //     },
+    //     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    //         backgroundColor: theme.palette.primary,
+    //     },
+    // }));
+
     const [menu, setMenu] = useState(false);
     const [openStickers, setOpenStickers] = useState(false);
+
+    const [hide, setHide] = useState(false);
 
     // used to get current pathname to assign stickers to pages
     //TODO: do i need to update this? seems like it happens automatically
@@ -73,7 +107,7 @@ export default function StickerContainer(){
        
     // }
     ////////
-  
+
     // both handle functions are used to open the menu and stickers page, respectively
     const handleOpenMenu = () => {
         // in the case we're turning the menu off completely, i want to reopen it with the main page, not the sticker selector
@@ -90,7 +124,7 @@ export default function StickerContainer(){
 
     // checking if a sticker belongs on a given page
     const checkSticker = (sticker: any) => {
-        if(sticker.page == pathname){
+        if(!hide && sticker.page == pathname){
             return (
                 <IndividualSticker
                     key={sticker.id}
@@ -105,6 +139,24 @@ export default function StickerContainer(){
         } else {
             return null;
         }
+    }
+
+    const handleSelectSticker = (sticker: any) => {
+        console.log("Adding new sticker");
+        console.log("current pathname in add sticker: ", pathname);
+        addSticker({
+            src: sticker.url,
+            page: pathname,
+            width: sticker.width,
+            height: sticker.height,
+            x: 100,
+            y: 100
+        });
+        console.log("done adding sticker!");
+    }
+
+    const handleHide = () => {
+        setHide(!hide);
     }
 
     // effect that refreshes stickersData when localStorage changes
@@ -133,17 +185,24 @@ export default function StickerContainer(){
         };
     }, []);
 
-    
+    const label = "";
 
     // actual display of how users can select stickers
     const stickerSelector = stickersData ? (<div className="personalize-menu" id="menu-deep">
             <div className={styles.stickersPalette}>
-                <div className={styles.stickerOptions}>
-                    <div onClick={() => handleOpenStickers()} style={{width: '35px', transform: 'rotate(270deg)', cursor: 'pointer'}}>
-                        <Back fillColor={features.fontColor}/>
+                <div className={styles.stickerOptionsPanel}>
+                    <div className={styles.stickerOptions}>
+                        <div onClick={() => handleOpenStickers()} style={{width: '35px', transform: 'rotate(270deg)', cursor: 'pointer'}}>
+                            <Back fillColor={features.fontColor}/>
+                        </div>
+                        <div style={{width: '35px', cursor: 'pointer'}}>
+                            <FileUploader />
+                        </div>
                     </div>
-                    <div style={{width: '35px'}}>
-                        <FileUploader />
+                    <div className={styles.stickerOptions} onClick={() => handleHide()}>
+                        <div style={{textAlign: 'center'}}> Hide All </div>
+                        {/* <MySwitch /> */}
+                        <Switch color='primary' />
                     </div>
                 </div>
                 
@@ -153,19 +212,7 @@ export default function StickerContainer(){
                         <div
                         key={`palette-${index}`}
                         className={styles.stickerButton}
-                        onClick={() => {
-                            console.log("Adding new sticker");
-                            console.log("current pathname in add sticker: ", pathname);
-                            addSticker({
-                                src: sticker.url,
-                                page: pathname,
-                                width: sticker.width,
-                                height: sticker.height,
-                                x: 100,
-                                y: 100
-                            });
-                            console.log("done adding sticker!");
-                        }}
+                        onClick={() => {handleSelectSticker(sticker)}}
                         >
                             <img 
                                 alt={sticker.alt} 

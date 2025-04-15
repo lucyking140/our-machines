@@ -63,8 +63,7 @@ export default function FontsList() {
                   width: '100%',
                   padding: 'none',
                   borderColor: features.fontColor || undefined,
-                }),
-                
+                }),   
               }}
             onChange={(choice) => changeFeature("font", choice?.value)} // from https://stackoverflow.com/questions/71094599/how-to-get-value-from-react-select-form
             // components={{ DropdownIndicator }}

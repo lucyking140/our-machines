@@ -4,9 +4,18 @@
     --background-color: #fff9f5;
 }
 
+div::selection {
+    color: var(--background-color);
+    background: var(--font-color);
+  }
+
 html{
     background-color: var(--background-color);
     font-family: var(--font-family);
     color: var(--font-color);
+
+   
 }
+
+
   

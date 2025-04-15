@@ -2,6 +2,9 @@ export interface Model3D {
     name: string;
     modelPath: string;
     textContent: string;
+    camPos: number;
+    light: number;
+    CS_camPos: number;
 }
 
 // export type {Model3D as Model3DType};

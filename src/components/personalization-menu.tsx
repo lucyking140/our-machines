@@ -72,7 +72,7 @@ export default function PersonalizationMenu({handleOpenStickers}: any) {
             ) : null }
         </div>
         <div className={styles.hl}> </div>
-        <div className={styles.menuitem} onClick={handleOpenStickers}>
+        <div className={styles.menuitem} onClick={handleOpenStickers} style={{cursor: 'pointer'}}>
             Add Stickers
         </div>
         <div className={styles.hl}> </div>

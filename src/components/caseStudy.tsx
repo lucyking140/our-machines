@@ -22,8 +22,10 @@ export default function CaseStudy({ model }: Model3dType) {
         <div>
           <ModelViewer 
               modelPath={model.modelPath}
-              width={500}
-              height={500}
+              width={300}
+              height={300}
+              camPos={model.CS_camPos}
+              light={model.light}
           />
         </div>
         

@@ -105,35 +105,6 @@ const changeFeature = (type: string, newFeature: any) => {
 
       const [file, setFile] = useState<File | null>(null);
 
-      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-          setFile(e.target.files[0]);
-        }
-      };
-
-      const handleUpload = async () => {
-        if (file) {
-          console.log('Uploading file...');
-      
-          const formData = new FormData();
-          formData.append('file', file);
-      
-          try {
-            // You can write the URL of your server or any other endpoint used for file upload
-            const result = await fetch('https://httpbin.org/post', {
-              method: 'POST',
-              body: formData,
-            });
-      
-            const data = await result.json();
-      
-            console.log(data);
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      };
-
       // const upload_ui = <div className="input-group">
       //     <input id="file" type="file" onChange={handleFileChange} />
       //   </div>

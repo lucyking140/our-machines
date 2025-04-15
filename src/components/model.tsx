@@ -31,7 +31,14 @@ function Model({modelPath}: {modelPath: string}){
   // grouping helps with manual centering
   const groupRef = useRef(undefined);
 
-  // to rotate the model
+  // rotating just this one first to get the look right
+  if (modelPath=="/3d_models/nintendo_switch_2/scene.gltf"){
+    scene.rotation.x += 0.9;
+    // groupRef.current.rotation.y += 0.5;
+    // groupRef.current.rotation.z += 1;
+  }
+
+  // to rotate the models
   useFrame(() => {
     if (groupRef.current){
       groupRef.current.rotation.y -= 0.005;
@@ -46,7 +53,7 @@ function Model({modelPath}: {modelPath: string}){
 }
 
 // setting up camera to take into account model size
-function CameraSetup({modelPath}: {modelPath: string}) {
+function CameraSetup({modelPath, camPos}: {modelPath: string, camPos: number}) {
   const { camera } = useThree();
   const gltf = useLoader(GLTFLoader, modelPath);
   
@@ -56,7 +63,7 @@ function CameraSetup({modelPath}: {modelPath: string}) {
       const box = new THREE.Box3().setFromObject(gltf.scene);
       const size = box.getSize(new THREE.Vector3()).length();
       
-      camera.position.z = size * 1.5;
+      camera.position.z = size * camPos; // 1.5 for catalogue page
       camera.far = size * 10;
       camera.updateProjectionMatrix();
     }
@@ -65,7 +72,7 @@ function CameraSetup({modelPath}: {modelPath: string}) {
   return null;
 }
 
-const ModelViewer = ({modelPath, width = 800, height=600}: {modelPath: string, width: number, height: number}) => {
+const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {modelPath: string, width: number, height: number, camPos: number, light: number}) => {
   const { features } = usePersContext();
   // this for some reason also helps with the lost context thing!
   const [key] = useState(() => Math.random().toString(36));
@@ -98,15 +105,14 @@ const ModelViewer = ({modelPath, width = 800, height=600}: {modelPath: string, w
             }, false);
           }}
         >
-          <ambientLight intensity={1} />
+          <ambientLight intensity={light} />
           <directionalLight position={[1, 1, 1]} intensity={3} />
           
-          <CameraSetup modelPath={modelPath}/>
+          <CameraSetup modelPath={modelPath} camPos={camPos}/>
           
           {/* TODO: add loading icon */}
           
           <Model modelPath={modelPath} />
-          
           
           {/* <OrbitControls enableDamping dampingFactor={0.25} /> */}
         </Canvas>

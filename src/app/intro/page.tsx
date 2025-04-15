@@ -14,7 +14,9 @@ export default function Intro() {
         
         <div className={styles.container}>
             <div className={styles.backRow}>
-                <BackButton destination="/"/>
+                <div className={styles.backButton}>
+                    <BackButton destination="/" />
+                </div>
             </div>
             <div className={styles.title}>
                 Introduction

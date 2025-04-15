@@ -9,14 +9,20 @@ import { Model3dType } from "../../types";
 
 import BackButton from "../../components/backButton";
 
+import { PlusIcon } from "../../components/icons";
+
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 import styles from "../../../public/css/catalogue.module.css";
+import { usePersContext } from "../contexts/usePersContext";
+
  
 /*
 Collection of 3D graphics corresponding to objects that can be opened for more information
 */
 export default function Catalogue() {
+
+  const {features} = usePersContext();
 
   // gets current window dims to dictate model size directly in pixels
   //TODO::: if want to do this, looks like it needs 
@@ -44,6 +50,8 @@ export default function Catalogue() {
             modelPath={model.modelPath}
             width={modelWidth}
             height={modelWidth}
+            camPos={model.camPos}
+            light={model.light}
         />
     </div>
   ));
@@ -51,7 +59,7 @@ export default function Catalogue() {
   const caseStudyDiv = caseStudy ? (
     <div className={styles.caseStudyBox}>
       <div className={styles.close} onClick={handleCSClose}>
-        Close
+          <PlusIcon fill={features.fontColor} size='30px' />
       </div>
       <CaseStudy model={caseStudy} className={styles.caseStudy} />
     </div>
@@ -76,40 +84,6 @@ export default function Catalogue() {
         </div>
       {/* </React.Suspense> */}
       {caseStudyDiv}
-      {/* { caseStudy ? caseStudyDiv : null} */}
     </div>
   );
-
-//  return (
-//    <div className="home-container">
-//       <div className="collection">
-//         <ModelViewer 
-//           modelPath="/3d_models/gameboy_challenge/scene.gltf" 
-//           // OR: just give each animation a square of the same size
-//           width={200} // maybe could figure out how to get this to fit the model perfectly 
-//           // just by manually doing it? won't have too many
-//           height={200}  // changing this also changes the size of the model ...
-//         />
-
-//         <ModelViewer 
-//           modelPath="/3d_models/chapstick.glb" 
-//           width={200}
-//           height={200}
-//         />
-
-//         <ModelViewer 
-//           modelPath="/3d_models/nintendo_ds_lite_3d_pixel_art/scene.gltf" 
-//           width={200}
-//           height={200}
-//         />
-
-//         <ModelViewer 
-//           modelPath="/3d_models/drawer.gltf" 
-//           width={200}
-//           height={200}
-//         />
-//       </div>
-       
-//    </div>
-//  );
 }

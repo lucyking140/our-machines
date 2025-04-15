@@ -125,7 +125,7 @@ export function FileUploader() {
     return(
         <div>
             {/* from https://www.youtube.com/watch?v=2tKQSenVzqQ */}
-            <label htmlFor="svgFileInput">
+            <label htmlFor="svgFileInput" style={{cursor: 'pointer'}}>
                 <PlusIcon fill={features.fontColor} size='30px'/>
             </label>
           <input 

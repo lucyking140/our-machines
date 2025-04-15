@@ -22,12 +22,19 @@
   overflow: scroll;
 }
 
-.stickerOptions {
+.stickerOptionsPanel {
   position: sticky;
   top: 0;
   display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+}
+
+.stickerOptions {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 5px;
 }
 
@@ -42,6 +49,7 @@
 
 .stickerButton {
   padding: 0px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=homePage.module.css.map */
