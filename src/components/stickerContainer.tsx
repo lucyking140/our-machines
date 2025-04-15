@@ -19,8 +19,6 @@ import styles from "../../public/css/homePage.module.css";
 
 import { createTheme } from '@mui/material/styles';
 
-
-
 /*
 Container that includes sticker overlay over all pages, and personalization menu along the 
 bottom of the page
@@ -61,52 +59,31 @@ export default function StickerContainer(){
 
     const [hide, setHide] = useState(false);
 
+    // refs used to close menu on body click
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLDivElement>(null);
+
+    // handle outside click to close menu
+    React.useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            // If the click is outside the menu AND outside the menu button
+            if (menu && menuRef.current && !menuRef.current.contains(event.target as Node) &&
+                menuButtonRef.current && !menuButtonRef.current.contains(event.target as Node)) {
+                    setMenu(false);
+                    setOpenStickers(false);
+            }
+        }
+        
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [menu, openStickers]);
+
+
     // used to get current pathname to assign stickers to pages
     //TODO: do i need to update this? seems like it happens automatically
     const pathname = usePathname()
-
-    ///////
-
-    // from https://stackoverflow.com/questions/33657212/javascript-click-anywhere-in-body-except-the-one-element-inside-it
-
-    // if (typeof document !== 'undefined') {
-    //     var body = document.body; //document.getElementById('all');
-    //     var except = document.getElementById('menu-deep');
-    //     // pers menu cover (covers entire page)
-    //     var cover = document.getElementsByClassName('pers-menu_cover__IYxXi')[0];
-    //     var menu_button = document.getElementById('menu-button');
-
-    //     // if(menu_button){
-    //     //     menu_button.addEventListener("click", function (ev) {
-    //     //         console.log("reaching menu button click!");
-    //     //         handleOpenMenu();
-    //     //         ev.stopPropagation();
-    //     //     }, false);
-    //     // }
-        
-    //     if(body && except){
-    //         console.log("body and except");
-    //         except.addEventListener("click", function (ev) {
-    //             console.log("raeching menu click!");
-    //             ev.stopPropagation(); //this is important! If removed, you'll get both alerts
-    //         }, false);
-    
-    //         body.addEventListener("click", function () {
-    //             console.log("reaching body click!");
-    //             setMenu(false);
-    //         }, false);
-
-    //         if(cover){
-    //             cover.addEventListener("click", function (ev) {
-    //                 console.log("reaching cover click!");
-    //                 setMenu(false);
-    //                 ev.stopPropagation();
-    //             }, false);
-    //         }
-    //     }
-       
-    // }
-    ////////
 
     // both handle functions are used to open the menu and stickers page, respectively
     const handleOpenMenu = () => {
@@ -253,9 +230,11 @@ export default function StickerContainer(){
         {/* Personalization menu, with a feature selection page, a sticker selection page, and a closed version */}
         <div className={styles.personalizemenubox} id="menu">
 
-            {menuSelector()}
+            <div ref={menuRef}>
+                {menuSelector()}
+            </div>
             
-            <div className={styles.personalizemenubutton} onClick={handleOpenMenu} id="menu-button" >
+            <div className={styles.personalizemenubutton} onClick={handleOpenMenu} id="menu-button" ref={menuButtonRef} >
                 Add Personalization
             </div>
         </div>
