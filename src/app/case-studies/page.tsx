@@ -7,6 +7,8 @@ import * as React from "react";
 
 import { Model3dType } from "../../types";
 
+import BackButton from "../../components/backButton";
+
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 import styles from "../../../public/css/catalogue.module.css";
@@ -36,8 +38,8 @@ export default function Catalogue() {
   };
 
   // generating list of models for each item in modelData
-  const models = modelData.map((model) => (
-    <div className={styles.model} onClick={() => (openCaseStudy(model))}>
+  const models = modelData.map((model, i) => (
+    <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}>
         <ModelViewer 
             modelPath={model.modelPath}
             width={modelWidth}
@@ -46,21 +48,35 @@ export default function Catalogue() {
     </div>
   ));
 
-  const caseStudyDiv = (
+  const caseStudyDiv = caseStudy ? (
     <div className={styles.caseStudyBox}>
-      <div className={styles.close} onClick={() => (handleCSClose())}>
+      <div className={styles.close} onClick={handleCSClose}>
         Close
       </div>
       <CaseStudy model={caseStudy} className={styles.caseStudy} />
     </div>
-  );
+  ): null;
+
+  // TODO: finish adding this gif as an overall loading page
+  const Loader = () => {
+    return(
+        <div style={{width: '100vw', height: '100vh', backgroundColor: 'lightpink'}}>
+          LOADING
+          <img src={"../../icons8-loading.gif"} alt="loading..." />
+        </div>
+    );
+  }
 
   return (
    <div className={styles.homeContainer}>
-      <div className={styles.collection}>
-        {models}
-      </div>
-      { caseStudy ? caseStudyDiv : null}
+      <BackButton destination={"/"} />
+      {/* <React.Suspense fallback={Loader()}> */}
+        <div className={styles.collection}>
+          {models}
+        </div>
+      {/* </React.Suspense> */}
+      {caseStudyDiv}
+      {/* { caseStudy ? caseStudyDiv : null} */}
     </div>
   );
 

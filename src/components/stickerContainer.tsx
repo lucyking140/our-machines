@@ -26,6 +26,49 @@ export default function StickerContainer(){
     // used to get current pathname to assign stickers to pages
     //TODO: do i need to update this? seems like it happens automatically
     const pathname = usePathname()
+
+    ///////
+
+    // from https://stackoverflow.com/questions/33657212/javascript-click-anywhere-in-body-except-the-one-element-inside-it
+
+    // if (typeof document !== 'undefined') {
+    //     var body = document.body; //document.getElementById('all');
+    //     var except = document.getElementById('menu-deep');
+    //     // pers menu cover (covers entire page)
+    //     var cover = document.getElementsByClassName('pers-menu_cover__IYxXi')[0];
+    //     var menu_button = document.getElementById('menu-button');
+
+    //     // if(menu_button){
+    //     //     menu_button.addEventListener("click", function (ev) {
+    //     //         console.log("reaching menu button click!");
+    //     //         handleOpenMenu();
+    //     //         ev.stopPropagation();
+    //     //     }, false);
+    //     // }
+        
+    //     if(body && except){
+    //         console.log("body and except");
+    //         except.addEventListener("click", function (ev) {
+    //             console.log("raeching menu click!");
+    //             ev.stopPropagation(); //this is important! If removed, you'll get both alerts
+    //         }, false);
+    
+    //         body.addEventListener("click", function () {
+    //             console.log("reaching body click!");
+    //             setMenu(false);
+    //         }, false);
+
+    //         if(cover){
+    //             cover.addEventListener("click", function (ev) {
+    //                 console.log("reaching cover click!");
+    //                 setMenu(false);
+    //                 ev.stopPropagation();
+    //             }, false);
+    //         }
+    //     }
+       
+    // }
+    ////////
   
     // both handle functions are used to open the menu and stickers page, respectively
     const handleOpenMenu = () => {
@@ -61,7 +104,7 @@ export default function StickerContainer(){
     }
 
     // actual display of how users can select stickers
-    const stickerSelector = (<div className="personalize-menu">
+    const stickerSelector = (<div className="personalize-menu" id="menu-deep">
             <div className="stickers-palette">
                 <div onClick={() => handleOpenStickers()}>
                     Back
@@ -105,7 +148,7 @@ export default function StickerContainer(){
             if(openStickers){
                 return stickerSelector;
             } else {
-                return <PersonalizationMenu handleOpenStickers = {handleOpenStickers} />;
+                return <div id="menu-deep"> <PersonalizationMenu handleOpenStickers = {handleOpenStickers} /> </div>;
             }
         } else {
             return null;
@@ -122,14 +165,14 @@ export default function StickerContainer(){
         </div>
 
         {/* Personalization menu, with a feature selection page, a sticker selection page, and a closed version */}
-        <div className={styles.personalizemenubox}>
+        <div className={styles.personalizemenubox} id="menu">
 
-                {menuSelector()}
-                
-                <div className={styles.personalizemenubutton} onClick={handleOpenMenu}>
-                    Add Personalization
-                </div>
+            {menuSelector()}
+            
+            <div className={styles.personalizemenubutton} onClick={handleOpenMenu} id="menu-button" >
+                Add Personalization
             </div>
         </div>
+    </div>
     );
 }

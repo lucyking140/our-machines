@@ -46,6 +46,17 @@
     transform: rotate(270deg);
     }
 
+.projDropMenu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menuItem{
+    text-decoration: none;
+}
+
 // for cursor if want to customize that
 .animatedtitle::after {
     content: '|';

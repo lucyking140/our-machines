@@ -5,23 +5,9 @@ import * as React from "react";
 import Link from 'next/link';
 
 import { usePersContext } from '../app/contexts/usePersContext';
+import {MenuIcon} from "../components/icons";
 
 import styles from "../../public/css/title-page.module.css";
-
-// SVG for the menu dropdown icon so can change fill color
-const MenuIcon = (props: any) =>(
-  <div className={props.class}>
-    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512.000000 512.000000"
-      preserveAspectRatio="xMidYMid meet">
-          <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-          fill={props.fill} stroke="none">
-              <path d="M702 3557 l-142 -142 998 -998 997 -997 1003 1002 1002 1003 -140
-          140 -140 140 -860 -860 -860 -860 -858 858 -857 857 -143 -143z"/>
-          </g>
-    </svg>
-  </div>
-);
 
 export default function Home() {
 
@@ -63,27 +49,25 @@ export default function Home() {
         </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>
-          <div>
-            <MenuIcon fill={features.fontColor} class={open ? styles.menuiconopen : styles.menuicon }/>
+          <div className={open ? styles.menuiconopen : styles.menuicon }>
+            <MenuIcon fill={features.fontColor} />
           </div>
           {open ? (
-                <ul className="proj-drop-menu">
+                <div className={styles.projDropMenu}>
                   
-                  <li className="menu-item">
-                    <Link key={"case-studies"}
+                  <div className={styles.menuItem}>
+                    <Link key={"intro"}
                     href={{
                       pathname: '/intro',
                     }} > Introduction </Link>
-                  </li>
-                  <li className="menu-item">
-                    {/* TODO */}
-                    <Link key={"archive"} href={`/catalogue`}> Case Studies </Link>
-                  </li>
-                  <li className="menu-item">
-                    {/* TODO */}
+                  </div>
+                  <div className={styles.menuItem}>
+                    <Link key={"case-studies"} href={`/case-studies`}> Case Studies </Link>
+                  </div>
+                  <div className={styles.menuItem}>
                     <Link key={"gallery"} href={`/gallery`}> User Gallery </Link>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               ) : null}
 
         </div>

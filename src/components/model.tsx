@@ -1,116 +1,119 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import React, { useRef, useEffect, useState, Suspense } from 'react';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Center } from '@react-three/drei';
 import { usePersContext } from "../app/contexts/usePersContext";
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-// TODO: could be cool to have users click to activate but not scroll 
-import { OrbitControls } from 'three/addons';
 
-const ModelViewer = ({ modelPath, width = 800, height = 600 }: any) => {
-  const containerRef = useRef(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// loading the actual model
+function Model({modelPath}: {modelPath: string}){
+  const gltf = useLoader(GLTFLoader, modelPath, (loader) => {});
 
-  // for setting background color
-  //TODO: figure out how to reset this as it changes
-  const {features} = usePersContext();
+  const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
+
+  //const { scene } = useGLTF(modelPath);
+
+  // Centering the model
+  useEffect(() => {
+    if (scene) {
+      const box = new THREE.Box3().setFromObject(scene);
+      const center = box.getCenter(new THREE.Vector3());
+      
+      scene.position.x = -center.x;
+      scene.position.y = -center.y;
+      scene.position.z = -center.z;
+    }
+  }, [scene]);
+
+  // grouping helps with manual centering
+  const groupRef = useRef(undefined);
+
+  // to rotate the model
+  useFrame(() => {
+    if (groupRef.current){
+      groupRef.current.rotation.y -= 0.005;
+    }
+  });
+
+  return(
+    <group ref={groupRef}>
+      <primitive object={scene} />
+    </group>
+  )
+}
+
+// setting up camera to take into account model size
+function CameraSetup({modelPath}: {modelPath: string}) {
+  const { camera } = useThree();
+  const gltf = useLoader(GLTFLoader, modelPath);
   
   useEffect(() => {
-    if (!containerRef.current) return;
-    
-    const scene = new THREE.Scene();
-    // SET BACKGROUND TO DEFAULT EVENTUALLY 0xfff9f5
-    scene.background = new THREE.Color(features.backgroundColor);
-    
-    // adding lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 1, 1);
-    scene.add(directionalLight);
-    
-    const camera = new THREE.PerspectiveCamera(
-      35,  // how far away the camera is, increase to make image smaller
-      width / height, 
-      0.1, 
-      1000
-    );
-    camera.position.z = 5;
-    
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    containerRef.current.appendChild(renderer.domElement);
-    
-    // temp: took out orbit controls to stop user control of the models
-    // const controls = new OrbitControls(camera, renderer.domElement);
-    // controls.enableDamping = true;
-    // controls.dampingFactor = 0.25;
-    
-    const loader = new GLTFLoader();
-
-    try {
-      loader.load(
-        modelPath,
-        (gltf) => {
-          // centering the model
-          const box = new THREE.Box3().setFromObject(gltf.scene);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3()).length();
-          
-          // reset model pos
-          gltf.scene.position.x = -center.x;
-          gltf.scene.position.y = -center.y;
-          gltf.scene.position.z = -center.z;
-          
-          camera.position.z = size * 2;
-          camera.far = size * 10;
-          camera.updateProjectionMatrix();
-          
-          scene.add(gltf.scene);
-          setLoading(false);
-        },
-        (err) => {
-          console.error('Error loading model:', err);
-          // setError('Failed to load 3D model');
-          setLoading(false);
-        }
-      );
-    } catch (err) {
-      console.error('Error in model loading process:', err);
-      // setError('There was a problem loading the model');
-      setLoading(false);
+    if (gltf && gltf.scene) {
+      // Calculate appropriate camera position based on model size
+      const box = new THREE.Box3().setFromObject(gltf.scene);
+      const size = box.getSize(new THREE.Vector3()).length();
+      
+      camera.position.z = size * 1.5;
+      camera.far = size * 10;
+      camera.updateProjectionMatrix();
     }
-    
-    // animation for constant rotation
-    const animate = () => {
-        requestAnimationFrame(animate);
-        scene.rotation.y -= 0.005;
-        // controls.update();
-        renderer.render(scene, camera);
-    };
-    
-    animate();
-    
-    // clean up
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.removeChild(renderer.domElement);
-      }
-      renderer.dispose();
-    };
-  }, [modelPath, width, height]);
-  
+  }, [camera, gltf]);
+
+  return null;
+}
+
+const ModelViewer = ({modelPath, width = 800, height=600}: {modelPath: string, width: number, height: number}) => {
+  const { features } = usePersContext();
+  // this for some reason also helps with the lost context thing!
+  const [key] = useState(() => Math.random().toString(36));
+
+  // const canvasRef = useRef(undefined);
+
   return (
     <div className="model-viewer-container">
-      <div ref={containerRef} style={{ width, height }} />
-      {loading && <div className="loading">Loading model...</div>}
-      {/* {error && <div className="error">{error}</div>} */}
+      
+      <div style={{ width, height }}>
+      
+        <Canvas
+          // camera={{ fov: 50, near: 0.1, far: 1000 }}
+          // ref={canvasRef}
+          key={{key}}
+          // gl={{ 
+          //   powerPreference: "default",
+          //   alpha: true, 
+          //   antialias: true,
+          //   preserveDrawingBuffer: true,
+          //   failIfMajorPerformanceCaveat: false
+          // }}
+          style={{ background: features.backgroundColor }}
+          onCreated={({ gl }) => {
+            // Add extra context loss handling
+            // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
+            gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
+              e.preventDefault();
+              console.log('WebGL context lost');
+            }, false);
+          }}
+        >
+          <ambientLight intensity={1} />
+          <directionalLight position={[1, 1, 1]} intensity={3} />
+          
+          <CameraSetup modelPath={modelPath}/>
+          
+          {/* TODO: add loading icon */}
+          
+          <Model modelPath={modelPath} />
+          
+          
+          {/* <OrbitControls enableDamping dampingFactor={0.25} /> */}
+        </Canvas>
+      </div>
+      
     </div>
   );
-};
+}
 
 export default ModelViewer;
