@@ -24,7 +24,8 @@ export default function Home() {
 
   return (
     <div className={styles.homecontainer}> 
-      <form name="contact" method="post"> 
+      {/* <form name="contact" method="post">  */}
+      <form netlify-honeypot="bot-field" id="contact" name="contact" data-netlify="true">
         <input type="hidden" name="form-name" value="contact" />
         <p>
             <label>Your Name: <input type="text" name="name"/></label>
