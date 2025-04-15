@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import { usePersContext } from '../app/contexts/usePersContext';
 import {MenuIcon} from "../components/icons";
-import { FeedbackForm } from "../components/FeedbackForm";
 
 import styles from "../../public/css/title-page.module.css";
 
@@ -25,8 +24,6 @@ export default function Home() {
 
   return (
     <div className={styles.homecontainer}> 
-      <FeedbackForm />
-
       <div className={styles.titlebox}>
         <div className={styles.title}>
           <TypeAnimation

@@ -1,4 +1,4 @@
-export const stickersData = [
+export const origStickers = [
     {
         url: "/crocodile.png",
         width: 100,

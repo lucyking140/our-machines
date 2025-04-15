@@ -17,16 +17,31 @@
   cursor: pointer;
 }
 
-.sticker-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+.stickersPalette {
+  height: 250px;
+  overflow: scroll;
 }
 
-.sticker-button {
+.stickerOptions {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 5px;
-  width: 50%;
-  background-color: lightpink;
+}
+
+.stickerButtons {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stickerButton {
+  padding: 0px;
 }
 
 /*# sourceMappingURL=homePage.module.css.map */
