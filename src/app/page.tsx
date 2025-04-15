@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { usePersContext } from '../app/contexts/usePersContext';
 import {MenuIcon} from "../components/icons";
+import { FeedbackForm } from "../components/FeedbackForm";
 
 import styles from "../../public/css/title-page.module.css";
 
@@ -24,22 +25,7 @@ export default function Home() {
 
   return (
     <div className={styles.homecontainer}> 
-      {/* <form name="contact" method="post">  */}
-      <form netlify-honeypot="bot-field" id="contact" name="contact" data-netlify="true">
-        <input type="hidden" name="form-name" value="contact" />
-        <p>
-            <label>Your Name: <input type="text" name="name"/></label>
-          </p>
-          <p>
-            <label>Your Email: <input type="email" name="email"/></label>
-          </p>
-          <p>
-            <label>Message: <textarea name="message"></textarea></label>
-          </p>
-          <p>
-            <button type="submit">Send</button>
-          </p>
-      </form>
+      <FeedbackForm />
 
       <div className={styles.titlebox}>
         <div className={styles.title}>
