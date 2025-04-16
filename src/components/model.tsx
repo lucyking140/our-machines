@@ -7,10 +7,16 @@ import { usePersContext } from "../app/contexts/usePersContext";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import styles from "../../public/css/catalogue.module.css";
 
-// loading the actual model
-function Model({modelPath}: {modelPath: string}){
-  const gltf = useLoader(GLTFLoader, modelPath, (loader) => {});
+// loading the actual models
+function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: () => void}){
+  // const gltf = useLoader(GLTFLoader, modelPath, (loader) => {}, (error) => {
+  //   console.error("Error loading model:", error);
+  //   onModelLoaded(); // Still call onModelLoaded on error
+  // });
+  const gltf = useLoader(GLTFLoader, modelPath);
+  // After the model is fully loaded, call the callback
 
   const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
 
@@ -25,7 +31,10 @@ function Model({modelPath}: {modelPath: string}){
       scene.position.x = -center.x;
       scene.position.y = -center.y;
       scene.position.z = -center.z;
+      // console.log("Reaching place where onModelLoaded should be called");
+      onModelLoaded();
     }
+    
   }, [scene]);
 
   // grouping helps with manual centering
@@ -77,17 +86,68 @@ const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {m
   // this for some reason also helps with the lost context thing!
   const [key] = useState(() => Math.random().toString(36));
 
-  // const canvasRef = useRef(undefined);
+  const [modelLoaded, setModelLoaded] = useState(false);
+
+  // Handle the case when a model is loaded
+  const handleModelLoaded = () => {
+    // console.log("reaching onLoaded in model");
+    // if (onLoaded) {
+    //   onLoaded();
+    // }
+    setModelLoaded(true);
+  };
+
+  // Loading component
+  const Loader = () => {
+    return (
+      <div className={styles.loader}>
+        <div className={styles.loaderIcon} >
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill='none'
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="20"
+                cy="20"
+                r="18"
+                stroke={features.fontColor} // fill color
+                strokeWidth="4"
+                strokeDasharray="113"
+                strokeDashoffset="40"
+                strokeLinecap="round"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="0 20 20"
+                  to="360 20 20"
+                  dur="1s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </svg>
+          </div>
+
+      </div>
+    );
+  }
 
   return (
     <div className="model-viewer-container">
+
+      {!modelLoaded && (
+        <Loader />
+      )}
       
       <div style={{ width, height }}>
       
         <Canvas
           // camera={{ fov: 50, near: 0.1, far: 1000 }}
           // ref={canvasRef}
-          key={{key}}
+          key={key}
           // gl={{ 
           //   powerPreference: "default",
           //   alpha: true, 
@@ -111,8 +171,7 @@ const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {m
           <CameraSetup modelPath={modelPath} camPos={camPos}/>
           
           {/* TODO: add loading icon */}
-          
-          <Model modelPath={modelPath} />
+          <Model modelPath={modelPath} onModelLoaded={handleModelLoaded} />
           
           {/* <OrbitControls enableDamping dampingFactor={0.25} /> */}
         </Canvas>

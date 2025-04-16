@@ -50,14 +50,8 @@
   height: 70%;
 }
 
-.menuItem a:after {
-  background-image: url("/icons/right-up.svg");
-  background-size: 13px 13px;
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  content: "";
-  margin-left: -5px;
+.menuItem a {
+  color: var(--font-color);
 }
 
 .menuItem a:visited {

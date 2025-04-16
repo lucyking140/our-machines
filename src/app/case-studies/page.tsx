@@ -3,7 +3,7 @@
 import ModelViewer from '../../components/model';
 import CaseStudy from "../../components/caseStudy";
 import { modelData } from "./models.data";
-import * as React from "react";
+import React, {useState, useEffect, useRef} from "react";
 
 import { Model3dType } from "../../types";
 
@@ -52,6 +52,7 @@ export default function Catalogue() {
             height={modelWidth}
             camPos={model.camPos}
             light={model.light}
+            // onLoaded={handleModelLoaded}
         />
     </div>
   ));
@@ -65,25 +66,17 @@ export default function Catalogue() {
     </div>
   ): null;
 
-  // TODO: finish adding this gif as an overall loading page
-  const Loader = () => {
-    return(
-        <div style={{width: '100vw', height: '100vh', backgroundColor: 'lightpink'}}>
-          LOADING
-          <img src={"../../icons8-loading.gif"} alt="loading..." />
-        </div>
-    );
-  }
-
   return (
    <div className={styles.homeContainer}>
-      <BackButton destination={"/"} />
-      {/* <React.Suspense fallback={Loader()}> */}
-        <div className={styles.collection}>
+
+      <BackButton destination={"/"}  />
+    
+      <div className={styles.collection}>
           {models}
-        </div>
-      {/* </React.Suspense> */}
+      </div>
+
       {caseStudyDiv}
+
     </div>
   );
 }

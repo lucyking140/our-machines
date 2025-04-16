@@ -3,10 +3,10 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 //TODO: Figure out browser vs server rendering stuff
-var root: any = null;
-if (typeof document !== 'undefined') {
-    root = document.documentElement;    
-}
+// var root: any = null;
+// if (typeof document !== 'undefined') {
+//     root = document.documentElement;    
+// }
 const PersContext = createContext({
     features: {backgroundColor: "" as string, fontColor: "" as string, font: "" as string},
     stickers: [{
@@ -26,19 +26,37 @@ const PersContext = createContext({
 });
 
 export const PersProvider = ({ children }: any) => {
-  
+
+  // setting initial-initial features
   const [features, setFeatures] = useState(() => {
-    const bgcOrig = root?.style.getPropertyValue("--background-color") ? root?.style.getPropertyValue("--background-color") : "#fff9f5";
-    const fcOrig = root?.style.getPropertyValue("--font-color") ? root?.style.getPropertyValue("--font-color") : "#000000";
-    const fOrig = root?.style.getPropertyValue("--font-family") ? root?.style.getPropertyValue("--font-family") : "Helvetica, sans-serif";
+    // const bgcOrig = root?.style.getPropertyValue("--background-color") ? root?.style.getPropertyValue("--background-color") : "#fff9f5";
+    // const fcOrig = root?.style.getPropertyValue("--font-color") ? root?.style.getPropertyValue("--font-color") : "#000000";
+    // const fOrig = root?.style.getPropertyValue("--font-family") ? root?.style.getPropertyValue("--font-family") : "Helvetica, sans-serif";
+    const bgcOrig = "#fff9f5";
+    const fcOrig = "#000000";
+    const fOrig = "Helvetica, sans-serif";
     return {
-      
         //TODO: change back to finalize use of local storage
         backgroundColor: bgcOrig,
         fontColor: fcOrig,
         font: fOrig
         }
     });
+
+    useEffect(() => {
+      if (typeof document !== "undefined") {
+        const root = document.documentElement;
+        const bgcOrig = root.style.getPropertyValue("--background-color") || "#fff9f5";
+        const fcOrig = root.style.getPropertyValue("--font-color") || "#000000";
+        const fOrig = root.style.getPropertyValue("--font-family") || "Helvetica, sans-serif";
+    
+        setFeatures({
+          backgroundColor: bgcOrig,
+          fontColor: fcOrig,
+          font: fOrig,
+        });
+      }
+    }, []);
 
     const [stickers, setStickers] = useState<Array<{
           width: number;
@@ -50,7 +68,6 @@ export const PersProvider = ({ children }: any) => {
           id: string;
         }>>([]);
   
-  // toggling likes so there is an available unlike feature
 const changeFeature = (type: string, newFeature: any) => {
     const root = document.documentElement;    
         switch(type){
