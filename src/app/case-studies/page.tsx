@@ -43,11 +43,20 @@ export default function Catalogue() {
     setCaseStudy(null);
   };
 
+  // const modelHovers = modelData.map((model) => {
+  //      return {name: model.name,
+  //      value: false,}
+  // });
+
+  
+
+
   // generating list of models for each item in modelData
   const models = modelData.map((model, i) => (
-    <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}>
+    <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
+        
         <ModelViewer 
-            modelPath={model.modelPath}
+            model={model}
             width={modelWidth}
             height={modelWidth}
             camPos={model.camPos}

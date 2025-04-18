@@ -11,6 +11,22 @@ export const modelData = [
         CS_camPos: 0.8,
     },
     {
+        name: "Phone lock screen",
+        modelPath: "/3d_models/patty-lock-phone.glb",
+        textContent: "",
+        camPos: 1,
+        light: 1,
+        CS_camPos: 1,
+    },
+    {
+        name: "Mechanical Keyboard",
+        modelPath: "/3d_models/mechanical_keyboard_-_aesthetic/scene.glb",
+        textContent: "",
+        camPos: 1,
+        light: 1,
+        CS_camPos: 1.1,
+    },
+    {
         name: "Apple Watch",
         modelPath: "/3d_models/apple_watch_series_5/scene.gltf",
         textContent: "",
@@ -19,8 +35,8 @@ export const modelData = [
         CS_camPos: 0.8,
     },
     {
-        name: "Gameboy",
-        modelPath: "/3d_models/gameboy_challenge/scene.gltf",
+        name: "Phone case",
+        modelPath: "/3d_models/phone-case.glb",
         textContent: "",
         camPos: 1,
         light: 1,
@@ -28,26 +44,10 @@ export const modelData = [
     },
     {
         name: "Laptop",
-        modelPath: "/3d_models/laptop/scene.gltf",
+        modelPath: "/3d_models/laptop-with-sticker.glb",
         textContent: "",
         camPos: 1,
-        light: 5,
-        CS_camPos: 1,
-    },
-    {
-        name: "Mechanical Keyboard",
-        modelPath: "/3d_models/mechanical_keyboard_-_aesthetic/scene.gltf",
-        textContent: "",
-        camPos: 1,
-        light: 1,
-        CS_camPos: 1.1,
-    },
-    {
-        name: "Nintendo DS",
-        modelPath: "/3d_models/nintendo_ds_lite_3d_pixel_art/scene.gltf",
-        textContent: "",
-        camPos: 1,
-        light: 1,
+        light: 3,
         CS_camPos: 1,
     },
     {
@@ -58,20 +58,14 @@ export const modelData = [
         light: 1,
         CS_camPos: 0.9,
     },
+    
     {
-        name: "Chapstick",
-        modelPath: "/3d_models/chapstick.glb",
+        name: "Phone home screen",
+        modelPath: "/3d_models/patty-home-phone.glb",
         textContent: "",
         camPos: 1,
         light: 1,
         CS_camPos: 1,
     },
-    {
-        name: "Drawer",
-        modelPath: "/3d_models/drawer.gltf",
-        textContent: "",
-        camPos: 1,
-        light: 1,
-        CS_camPos: 1,
-    },
+    
   ];

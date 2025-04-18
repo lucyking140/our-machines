@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 
+import { usePersContext } from "../app/contexts/usePersContext";
+
 // FROM https://opennext.js.org/netlify/forms 
 export function SubmissionForm() {
+
+    const {features, stickers} = usePersContext();
+
     const [status, setStatus] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -30,13 +35,22 @@ export function SubmissionForm() {
             setError(`${e}`);
         }
     };
-
+    /*
+    things to submit:
+    - features
+    - stickers
+    - maker's name
+    - site name
+    - description
+    */
     return (
         <div>
             <form name="designs" onSubmit={handleFormSubmit} >
                 <input type="hidden" name="form-name" value="designs" />
-                <input name="name" type="text" placeholder="Name" required className="input" />
-                <input name="title" type="text" placeholder="Title (randomly generated if left blank)" className="input" />
+                <input type="hidden" name="features" value={JSON.stringify(features)} />
+                <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+                <input name="title" type="text" placeholder="Your Site's Title (randomly generated if left blank)" className="input" />
+                <input name="name" type="text" placeholder="Your Name (optional)" required className="input" />
                 <input name="description" type="text" placeholder="Description (optional)" className="input" />
                 <button type="submit" disabled={status === 'pending'}>
                     Submit

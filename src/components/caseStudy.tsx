@@ -1,7 +1,6 @@
 'use client';
 
 import { Model3dType } from "../types";
-// import BackButton from "./backButton";
 import ModelViewer from './model';
 import React, {useState} from "react";
 import styles from "../../public/css/caseStudy.module.css";
@@ -21,11 +20,13 @@ export default function CaseStudy({ model }: Model3dType) {
       <div className={styles.content} >
         <div>
           <ModelViewer 
-              modelPath={model.modelPath}
+              model={model}
               width={300}
               height={300}
               camPos={model.CS_camPos}
               light={model.light}
+              orbit={true}
+              haveHover={false}
           />
         </div>
         

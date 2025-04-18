@@ -7,6 +7,9 @@ import { usePersContext } from "../app/contexts/usePersContext";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import { Model3D, Model3dType } from "../types";
+
+
 import styles from "../../public/css/catalogue.module.css";
 
 // loading the actual models
@@ -22,7 +25,7 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
 
   //const { scene } = useGLTF(modelPath);
 
-  // Centering the model
+  // centering the models
   useEffect(() => {
     if (scene) {
       const box = new THREE.Box3().setFromObject(scene);
@@ -31,6 +34,7 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
       scene.position.x = -center.x;
       scene.position.y = -center.y;
       scene.position.z = -center.z;
+
       // console.log("Reaching place where onModelLoaded should be called");
       onModelLoaded();
     }
@@ -54,10 +58,19 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
     }
   });
 
+  // const handleMouseEnter = () => {
+  //   useFrame(() => {
+  //     if (groupRef.current){
+  //       groupRef.current.rotation.y -= 0.005;
+  //     }
+  //   });
+  // };
+
   return(
-    <group ref={groupRef}>
-      <primitive object={scene} />
-    </group>
+    // <div  onMouseEnter={handleMouseEnter} style={{backgroundColor: 'lightblue'}}>
+      <group ref={groupRef}>
+          <primitive object={scene} />
+      </group>    
   )
 }
 
@@ -81,14 +94,13 @@ function CameraSetup({modelPath, camPos}: {modelPath: string, camPos: number}) {
   return null;
 }
 
-const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {modelPath: string, width: number, height: number, camPos: number, light: number}) => {
+const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=false, haveHover=true}: {model: Model3D, width: number, height: number, camPos: number, light: number, orbit: boolean, haveHover: boolean}) => {
   const { features } = usePersContext();
   // this for some reason also helps with the lost context thing!
   const [key] = useState(() => Math.random().toString(36));
 
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  // Handle the case when a model is loaded
   const handleModelLoaded = () => {
     // console.log("reaching onLoaded in model");
     // if (onLoaded) {
@@ -97,7 +109,6 @@ const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {m
     setModelLoaded(true);
   };
 
-  // Loading component
   const Loader = () => {
     return (
       <div className={styles.loader}>
@@ -135,46 +146,70 @@ const ModelViewer = ({modelPath, width = 800, height=600, camPos=1, light=1}: {m
     );
   }
 
-  return (
-    <div className="model-viewer-container">
+  const [hoverName, setHoverName] = useState(false);
+  
+  const handleMouseEnter = () => {
+    setHoverName(true);
+    // leaving name hover on for 1 second
+    setTimeout(() => {
+      setHoverName(false);
+    }, 2000);
+  }
 
-      {!modelLoaded && (
-        <Loader />
-      )}
-      
-      <div style={{ width, height }}>
-      
-        <Canvas
-          // camera={{ fov: 50, near: 0.1, far: 1000 }}
-          // ref={canvasRef}
-          key={key}
-          // gl={{ 
-          //   powerPreference: "default",
-          //   alpha: true, 
-          //   antialias: true,
-          //   preserveDrawingBuffer: true,
-          //   failIfMajorPerformanceCaveat: false
-          // }}
-          style={{ background: features.backgroundColor }}
-          onCreated={({ gl }) => {
-            // Add extra context loss handling
-            // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
-            gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
-              e.preventDefault();
-              console.log('WebGL context lost');
-            }, false);
-          }}
-        >
-          <ambientLight intensity={light} />
-          <directionalLight position={[1, 1, 1]} intensity={3} />
+  const handleMouseLeave = () => {
+    setHoverName(false);
+  };
+
+  return (
+    <div className={styles.modelBox}>
+      <div style={{ width, height}} >
+        {/* name of model shown on hover -- haveHover is false for case studies bc name is already right there */}
+        { hoverName && haveHover ? (
+              <div className={styles.hoverName}>
+                  {model.name}
+              </div>
+          ) : null }
+        <Suspense fallback={Loader()} >
+          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <Canvas
+            // camera={{ fov: 50, near: 0.1, far: 1000 }}
+            // ref={canvasRef}
+            key={key}
+            // gl={{ 
+            //   powerPreference: "default",
+            //   alpha: true, 
+            //   antialias: true,
+            //   preserveDrawingBuffer: true,
+            //   failIfMajorPerformanceCaveat: false
+            // }}
+            style={{ background: features.backgroundColor }}
+            onCreated={({ gl }) => {
+              // Add extra context loss handling
+              // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
+              gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
+                e.preventDefault();
+                console.log('WebGL context lost');
+              }, false);
+            }}
+          >
+            
+            <ambientLight intensity={light} />
+            <directionalLight position={[1, 1, 1]} intensity={3} />
+            
+            <CameraSetup modelPath={model.modelPath} camPos={camPos}/>
+            
+            {/* TODO: add loading icon */}
+            <Model modelPath={model.modelPath} onModelLoaded={handleModelLoaded} />
+            
+            {/* only turning orbit/user control on for case studies */}
+            { orbit ? (
+              <OrbitControls enableDamping dampingFactor={0.25} />
+            ) : null } 
+            
+            </Canvas>
+          </div>
           
-          <CameraSetup modelPath={modelPath} camPos={camPos}/>
-          
-          {/* TODO: add loading icon */}
-          <Model modelPath={modelPath} onModelLoaded={handleModelLoaded} />
-          
-          {/* <OrbitControls enableDamping dampingFactor={0.25} /> */}
-        </Canvas>
+        </Suspense>
       </div>
       
     </div>
