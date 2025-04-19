@@ -70,7 +70,6 @@ export default function Gallery() {
         });
 
         setCaseStudy(null); //auto-closing case study
-
     }
 
     // represents current open case study or none if there isn't one
@@ -86,11 +85,12 @@ export default function Gallery() {
     };
 
     const caseStudyDiv = caseStudy ? (
+        
         <div className={styles.caseStudyBox}>
-          <div className={styles.close} onClick={handleCSClose}>
-              <PlusIcon fill={features.fontColor} size='30px' />
-          </div>
-          <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
+            <div className={styles.close} onClick={handleCSClose}>
+                <PlusIcon fill={features.fontColor} size='30px' />
+            </div>
+            <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
         </div>
       ): null;
 
@@ -109,13 +109,32 @@ export default function Gallery() {
         loadSubs();
     }, []);
 
+    // // gets all stickers and scales them to the case study box size to apply there
+    // const appliedStickers = submissions.map((sub, i) =>{
+    //     const cs_width = document.getElementById("thumbnail")?.style.width;
+    //     const cs_height = document.getElementById("thumbnail")?.style.height;
+
+    //     // scaling the images to match the original window size
+    //     const scaleFactor = cs_width / sub.window_width;
+    //     return(
+    //     <div>
+    //         <img   
+
+    //         />
+    //     </div>);
+    // });
+
     var submissionBoxes = null;
     if(submissions.length > 0){
         submissionBoxes = submissions.map((sub, i) =>{
             console.log("SUB: ", sub);
             const feats = JSON.parse(sub.data.features);
             return (<div className={styles.submission} key={`${sub.name}-${i}`} onClick={() => (openCaseStudy(sub))}>
-                <div className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                {/* maps stickers over entire caseStudyBox
+                <div className={styles.stickersContainer}>
+                
+                </div> */}
+                <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
                     <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
                         OUR MACHINES
                     </div>
