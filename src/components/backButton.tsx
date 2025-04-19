@@ -12,9 +12,10 @@ import styles from "../../public/css/back-button.module.css";
 export default function BackButton({destination}: {destination: string}) {
 
     console.log("reaching back button");
-
     const {features} = usePersContext(); 
+
     const fillColor = features.fontColor ? features.fontColor : "#000000";
+    console.log("fillColor inside bb element: ", fillColor, features.fontColor);
 
     return (
             <Link href={destination} className={styles.back}>

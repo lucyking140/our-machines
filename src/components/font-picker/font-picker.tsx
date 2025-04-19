@@ -11,24 +11,24 @@ import styles from "../../../public/css/font-picker.module.css";
 
 export default function FontsList() {
 
-  const [fonts, setFonts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  //const [fonts, setFonts] = useState([]);
+//   const [loading, setLoading] = useState(true);
 
-  const {features, changeFeature}  = usePersContext();
+  const {features, changeFeature, fonts}  = usePersContext();
 
   const curFont = { value: features.font, label: features.font };
 
   // TODO: figure out why this works for async stuff
-  useEffect(() => {
-        const func = async () => {
-            const fontNames = await addAllFonts();
-            setFonts(fontNames);
-        };
-        func();
-        setLoading(false); 
-    }, []);
+//   useEffect(() => {
+//         const func = async () => {
+//             const fontNames = await addAllFonts();
+//             setFonts(fontNames);
+//         };
+//         func();
+//         setLoading(false); 
+//     }, []);
 
-    if (loading) return <div>Loading fonts...</div>;
+    // if (loading) return <div>Loading fonts...</div>;
 
     // formats each individual option in the dropdown
     const formatOptionLabel = ({ value, label }: any) => (

@@ -1,15 +1,20 @@
+'use client';
+
+import { usePersContext } from '../app/contexts/usePersContext';
+
 /*
 set of all SVGs formatted with relavent props
 */
 
 export const Back = ({fillColor}: {fillColor: string}) => {
+    const {features}  = usePersContext();
     console.log("fill color in back: ", fillColor);
     return (
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512.000000 512.000000"
             preserveAspectRatio="xMidYMid meet">
                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                fill={fillColor} stroke="none">
+                fill={features.fontColor} stroke="none">
                     <path d="M1492 3628 l3 -213 805 -3 805 -2 -915 -915 -915 -915 153 -152 152
                     -153 915 915 915 915 2 -805 3 -805 213 -3 212 -2 0 1175 0 1175 -1175 0
                     -1175 0 2 -212z"/>

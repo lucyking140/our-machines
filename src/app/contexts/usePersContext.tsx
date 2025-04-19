@@ -2,6 +2,8 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
+import { addAllFonts } from "../../components/font-picker/utils";
+
 //TODO: Figure out browser vs server rendering stuff
 // var root: any = null;
 // if (typeof document !== 'undefined') {
@@ -23,7 +25,8 @@ const PersContext = createContext({
     uploadSticker: ({src}: {src: string}) => { null},
     deleteSticker: (id: string) => { null },
     deleteAllStickers: () => { null },
-    handleDragEnd: (id: string, event: any) => { null }
+    handleDragEnd: (id: string, event: any) => { null },
+    fonts: []
 });
 
 export const PersProvider = ({ children }: any) => {
@@ -44,7 +47,18 @@ export const PersProvider = ({ children }: any) => {
         }
     });
 
+    // moved the font stuff here so that all fonts load before the font picker is opened;
+    // works when applying community creations
+    const [fonts, setFonts] = useState([]);
+
     useEffect(() => {
+      // loading all fonts
+      const fontFunc = async () => {
+        const fontNames = await addAllFonts();
+        setFonts(fontNames);
+      };
+      fontFunc();
+
       if (typeof document !== "undefined") {
         const root = document.documentElement;
         const bgcOrig = root.style.getPropertyValue("--background-color") || "#fff9f5";
@@ -71,7 +85,13 @@ export const PersProvider = ({ children }: any) => {
   
 const changeFeature = (type: string, newFeature: any) => {
     console.log("new feature: ", newFeature, newFeature.hex);
-    const nf = newFeature.hex ? newFeature.hex : newFeature
+    let nf;
+    if (typeof newFeature === 'object' && newFeature.hex) {
+        nf = newFeature.hex;
+    } else {
+        nf = newFeature;
+    }
+    //const nf = newFeature.hex ? newFeature.hex : newFeature;
     const root = document.documentElement;    
         switch(type){
             case "fontColor":
@@ -80,7 +100,7 @@ const changeFeature = (type: string, newFeature: any) => {
                     "--font-color",
                     nf
                 );
-                setFeatures({...features, fontColor: nf });
+                setFeatures(prevFeatures => ({...prevFeatures, fontColor: nf}));
                 break;
             case "backgroundColor":
                 console.log("setting background color");
@@ -88,14 +108,14 @@ const changeFeature = (type: string, newFeature: any) => {
                     "--background-color",
                     nf
                 );
-                setFeatures({...features, backgroundColor: nf });
+                setFeatures(prevFeatures => ({...prevFeatures, backgroundColor: nf}));
                 break;
             case "font":
                   root?.style.setProperty(
                     "--font-family",
                     newFeature
                 );
-                setFeatures({...features, font: newFeature }); //TODO: figure out format for this -- is it a string??
+                setFeatures(prevFeatures => ({...prevFeatures, font: newFeature}));
                 break;
             };
 
@@ -122,8 +142,6 @@ const changeFeature = (type: string, newFeature: any) => {
         });
         console.log("current sticker list: ", stickers);
       };
-
-      const [file, setFile] = useState<File | null>(null);
 
       // const upload_ui = <div className="input-group">
       //     <input id="file" type="file" onChange={handleFileChange} />
@@ -174,7 +192,8 @@ const changeFeature = (type: string, newFeature: any) => {
       addSticker,
       deleteSticker,
       deleteAllStickers,
-      handleDragEnd
+      handleDragEnd,
+      fonts
     }}>
       {children}
     </PersContext.Provider>
