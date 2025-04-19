@@ -1,15 +1,23 @@
 'use client';
 
+import BackButton from "../../components/backButton";
+
 import styles from "../../../public/css/gallery.module.css";
 
 import React, {useState, useEffect} from 'react';
 
 import {SubmissionForm} from "../../components/SubmissionForm";
+import {MenuIcon, PlusIcon} from "../../components/icons";
+import SubInfo from "../../components/subInfo";
+
+import { usePersContext } from "../contexts/usePersContext";
 
 /*
 Collection of other users' personalizations
 */
 export default function Gallery() {
+
+    const {features, changeFeature, stickers, addSticker, deleteAllStickers} = usePersContext();
 
     const fetchSubmissions = async () => {
         // getting form responses
@@ -39,6 +47,53 @@ export default function Gallery() {
         }
     }
 
+    // applying all of the features and stickers from sub onto the current page, removing all others
+    const applySubmission = (sub) =>{
+
+        const data = sub.human_fields;
+
+        const feats = JSON.parse(data.Features)
+        const sticks = JSON.parse(data.Stickers);
+
+        console.log("feats: ", feats);
+
+        changeFeature("backgroundColor", feats.backgroundColor);
+        changeFeature("fontColor", feats.fontColor);
+        changeFeature("font", feats.font);
+
+        // clearing all stickers to replace them with new sub's stickers
+        deleteAllStickers();
+
+        //adding new stickers
+        sticks.map((stick) =>{
+            addSticker(stick);
+        });
+
+        setCaseStudy(null); //auto-closing case study
+
+    }
+
+    // represents current open case study or none if there isn't one
+    const [caseStudy, setCaseStudy] = React.useState(null);
+
+    // opens a case study component for the given model
+    const openCaseStudy = (sub) => {
+        setCaseStudy(sub);
+    };
+
+    const handleCSClose = () => {
+        setCaseStudy(null);
+    };
+
+    const caseStudyDiv = caseStudy ? (
+        <div className={styles.caseStudyBox}>
+          <div className={styles.close} onClick={handleCSClose}>
+              <PlusIcon fill={features.fontColor} size='30px' />
+          </div>
+          <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
+        </div>
+      ): null;
+
     const [submissions, setSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -54,30 +109,40 @@ export default function Gallery() {
         loadSubs();
     }, []);
 
-    const submissionBoxes = Array(submissions).map((sub) =>{
-        console.log("SUB: ", sub);
-        if(sub.length != 0){ // used to avoid issue on start with rendering the empty sub
-            return (<div className={styles.submission}>
-                <div className={styles.thumbnail} >
-    {/* style={{backgroundColor: sub[0].features.backgroundColor}} */}
+    var submissionBoxes = null;
+    if(submissions.length > 0){
+        submissionBoxes = submissions.map((sub, i) =>{
+            console.log("SUB: ", sub);
+            const feats = JSON.parse(sub.data.features);
+            return (<div className={styles.submission} key={`${sub.name}-${i}`} onClick={() => (openCaseStudy(sub))}>
+                <div className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                    <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
+                        OUR MACHINES
+                    </div>
+                    <div className={styles.menuicon}>
+                        <MenuIcon fill={feats.fontColor}/>
+                    </div>
                 </div>
                 <div className={styles.nameBox}> 
-                    {sub[0].name}
+                    {sub.name}
                 </div>
             </div>)
-        } else{
-            return null;
-        }
-       
-    });
-
+        });
+    }
+    
     return(
         <div>
             <SubmissionForm />
+            <BackButton destination={"/"} />
             {loading ? <div> 
                 Loading...
             </div> 
-            : submissionBoxes}
+            : <div className={styles.submissionContainer}>
+                {submissionBoxes}
+            </div> }
+
+            {caseStudyDiv}
+            
         </div>
     );
 };

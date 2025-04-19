@@ -22,6 +22,7 @@ const PersContext = createContext({
     addSticker: ({src, page, width, height, x, y}: any) => {null },
     uploadSticker: ({src}: {src: string}) => { null},
     deleteSticker: (id: string) => { null },
+    deleteAllStickers: () => { null },
     handleDragEnd: (id: string, event: any) => { null }
 });
 
@@ -69,23 +70,25 @@ export const PersProvider = ({ children }: any) => {
         }>>([]);
   
 const changeFeature = (type: string, newFeature: any) => {
+    console.log("new feature: ", newFeature, newFeature.hex);
+    const nf = newFeature.hex ? newFeature.hex : newFeature
     const root = document.documentElement;    
         switch(type){
             case "fontColor":
                 console.log("setting font color");
                 root?.style.setProperty(
                     "--font-color",
-                    newFeature.hex
+                    nf
                 );
-                setFeatures({...features, fontColor: newFeature.hex });
+                setFeatures({...features, fontColor: nf });
                 break;
             case "backgroundColor":
                 console.log("setting background color");
                 root?.style.setProperty(
                     "--background-color",
-                    newFeature.hex
+                    nf
                 );
-                setFeatures({...features, backgroundColor: newFeature.hex });
+                setFeatures({...features, backgroundColor: nf });
                 break;
             case "font":
                   root?.style.setProperty(
@@ -128,7 +131,6 @@ const changeFeature = (type: string, newFeature: any) => {
 
     const deleteSticker = (id: string) => {
         setStickers(prevImages => {
-            // Create a new array without the deleted item
             console.log("Image ID to be deleted: ", id);
             console.log("Images before filtering: ", prevImages);
             const updatedImages = prevImages.filter((image) => image.id !== id);
@@ -136,6 +138,11 @@ const changeFeature = (type: string, newFeature: any) => {
             return updatedImages;
           });
     };
+
+    // removes all stickers, used when applying other submissions
+    const deleteAllStickers = () =>{
+      setStickers([]);
+    }
 
     const handleDragEnd = (id: string, event: any) => {
 
@@ -145,7 +152,9 @@ const changeFeature = (type: string, newFeature: any) => {
                     return {
                         ...image,
                         x: event.target.x(),
-                        y: event.target.y()
+                        y: event.target.y(),
+                        width: event.target.width(),
+                        height: event.target.height()
                     };
                 }
                 return image;
@@ -164,6 +173,7 @@ const changeFeature = (type: string, newFeature: any) => {
       changeFeature,
       addSticker,
       deleteSticker,
+      deleteAllStickers,
       handleDragEnd
     }}>
       {children}

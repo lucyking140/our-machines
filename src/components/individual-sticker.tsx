@@ -11,14 +11,21 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
 
     // Used ONLY for UI (cursor icon and showing delete button)
     const [isDragging, setIsDragging] = useState(false);
+    
 
-    const stickerWidth = image.width;
-    const stickerHeight = image
-    ? (image.width * image.height) / image.width
-    : 0;
+    const [showResizeButton, setShowResizeButton] = useState(false)
+    // ref for the resize button, used to identify when it is clicked/dragged
+    const resizeRef = useRef<HTMLDivElement>(null);
+    // just used to get previous position of the cursor for change in x/y
+    const widthHeightRef = useRef({x: 0, y: 0});
+
+    const [width, setWidth] = useState(image.width);
+    const [height, setHeight] = useState(image.height);
+    // const stickerHeight = image.height;
 
     // handling hovering -- showing delete button on hover
     const handleMouseEnter = () => {
+        setShowDeleteButton(true);
         setShowDeleteButton(true);
     };
 
@@ -26,6 +33,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         if (!isDragging) {
             setTimeout(() => {
                 setShowDeleteButton(false);
+                setShowResizeButton(false);
             }, 1000);
         }
     };
@@ -50,6 +58,25 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             x: e.clientX - image.x,
             y: e.clientY - image.y
         };
+
+        // resize case
+        if ((e.target as HTMLElement).closest('.resize-button')) {
+            console.log("reaching resize button");
+
+            widthHeightRef.current = {
+                x: e.clientX,
+                y: e.clientY
+            };
+
+            // setting current width and height, not sure if this is totally necessary
+            setWidth(image.width);
+            setHeight(image.height);
+
+            document.addEventListener('mousemove', handleResizeMove);
+            document.addEventListener('mouseup', handleResizeUp);
+
+            return;
+        }
         
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
@@ -62,8 +89,15 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
 
         const newX = e.clientX - dragOffRef.current.x;
         const newY = e.clientY - dragOffRef.current.y;
-        
+
+        // handling resize case, taking quantity that has been dragged 
+        //if (resizeRef.current && resizeRef.current.contains(e.target as Node)){
+        // console.log(e.target as HTMLElement);
+        // if (resizeRef && (e.target as HTMLElement).closest('.resize-button')) {
+
+        // } else 
         if (stickerRef.current) {
+            console.log("reaching MOVE case of mousemove");
             stickerRef.current.style.left = `${newX}px`;
             stickerRef.current.style.top = `${newY}px`;
         }
@@ -80,13 +114,27 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         document.removeEventListener('mouseup', handleMouseUp);
         
         if (onDragEnd) {
+
+            // // if not resized
+            // var newW = width;
+            // var newH = height;
+
+            // // if not dragged
+            // var newX = image.x;
+            // var newY = image.y;
+
+            // if (resizeRef.current && resizeRef.current.contains(e.target as Node)){
+            //     newW = width + e.clientX - widthHeightRef.current.x;
+            //     newH = height + e.clientY - widthHeightRef.current.y;
             const newX = e.clientX - dragOffRef.current.x;
             const newY = e.clientY - dragOffRef.current.y;
             
             onDragEnd({
                 target: {
                     x: () => newX,
-                    y: () => newY
+                    y: () => newY,
+                    width: () => image.width, // original set on init bc we aren't resizing here
+                    height: () => image.height,
                 }
             });
         }
@@ -97,8 +145,59 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
+
+            document.removeEventListener('mousemove', handleResizeMove);
+            document.removeEventListener('mouseup', handleResizeUp);
         };
     }, []);
+
+    //////////////
+    // resizing
+
+    const handleResizeMove = (e: MouseEvent) =>{
+        console.log("reaching resize case of mousemove");
+
+        const newW = width + (e.clientX - widthHeightRef.current.x); // e.clientX;
+        // const newH= height + (e.clientY - widthHeightRef.current.y); // e.clientY;
+
+        if(resizeRef.current){
+            // OR could try += here
+            resizeRef.current.style.width = `${newW}px`;
+            resizeRef.current.style.height = `${newW}px`;
+        }
+
+        // setting values now -- THIS MIGHT BE AN ISSUE
+        setWidth(newW);
+        setHeight(newW);
+    };
+
+    const handleResizeUp = (e: MouseEvent) =>{
+        console.log("reaching resize up");
+
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        
+        // stops mousemove
+        document.removeEventListener('mousemove', handleResizeMove);
+        document.removeEventListener('mouseup', handleResizeUp);
+
+        if (onDragEnd) {
+            const newW = width + e.clientX - widthHeightRef.current.x;
+            //const newH = height + e.clientY - widthHeightRef.current.y;
+            onDragEnd({
+                target: {
+                    x: () => image.x,
+                    y: () => image.y,
+                    width: () => newW, // original set on init bc we aren't resizing here
+                    height: () => newW,
+                }
+            });
+        }
+    };
+
+
+    ////////////
 
     // deleting a sticker
     const handleDelete = (e: React.MouseEvent) => {
@@ -125,13 +224,13 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
     >
         <img 
             src={image.src} 
-            width={stickerWidth} 
-            height={stickerHeight} 
+            width={width} 
+            height={height} 
             draggable="false"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseDown={handleMouseDown}
-            style={{ userSelect: 'none', pointerEvents: 'auto', zIndex: 500 }}
+            style={{ userSelect: 'none', pointerEvents: 'auto', zIndex: 500}}
         />
 
         {showDeleteButton && !isDragging && (
@@ -141,7 +240,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                     style={{
                         position: 'absolute',
                         top: '-10px',
-                        right: '-10px',
+                        left: '-10px',
                         background: 'none',
                         // borderRadius: '50%',
                         width: '25px',
@@ -153,7 +252,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         border: 'none',
                         cursor: 'pointer',
                         zIndex: 100,
-                        pointerEvents: 'auto'
+                        pointerEvents: 'auto',
+                        // backgroundColor: 'lightpink'
                     }}
                 >
                     <img 
@@ -165,6 +265,38 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                     />
                 </button>
             )}
+
+        { showDeleteButton && !isDragging && (
+            <button
+            className="resize-button"
+            style={{
+                position: 'absolute',
+                bottom: '-10px',
+                right: '-10px',
+                background: 'none',
+                // borderRadius: '50%',
+                width: '25px',
+                height: '25px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                // border: '1px solid #ccc',
+                border: 'none',
+                cursor: 'pointer',
+                zIndex: 100,
+                pointerEvents: 'auto',
+                // backgroundColor: 'lightpink'
+            }}
+        >
+            {/* // <div ref={resizeRef} className="resize-button" style={{backgroundColor: 'lightgreen', display: '100%'}}> */}
+                <img 
+                    src="/bow.svg" 
+                    width={25} 
+                    height={25} 
+                    alt="Resize"
+                    style={{ pointerEvents: 'auto'}}
+                />
+            </button>) }
     </div>
   );
 };
