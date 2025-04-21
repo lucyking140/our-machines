@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { RectAreaLight } from "three";
 
 export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
     const [showDeleteButton, setShowDeleteButton] = useState(false);
@@ -39,6 +40,170 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
     };
 
     // drag STARTS
+
+    // for mobile
+
+    // https://phuoc.ng/collection/react-drag-drop/make-an-element-draggable-on-touchscreen-devices/ 
+    const handleTouchDown = (e: React.TouchEvent) => {
+
+        setIsDragging(true);
+
+        const touch = e.touches[0];
+
+        // no drag if clicking the delete button
+        if ((e.target as HTMLElement).closest('.delete-button')) {
+            return;
+        }
+
+        // to avoid float back thing before changing position
+        e.preventDefault();
+        // to avoid other things on top being clicked/dragged
+        e.stopPropagation();
+        
+        // setting drag offset (top-left corner of image -> location of cursor)
+        dragOffRef.current = {
+            x: touch.clientX - image.x,
+            y: touch.clientY - image.y
+        };
+
+        // resize case
+        // console.log("e.target: ", e.target);
+        // if ((e.target as HTMLElement).closest('.resize-button')) {
+        //     console.log("reaching resize button in touch");
+
+        //     widthHeightRef.current = {
+        //         x: touch.clientX,
+        //         y: touch.clientY
+        //     };
+
+        //     // setting current width and height, not sure if this is totally necessary
+        //     setWidth(image.width);
+        //     setHeight(image.height);
+
+        //     // document.addEventListener('mousemove', handleResizeMove);
+        //     // document.addEventListener('mouseup', handleResizeUp);
+        //     document.addEventListener('touchmove', handleResizeTouchMove, { passive: false });
+        //     document.addEventListener('touchend', handleResizeTouchUp, { passive: false });
+
+        //     return;
+        // }
+        
+        // document.addEventListener('mousemove', handleMouseMove);
+        // document.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchend', handleTouchUp);
+    }
+
+    // idk but for some reason combining these does't work on touch
+    const handleResizeTouchDown = (e: React.TouchEvent) => {
+        console.log("reaching handleResizeTouchDown");
+
+        setIsDragging(true);
+
+        const touch = e.touches[0];
+
+        // no drag if clicking the delete button
+        if ((e.target as HTMLElement).closest('.delete-button')) {
+            return;
+        }
+
+        // to avoid float back thing before changing position
+        e.preventDefault();
+        // to avoid other things on top being clicked/dragged
+        e.stopPropagation();
+        
+        // setting drag offset (top-left corner of image -> location of cursor)
+        dragOffRef.current = {
+            x: touch.clientX - image.x,
+            y: touch.clientY - image.y
+        };
+
+        // resize case
+        console.log("e.target: ", e.target);
+        console.log("reaching resize button in touch");
+
+        widthHeightRef.current = {
+            x: touch.clientX,
+            y: touch.clientY
+        };
+
+        // setting current width and height, not sure if this is totally necessary
+        setWidth(image.width);
+        setHeight(image.height);
+
+        // document.addEventListener('mousemove', handleResizeMove);
+        // document.addEventListener('mouseup', handleResizeUp);
+        document.addEventListener('touchmove', handleResizeTouchMove);
+        document.addEventListener('touchend', handleResizeTouchUp);
+    }
+
+    // for drag on touch screen
+    const handleTouchMove = (e: React.TouchEvent) => {
+        const touch = e.touches[0];
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const newX = touch.clientX - dragOffRef.current.x;
+        const newY = touch.clientY - dragOffRef.current.y;
+
+        // handling resize case, taking quantity that has been dragged 
+        //if (resizeRef.current && resizeRef.current.contains(e.target as Node)){
+        // console.log(e.target as HTMLElement);
+        // if (resizeRef && (e.target as HTMLElement).closest('.resize-button')) {
+
+        // } else 
+        if (stickerRef.current) {
+            console.log("reaching MOVE case of mousemove for TOUCH");
+            stickerRef.current.style.left = `${newX}px`;
+            stickerRef.current.style.top = `${newY}px`;
+        }
+    }
+
+    const handleTouchUp = (e: React.TouchEvent) => {
+        
+        // changedTouches is list of touches taht are no longer on the screen (aka the one we're looking for)
+        // https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/changedTouches
+        const touch = e.changedTouches[0];
+        console.log("TOUCH IN TOUCH UP: ", touch, e);
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        
+        // bc no hover equiv for the stickers
+        setShowDeleteButton(true);
+        setShowDeleteButton(true);
+
+        setTimeout(() => {
+            setShowDeleteButton(false);
+            setShowResizeButton(false);
+        }, 1000);
+        
+        
+        // stops mousemove
+        document.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchUp);
+        
+        if (onDragEnd) {
+
+            const newX = touch.clientX - dragOffRef.current.x;
+            const newY = touch.clientY - dragOffRef.current.y;
+            
+            onDragEnd({
+                target: {
+                    x: () => newX,
+                    y: () => newY,
+                    width: () => image.width, // original set on init bc we aren't resizing here
+                    height: () => image.height,
+                }
+            });
+        }
+        setIsDragging(false);
+    }
+
+    /////////////  drag on desktop
+   
     const handleMouseDown = (e: React.MouseEvent) => {
 
         // no drag if clicking the delete button
@@ -90,12 +255,6 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         const newX = e.clientX - dragOffRef.current.x;
         const newY = e.clientY - dragOffRef.current.y;
 
-        // handling resize case, taking quantity that has been dragged 
-        //if (resizeRef.current && resizeRef.current.contains(e.target as Node)){
-        // console.log(e.target as HTMLElement);
-        // if (resizeRef && (e.target as HTMLElement).closest('.resize-button')) {
-
-        // } else 
         if (stickerRef.current) {
             console.log("reaching MOVE case of mousemove");
             stickerRef.current.style.left = `${newX}px`;
@@ -115,17 +274,6 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         
         if (onDragEnd) {
 
-            // // if not resized
-            // var newW = width;
-            // var newH = height;
-
-            // // if not dragged
-            // var newX = image.x;
-            // var newY = image.y;
-
-            // if (resizeRef.current && resizeRef.current.contains(e.target as Node)){
-            //     newW = width + e.clientX - widthHeightRef.current.x;
-            //     newH = height + e.clientY - widthHeightRef.current.y;
             const newX = e.clientX - dragOffRef.current.x;
             const newY = e.clientY - dragOffRef.current.y;
             
@@ -148,6 +296,13 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
 
             document.removeEventListener('mousemove', handleResizeMove);
             document.removeEventListener('mouseup', handleResizeUp);
+
+            // for mobile
+            document.removeEventListener('touchmove', handleResizeTouchMove);
+            document.removeEventListener('touchend', handleResizeTouchUp);
+
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchUp); 
         };
     }, []);
 
@@ -196,6 +351,56 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         }
     };
 
+    // for resizing on touch screen
+    const handleResizeTouchMove = (e: React.TouchEvent) => {
+
+        console.log("reaching resize case of mousemove in TOUCH");
+
+        const touch = e.touches[0];
+
+        const newW = width + (touch.clientX - widthHeightRef.current.x); // e.clientX;
+        // const newH= height + (e.clientY - widthHeightRef.current.y); // e.clientY;
+
+        if(resizeRef.current){
+            console.log("resize ref is current");
+            // OR could try += here
+            resizeRef.current.style.width = `${newW}px`;
+            resizeRef.current.style.height = `${newW}px`;
+        }
+
+        // setting values now -- THIS MIGHT BE AN ISSUE
+        setWidth(newW);
+        setHeight(newW);
+    }
+
+    const handleResizeTouchUp = (e: React.TouchEvent) => {
+
+        const touch = e.changedTouches[0];
+
+        console.log("reaching resize up");
+
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        
+        // stops mousemove
+        document.removeEventListener('touchmove', handleResizeTouchMove);
+        document.removeEventListener('touchend', handleResizeTouchUp);
+
+        if (onDragEnd) {
+            const newW = width + touch.clientX - widthHeightRef.current.x;
+            //const newH = height + e.clientY - widthHeightRef.current.y;
+            onDragEnd({
+                target: {
+                    x: () => image.x,
+                    y: () => image.y,
+                    width: () => newW, // original set on init bc we aren't resizing here
+                    height: () => newW,
+                }
+            });
+        }
+    }
+
 
     ////////////
 
@@ -215,12 +420,11 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             left: `${image.x}px`,
             cursor: isDragging ? 'grabbing' : 'grab',
             userSelect: 'none',
-            touchAction: 'none'
+            touchAction: 'none',
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseDown={handleMouseDown}
-        
     >
         <img 
             src={image.src} 
@@ -230,9 +434,12 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseDown={handleMouseDown}
-            style={{ userSelect: 'none', pointerEvents: 'auto', zIndex: 500}}
+            onTouchStart={handleTouchDown}
+            //onTouchEnd={handleTouchUp}
+            style={{ userSelect: 'none', pointerEvents: 'auto', zIndex: 500, touchAction: 'none'}}
         />
 
+        {/* delete button */}
         {showDeleteButton && !isDragging && (
                 <button
                     className="delete-button"
@@ -243,8 +450,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         left: '-10px',
                         background: 'none',
                         // borderRadius: '50%',
-                        width: '25px',
-                        height: '25px',
+                        width: '45px',
+                        height: '45px',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -258,25 +465,27 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                 >
                     <img 
                         src="/cancel.svg" 
-                        width={25} 
-                        height={25} 
+                        width={45} 
+                        height={45} 
                         alt="Delete"
                         style={{ pointerEvents: 'auto' }}
                     />
                 </button>
             )}
 
+        {/* resize button */}
         { showDeleteButton && !isDragging && (
             <button
             className="resize-button"
+            id="resize-button"
             style={{
                 position: 'absolute',
                 bottom: '-10px',
                 right: '-10px',
                 background: 'none',
                 // borderRadius: '50%',
-                width: '25px',
-                height: '25px',
+                width: '45px',
+                height: '45px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -285,14 +494,17 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                 cursor: 'pointer',
                 zIndex: 100,
                 pointerEvents: 'auto',
+                touchAction: 'none'
                 // backgroundColor: 'lightpink'
             }}
+            onTouchStart={handleResizeTouchDown}
+            //onTouchEnd={handleResizeTouchUp}
         >
             {/* // <div ref={resizeRef} className="resize-button" style={{backgroundColor: 'lightgreen', display: '100%'}}> */}
                 <img 
                     src="/bow.svg" 
-                    width={25} 
-                    height={25} 
+                    width={45} 
+                    height={45} 
                     alt="Resize"
                     style={{ pointerEvents: 'auto'}}
                 />
