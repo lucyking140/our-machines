@@ -12,7 +12,6 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
 
     // Used ONLY for UI (cursor icon and showing delete button)
     const [isDragging, setIsDragging] = useState(false);
-    
 
     const [showResizeButton, setShowResizeButton] = useState(false)
     // ref for the resize button, used to identify when it is clicked/dragged

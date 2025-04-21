@@ -119,8 +119,7 @@ export default function StickerContainer(){
     }
 
     const handleSelectSticker = (sticker: any) => {
-        console.log("Adding new sticker");
-        console.log("current pathname in add sticker: ", pathname);
+        console.log("adding sticker from click");
         addSticker({
             src: sticker.url,
             page: pathname,
@@ -129,8 +128,114 @@ export default function StickerContainer(){
             x: 100,
             y: 100
         });
-        console.log("done adding sticker!");
     }
+
+    // all of the infra for drag and drop is based on dragging to relocate existing stickers in individual-sticker
+
+    // used to track dif between cursor and top-left corner of sticker
+    const dragOffRef = useRef({ x: 0, y: 0 });
+
+    // reps the sticker object of the current sticker
+    const curStickerRef = useRef<any>(null);
+    // for the sticker preview on drag
+    const previewSticker = useRef<HTMLDivElement>(null);
+
+    // tells us if we've clicked or dragged to avoid double-application of sticker on click
+    const isClicked = useRef(true);
+
+    // Used to show preview or not 
+    const [isDragging, setIsDragging] = useState(false);
+
+    // for drag and drop sticker!!
+    const handleSelectDown = (e: MouseEvent, sticker: any, i: number) => {
+
+        isClicked.current = true;
+
+        console.log("sticker: ", sticker);
+        //setCurSticker(sticker);
+        curStickerRef.current = sticker;
+
+        console.log("reaching select down");
+        const newStick = e.currentTarget as HTMLElement;
+
+        // to avoid float back thing before changing position
+        e.preventDefault();
+        // to avoid other things on top being clicked/dragged
+        e.stopPropagation();
+
+        setIsDragging(true);
+
+        // getting cur location of the element
+        const coords = newStick?.getBoundingClientRect();
+        
+        // setting drag offset (top-left corner of image -> location of cursor)
+        if(coords && coords.left && coords.right){
+            dragOffRef.current = {
+                x: e.clientX - coords.left,
+                y: e.clientY - coords.top
+            };
+        } else {
+            // ig just assume we're at the top-left of the image
+            dragOffRef.current = {
+                x: 0,
+                y: 0
+            };
+        }
+
+        document.addEventListener('mousemove', handleSelectMove);
+        document.addEventListener('mouseup', handleSelectUp);
+    }
+
+    const handleSelectMove = (e: MouseEvent) => {
+
+        // so if we click but don't move only the click behavior is activated
+        isClicked.current = false;
+        console.log("reaching select move");
+        e.preventDefault();
+        e.stopPropagation();
+
+        const newX = e.clientX - dragOffRef.current.x;
+        const newY = e.clientY - dragOffRef.current.y;
+
+        if (previewSticker.current) {
+            console.log("moving preview sticker!", previewSticker.current);
+            previewSticker.current.style.left = `${newX}px`;
+            previewSticker.current.style.top = `${newY}px`;
+        }
+    }
+
+    const handleSelectUp = (e: MouseEvent) => {
+        console.log("reaching select up");
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        
+        // stops mousemove
+        document.removeEventListener('mousemove', handleSelectMove);
+        document.removeEventListener('mouseup', handleSelectUp);
+
+        const newX = e.clientX - dragOffRef.current.x;
+        const newY = e.clientY - dragOffRef.current.y;
+        
+        // finally actually adding the sticker after it is released!
+        console.log("cur sticker: ", curStickerRef.current);
+        if( !isClicked.current && curStickerRef.current){
+            console.log("reaching cur sticker");
+            addSticker({
+                src: curStickerRef.current.url,
+                page: pathname,
+                width: curStickerRef.current.width,
+                height: curStickerRef.current.height,
+                x: newX,
+                y: newY
+            });
+        }
+
+        // just resetting this to baseline
+        isClicked.current = true;
+    
+        //setCurSticker(null);
+    }    
 
     const handleHide = () => {
         setHide(!hide);
@@ -162,8 +267,6 @@ export default function StickerContainer(){
         };
     }, []);
 
-    const label = "";
-
     // actual display of how users can select stickers
     const stickerSelector = stickersData ? (<div className="personalize-menu" id="menu-deep">
             <div className={styles.stickersPalette}>
@@ -188,8 +291,13 @@ export default function StickerContainer(){
                         return (
                         <div
                         key={`palette-${index}`}
+                        //ref={stickerRef}
+                        id={`sticker-${index}`}
                         className={styles.stickerButton}
                         onClick={() => {handleSelectSticker(sticker)}}
+                        onMouseDown={(e) => {handleSelectDown(e, sticker, index)}}
+                        //onMouseMove = {(e) => {handleSelectMove(e, sticker)}}
+                        //onMouseUp = {(e) => {handleSelectUp(e, sticker)}}
                         >
                             <img 
                                 alt={sticker.alt} 
@@ -220,6 +328,14 @@ export default function StickerContainer(){
 
     return(
     <div>
+        {/* preview if on drag */}
+        {isDragging && (
+        <div ref={previewSticker} className={styles.stickerButton} style={{ position: 'absolute' }}>
+            <img src={curStickerRef.current?.url} width={curStickerRef.current?.width} height={curStickerRef.current?.height} />
+        </div>
+        )}
+
+
         {/* overarching div that applies stickers anywhere on the page */}
         <div className={styles.stickersContainer}>
                 {stickers.map((sticker, i) => (
