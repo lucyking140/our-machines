@@ -235,7 +235,109 @@ export default function StickerContainer(){
         isClicked.current = true;
     
         //setCurSticker(null);
+    }
+    
+    //////////
+
+    // for touch on mobile
+
+     // for drag and drop sticker!!
+     const handleSelectTouchDown = (e: React.TouchEvent, sticker: any, i: number) => {
+
+        const touch = e.touches[0];
+
+        isClicked.current = true;
+
+        console.log("sticker: ", sticker);
+        //setCurSticker(sticker);
+        curStickerRef.current = sticker;
+
+        console.log("reaching select touch down");
+        const newStick = e.currentTarget as HTMLElement;
+
+        // to avoid float back thing before changing position
+        e.preventDefault();
+        // to avoid other things on top being clicked/dragged
+        e.stopPropagation();
+
+        setIsDragging(true);
+
+        // getting cur location of the element
+        const coords = newStick?.getBoundingClientRect();
+        
+        // setting drag offset (top-left corner of image -> location of cursor)
+        if(coords && coords.left && coords.right){
+            dragOffRef.current = {
+                x: touch.clientX - coords.left,
+                y: touch.clientY - coords.top
+            };
+        } else {
+            // ig just assume we're at the top-left of the image
+            dragOffRef.current = {
+                x: 0,
+                y: 0
+            };
+        }
+
+        document.addEventListener('touchmove', handleSelectTouchMove, {passive: 'false'});
+        document.addEventListener('touchend', handleSelectTouchUp, {passive: 'false'});
+    }
+
+    const handleSelectTouchMove = (e: React.TouchEvent) => {
+
+        const touch = e.touches[0];
+
+        // so if we click but don't move only the click behavior is activated
+        isClicked.current = false;
+        console.log("reaching select touch move");
+        e.preventDefault();
+        e.stopPropagation();
+
+        const newX = touch.clientX - dragOffRef.current.x;
+        const newY = touch.clientY - dragOffRef.current.y;
+
+        if (previewSticker.current) {
+            console.log("moving preview sticker!", previewSticker.current);
+            previewSticker.current.style.left = `${newX}px`;
+            previewSticker.current.style.top = `${newY}px`;
+        }
+    }
+
+    const handleSelectTouchUp = (e: React.TouchEvent) => {
+
+        const touch = e.changedTouches[0];
+
+        console.log("reaching select touch up");
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        
+        // stops mousemove
+        document.removeEventListener('touchmove', handleSelectTouchMove);
+        document.removeEventListener('touchend', handleSelectTouchUp);
+
+        const newX = touch.clientX - dragOffRef.current.x;
+        const newY = touch.clientY - dragOffRef.current.y;
+        
+        // finally actually adding the sticker after it is released!
+        console.log("cur sticker: ", curStickerRef.current);
+        if( !isClicked.current && curStickerRef.current){
+            console.log("reaching cur sticker");
+            addSticker({
+                src: curStickerRef.current.url,
+                page: pathname,
+                width: curStickerRef.current.width,
+                height: curStickerRef.current.height,
+                x: newX,
+                y: newY
+            });
+        }
+
+        // just resetting this to baseline
+        isClicked.current = true;
     }    
+
+    //////////
 
     const handleHide = () => {
         setHide(!hide);
@@ -296,6 +398,7 @@ export default function StickerContainer(){
                         className={styles.stickerButton}
                         onClick={() => {handleSelectSticker(sticker)}}
                         onMouseDown={(e) => {handleSelectDown(e, sticker, index)}}
+                        onTouchStart={(e) => {handleSelectTouchDown(e, sticker, index)}}
                         //onMouseMove = {(e) => {handleSelectMove(e, sticker)}}
                         //onMouseUp = {(e) => {handleSelectUp(e, sticker)}}
                         >
