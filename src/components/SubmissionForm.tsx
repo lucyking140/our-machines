@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { usePersContext } from "../app/contexts/usePersContext";
 
+import styles from "../../public/css/subForm.module.css";
+
 // FROM https://opennext.js.org/netlify/forms 
 export function SubmissionForm() {
 
@@ -44,20 +46,43 @@ export function SubmissionForm() {
     - description
     */
     return (
-        <div>
-            <form name="designs" onSubmit={handleFormSubmit} >
-                <input type="hidden" name="form-name" value="designs" />
-                <input type="hidden" name="features" value={JSON.stringify(features)} />
-                <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
-                <input name="title" type="text" placeholder="Your Site's Title (randomly generated if left blank)" className="input" />
-                <input name="name" type="text" placeholder="Your Name (optional)" required className="input" />
-                <input name="description" type="text" placeholder="Description (optional)" className="input" />
-                <button type="submit" disabled={status === 'pending'}>
-                    Submit
-                </button>
-                {status === 'ok' && <div> Submitted!</div>}
-                {status === 'error' && <div>{error}</div>}
-            </form>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <div className={styles.modelName}>
+                    Submit your Creation
+                </div>
+            </div>
+            <div className={styles.content} >
+                <form name="designs" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                    {/* hidden inputs */}
+                    <input type="hidden" name="form-name" value="designs" />
+                    <input type="hidden" name="features" value={JSON.stringify(features)} />
+                    <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+
+                    {/* visual styles inputs */}
+                    <div className={styles.formEntry}>
+                        <label for="title"> Your Site's Title </label>
+                        <input name="title" type="text" placeholder="Randomly generated if left blank" className={styles.input}/>
+                    </div>
+                    
+                    <div className={styles.formEntry}>
+                        <label for="title"> Your Name </label>
+                        <input name="name" type="text" placeholder="Optional" required className={styles.input} />
+                    </div>
+
+                    <div className={styles.formEntry}>
+                        <label for="title"> Description </label>
+                        <input name="description" type="text" placeholder="Optional" className={styles.input} />
+                    </div>
+
+                    <button type="submit" disabled={status === 'pending'}>
+                        Submit
+                    </button>
+
+                    {/* {status === 'ok' && <div> Submitted!</div>} */}
+                    {status === 'error' && <div>{error}</div>}
+                </form>
+            </div>
         </div>
     );
 }

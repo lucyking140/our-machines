@@ -3,7 +3,7 @@
     background-color: var(--background-color);
     font-family: var(--font-family);
     color: var(--font-color);
-    height: 100vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +16,14 @@
     width: 100%;
 }
 
+// for mobile
+@media only screen and (max-width: 1000px) {
+    .title{
+        font-size: 3rem;
+        word-break: break-all;
+    }
+}
+
 .titlebox{
     display: flex;
     flex-direction: column;
@@ -25,17 +33,40 @@
 
 .animatedtitle{
     width: inherit;
+    hyphens: auto;
+    word-break: break-all;
+}
+
+// for mobile
+@media only screen and (max-width: 1000px) {
+    // so menu never moves when the title changes
+    .animatedtitle{
+        height: 15vh;
+    }
 }
 
 .menu{
     display: flex;
     flex-direction: row;
     margin-left: 0px;
+    align-items: flex-start;
+}
+
+@media only screen and (max-width: 1000px){
+    .menu{
+        font-size: 2rem;
+    }
 }
 
 %menuicon-shared{
     width: 85px;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px){
+    %menuicon-shared{
+        width: 70px;
+    }
 }
 
 .menuicon{
@@ -88,18 +119,20 @@
     }
 }
 
-.personalizemenubox{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: fixed;
-    bottom: 15px;
-    left: 15px;
-    border: 1px var(--font-color) solid;
-    width: 250px;
-}
+// .personalizemenubox{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-end;
+//     position: fixed;
+//     bottom: 15px;
+//     left: 15px;
+//     border: 1px var(--font-color) solid;
+//     width: 250px;
+//     background-color: lightpink;
+// }
 
-.personalizemenubutton{
-    padding: 7px;
-    cursor: pointer;
-}
+// .personalizemenubutton{
+//     padding: 7px;
+//     cursor: pointer;
+//     background-color: lightpink;
+// }

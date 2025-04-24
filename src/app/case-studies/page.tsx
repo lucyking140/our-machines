@@ -23,24 +23,20 @@ Collection of 3D graphics corresponding to objects that can be opened for more i
 export default function Catalogue() {
 
   const {features} = usePersContext();
-
-  // gets current window dims to dictate model size directly in pixels
-  //TODO::: if want to do this, looks like it needs 
-  // const {width, height} = useWindowDimensions();
-
-  // const modelWidth = width / 3;
-  const modelWidth = 300;
-
+  
   // represents current open case study or none if there isn't one
   const [caseStudy, setCaseStudy] = React.useState<Model3dType | null>(null);
 
   // opens a case study component for the given model
   const openCaseStudy = (model: Model3dType) => {
     setCaseStudy(model);
+    document.body.style.overflow='hidden';
   };
 
   const handleCSClose = () => {
     setCaseStudy(null);
+    // correcting scroll feature that we removed to avoid un-scroll when cs is open
+    document.body.style.overflow='scroll';
   };
 
   // const modelHovers = modelData.map((model) => {
@@ -48,17 +44,14 @@ export default function Catalogue() {
   //      value: false,}
   // });
 
-  
-
-
   // generating list of models for each item in modelData
   const models = modelData.map((model, i) => (
     <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
         
         <ModelViewer 
             model={model}
-            width={modelWidth}
-            height={modelWidth}
+            width={null} // not used
+            height={null}
             camPos={model.camPos}
             light={model.light}
             // onLoaded={handleModelLoaded}
@@ -67,6 +60,8 @@ export default function Catalogue() {
   ));
 
   const caseStudyDiv = caseStudy ? (
+    // from https://stackoverflow.com/questions/10211203/scrolling-child-div-scrolls-the-window-how-do-i-stop-that 
+    //<div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
     <div className={styles.caseStudyBox}>
       <div className={styles.close} onClick={handleCSClose}>
           <PlusIcon fill={features.fontColor} size='30px' />
@@ -78,7 +73,8 @@ export default function Catalogue() {
   return (
    <div className={styles.homeContainer}>
 
-      <BackButton destination={"/"}  />
+      {/* only show this when case study isn't open, otherwise action is kind of wierd */}
+      { !caseStudy && <BackButton destination={"/"}  /> }
     
       <div className={styles.collection}>
           {models}

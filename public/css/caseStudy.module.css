@@ -1,9 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 80vh;
   width: 80vw;
+  position: relative;
 }
 
 .modelName {
@@ -16,6 +18,16 @@
   flex-direction: row;
 }
 
+.model {
+  width: 80vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column;
+    width: 100%;
+  }
+}
 .header {
   position: sticky;
   top: 0;
@@ -23,12 +35,22 @@
   flex-direction: row;
   justify-content: space-between;
   z-index: 100;
+  background-color: var(--background-color);
 }
 
 .textContent {
   padding: 20px;
   font-size: 1rem;
   line-height: 2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .textContent {
+    font-size: 2rem;
+  }
+  .modelName {
+    font-size: 3rem;
+  }
 }
 
 /*# sourceMappingURL=caseStudy.module.css.map */

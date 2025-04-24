@@ -7,3 +7,9 @@
     width: 30px;
     transform: rotate(270deg);
 }
+
+@media only screen and (max-width: 1000px){
+    .back, .icon{
+        width: 50px;
+    }
+}

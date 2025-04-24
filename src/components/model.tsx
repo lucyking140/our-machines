@@ -94,7 +94,7 @@ function CameraSetup({modelPath, camPos}: {modelPath: string, camPos: number}) {
   return null;
 }
 
-const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=false, haveHover=true}: {model: Model3D, width: number, height: number, camPos: number, light: number, orbit: boolean, haveHover: boolean}) => {
+const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=false, haveHover=true, inCaseStudy=false}: {model: Model3D, width: number | null, height: number | null, camPos: number, light: number, orbit: boolean, haveHover: boolean, inCaseStudy: boolean}) => {
   const { features } = usePersContext();
   // this for some reason also helps with the lost context thing!
   const [key] = useState(() => Math.random().toString(36));
@@ -111,7 +111,7 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
 
   const Loader = () => {
     return (
-      <div className={styles.loader}>
+      <div className={inCaseStudy ? styles.loaderCS : styles.loaderCat}>
         <div className={styles.loaderIcon} >
             <svg
               width="40"
@@ -162,7 +162,7 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
 
   return (
     <div className={styles.modelBox}>
-      <div style={{ width, height}} >
+      {/* <div style={{ width, height}} id="wh-modelbox"> */}
         {/* name of model shown on hover -- haveHover is false for case studies bc name is already right there */}
         { hoverName && haveHover ? (
               <div className={styles.hoverName}>
@@ -171,26 +171,18 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
           ) : null }
         <Suspense fallback={Loader()} >
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <Canvas
-            // camera={{ fov: 50, near: 0.1, far: 1000 }}
-            // ref={canvasRef}
-            key={key}
-            // gl={{ 
-            //   powerPreference: "default",
-            //   alpha: true, 
-            //   antialias: true,
-            //   preserveDrawingBuffer: true,
-            //   failIfMajorPerformanceCaveat: false
-            // }}
-            style={{ background: features.backgroundColor }}
-            onCreated={({ gl }) => {
-              // Add extra context loss handling
-              // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
-              gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
-                e.preventDefault();
-                console.log('WebGL context lost');
-              }, false);
-            }}
+            {/* dif based on location to set width/height correctly */}
+            <div className={inCaseStudy? styles.canvasBoxCS : styles.canvasBoxCat}>
+            <Canvas
+              key={key}
+              style={{ background: features.backgroundColor}}
+              onCreated={({ gl }) => {
+                // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
+                gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
+                  e.preventDefault();
+                  console.log('WebGL context lost');
+                }, false);
+              }}
           >
             
             <ambientLight intensity={light} />
@@ -207,12 +199,12 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
             ) : null } 
             
             </Canvas>
+            </div>
+          
           </div>
           
         </Suspense>
       </div>
-      
-    </div>
   );
 }
 

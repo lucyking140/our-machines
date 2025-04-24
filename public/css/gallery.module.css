@@ -1,5 +1,11 @@
-.submissionContainer {
+.allContainer {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.submissionContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -8,8 +14,8 @@
 }
 
 .submission {
-  width: 200px;
-  height: 200px;
+  width: 20vw;
+  height: 20vw;
   position: relative;
   border: 1px var(--font-color) solid;
   cursor: pointer;
@@ -21,7 +27,7 @@
 }
 
 .tnTitle {
-  padding-top: 70px;
+  padding-top: 8vw;
   padding-left: 5px;
   font-weight: bold;
   font-size: 1rem;
@@ -46,10 +52,33 @@
   left: 0px;
 }
 
+@media only screen and (max-width: 1000px) {
+  .submissionContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  .submission {
+    width: 75vw;
+    height: 75vw;
+  }
+  .tnTitle {
+    padding-top: 28vw;
+    font-size: 2rem;
+    padding-left: 10px;
+  }
+  .menuicon {
+    padding-left: 10px;
+    width: 40px;
+  }
+  .nameBox {
+    font-size: 2rem;
+  }
+}
 .caseStudyBox {
   position: absolute;
-  top: 7%;
-  left: 7%;
+  top: 10%;
+  left: 10%;
   width: 80%;
   height: 80%;
   border: 1px solid var(--font-color);
@@ -63,6 +92,30 @@
   padding: 15px;
   transform: rotate(45deg);
   cursor: pointer;
+}
+
+.uploadButton {
+  padding: 10px;
+  background-color: var(--font-color);
+  color: var(--background-color);
+  width: inherit;
+  height: 1.5vh;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.uploadButtonBlank {
+  width: inherit;
+  height: 1.5vh;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=gallery.module.css.map */

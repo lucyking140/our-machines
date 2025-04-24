@@ -39,8 +39,8 @@ export default function Home() {
               3000
             ]}
             wrapper="div"
-            speed={20}
-            style={{width: 'inherit'}}
+            speed={10}
+            //style={{width: 'inherit', wordBreak: 'break-all', hyphens: 'auto'}}
             repeat={Infinity}
             preRenderFirstString={true}
             cursor={false}

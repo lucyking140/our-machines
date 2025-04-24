@@ -18,15 +18,16 @@ export default function CaseStudy({ model }: Model3dType) {
             </div>
         </div>
       <div className={styles.content} >
-        <div>
+        <div className={styles.model}>
           <ModelViewer 
               model={model}
-              width={300}
-              height={300}
+              width={null}
+              height={null}
               camPos={model.CS_camPos}
               light={model.light}
               orbit={true}
               haveHover={false}
+              inCaseStudy={true}
           />
         </div>
         

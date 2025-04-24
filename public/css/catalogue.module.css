@@ -4,9 +4,50 @@
   flex-wrap: wrap;
 }
 
-.loader {
-  width: 300px;
-  height: 300px;
+.model {
+  cursor: pointer;
+  width: inherit;
+}
+
+@media only screen and (max-width: 1000px) {
+  .model {
+    width: 100%;
+  }
+}
+.modelBox {
+  position: relative;
+}
+
+@media only screen and (max-width: 1000px) {
+  .modelBox {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+}
+.canvasBoxCS {
+  width: 30vw;
+  height: 30vw;
+}
+
+.canvasBoxCat {
+  width: 30vw;
+  height: 30vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .canvasBoxCS {
+    height: 40vh;
+    width: 40vh;
+  }
+  .canvasBoxCat {
+    width: 100vw;
+    height: 100vw;
+  }
+}
+.loaderCat, .loaderCS {
   background-color: var(--background-color);
   display: flex;
   flex-direction: column;
@@ -15,24 +56,36 @@
   z-index: 1000;
 }
 
+.loaderCS {
+  width: 30vw;
+  height: 30vw;
+}
+
+.loaderCat {
+  width: 30vw;
+  height: 30vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .loaderCS {
+    height: 40vh;
+    width: 40vh;
+  }
+  .loaderCat {
+    height: 100vw;
+    width: 100vw;
+  }
+}
 .loaderIcon {
   background-color: var(--background-color);
 }
 
-.model {
-  width: inherit;
-  cursor: pointer;
-}
-
-.modelBox {
-  position: relative;
-}
-
 .caseStudyBox {
   position: absolute;
-  top: 10%;
+  top: 5vh;
   left: 10%;
   width: 80%;
+  height: 90vh;
   border: 1px solid var(--font-color);
   background-color: var(--background-color);
 }
@@ -53,6 +106,12 @@
   border: 1px var(--font-color) solid;
   z-index: 100000;
   padding: 3px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .hoverName {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=catalogue.module.css.map */

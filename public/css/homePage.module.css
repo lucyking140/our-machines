@@ -7,6 +7,7 @@
   left: 15px;
   border: 1px var(--font-color) solid;
   width: 250px;
+  z-index: 1000000;
   background-color: var(--background-color);
   font-family: var(--font-family);
   color: var(--font-color);

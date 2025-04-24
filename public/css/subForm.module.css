@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  width: 90%;
+  padding: 0px 5%;
+  font-size: 1.5rem;
+  position: relative;
+}
+
+.modelName {
+  font-size: 2rem;
+  padding-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.textContent {
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .textContent {
+    font-size: 2rem;
+  }
+  .modelName {
+    font-size: 3rem;
+  }
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+}
+.formContainer input {
+  border: 1px var(--font-color) solid;
+  padding: 5px 10px;
+  width: inherit;
+  font-family: var(--font-family);
+}
+.formContainer input:focus {
+  border: 1px var(--font-color) solid;
+  border-radius: 0px;
+  outline: none;
+}
+.formContainer button {
+  background-color: var(--font-color);
+  color: var(--background-color);
+  width: 100%;
+  font-family: var(--font-family);
+  border: 1px var(--font-color) solid;
+  padding: 5px 0px;
+  outline: none;
+}
+
+.formEntry {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input {
+  width: 100%;
+  height: 3vh;
+}
+
+/*# sourceMappingURL=subForm.module.css.map */

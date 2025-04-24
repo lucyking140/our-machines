@@ -1,43 +1,129 @@
+$csMobile: 40vh;
+$csDesk: 30vw;
+$catMobile: 100vw;
+$catDesk: 30vw;
+
+
 .collection{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.loader{
-    width: 300px;
-    height: 300px;
+.model{
+    // width: inherit;
+    cursor: pointer;
+    width: inherit;
+    //background-color: lightblue;
+    // position: relative;
+}
+
+@media only screen and (max-width: 1000px) {
+    .model{
+        width: 100%;
+        // height: 40vh;
+    }
+}
+
+
+
+.modelBox{
+    // to center on mobile
+    // position: relative;
+    // display: flex;
+    // flex-direction: column;
+    // width: 96vw;
+    // align-items: center;
+    // background-color: red;
+    position: relative;
+    // width: inherit;
+}
+
+@media only screen and (max-width: 1000px) {
+    .modelBox{
+        // not pos rel allows loaders to show, idk why
+        position: static;
+        display: flex;
+        flex-direction: column;
+        width: 100%; //96vw;
+        // height: 60vh;
+        align-items: center;
+        // background-color: red;
+    }
+}
+
+// SETTING UP MODEL SIZE -- needs to match loader size and is dif in all 4 cases
+
+// in case study
+.canvasBoxCS{
+    width: $csDesk;
+    height: $csDesk;
+}
+
+// in catalogue
+.canvasBoxCat{
+    width: $catDesk;
+    height: $catDesk;
+}
+
+@media only screen and (max-width: 1000px){
+    .canvasBoxCS{
+        height: $csMobile;
+        width: $csMobile;
+    }
+
+    .canvasBoxCat{
+        width: $catMobile;
+        height: $catMobile;
+    }
+}
+
+// same as above but for loader
+
+%loader-shared{
     background-color: var(--background-color);
-    // background-color: lightblue;
+    //background-color: lightgreen;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    // position: absolute;
-    // top: 0
+}
+
+.loaderCS{
+    @extend %loader-shared;
+    width: $csDesk;
+    height: $csDesk;
+}
+
+.loaderCat{
+    @extend %loader-shared;
+    width: $catDesk;
+    height: $catDesk;
+}
+    
+@media only screen and (max-width: 1000px){
+    .loaderCS{
+        height: $csMobile;
+        width: $csMobile;
+    }
+    
+    .loaderCat{
+        height: $catMobile;
+        width: $catMobile;
+    }
 }
 
 .loaderIcon{
     background-color: var(--background-color);
 }
 
-.model{
-    width: inherit;
-    cursor: pointer;
-    // position: relative;
-}
-
-.modelBox{
-    position: relative;
-}
-
 .caseStudyBox{
     position: absolute;
-    top: 10%;
+    top: 5vh;
     left: 10%;
     width: 80%;
-    // height: 80%;
+    height: 90vh;
     border: 1px solid var(--font-color);
     background-color: var(--background-color);
 }
@@ -58,4 +144,11 @@
     border: 1px var(--font-color) solid;
     z-index: 100000;
     padding: 3px;
+}
+
+@media only screen and (max-width: 1000px){
+    // no need for hover name on mobile
+    .hoverName{
+        display: none;
+    }
 }

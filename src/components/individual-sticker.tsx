@@ -39,13 +39,12 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             }, 1000);
         }
     };
-
     // drag STARTS
 
     // for mobile
 
     // https://phuoc.ng/collection/react-drag-drop/make-an-element-draggable-on-touchscreen-devices/ 
-    const handleTouchDown = (e: React.TouchEvent) => {
+    const handleTouchDown = (e: TouchEvent) => {
 
         console.log("reaching handleTouchDown");
 
@@ -114,7 +113,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         }
     }    
 
-    const handleResizeTouchDown = (e: React.TouchEvent) => {
+    const handleResizeTouchDown = (e: TouchEvent) => {
         console.log("handle resizeTouchDown");
 
         setIsResizing(true);
@@ -161,7 +160,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         }
     }
 
-    const handleResizeTouchMove = (e: React.TouchEvent ) => {
+    const handleResizeTouchMove = (e: TouchEvent ) => {
         console.log("handleResizeTouchMove");
 
         e.preventDefault();
@@ -181,7 +180,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         setHeight(newW);
     }
 
-    const handleTouchUp = (e: React.TouchEvent) => {
+    const handleTouchUp = (e: TouchEvent) => {
         console.log("reaching handle touch up");
         
         // changedTouches is list of touches taht are no longer on the screen (aka the one we're looking for)
@@ -208,14 +207,17 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         document.removeEventListener('touchend', handleTouchUp);
 
         // idk attempt to avoid calling resize on touch, didn't work
-        document.removeEventListener('touchmove', handleResizeTouchMove);
-        document.removeEventListener('touchend', handleResizeTouchUp);
+        //document.removeEventListener('touchmove', handleResizeTouchMove);
+        //document.removeEventListener('touchend', handleResizeTouchUp);
+        //document.removeEventListener('touchmove', handleResizeTouchMove, { passive: false });
+        //document.removeEventListener('touchend', handleResizeTouchUp, { passive: false });
         
         if (onDragEnd) {
 
             const newX = touch.clientX - dragOffRef.current.x;
             const newY = touch.clientY - dragOffRef.current.y;
             
+
             onDragEnd({
                 target: {
                     x: () => newX,
