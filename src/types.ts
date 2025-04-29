@@ -1,10 +1,13 @@
 export interface Model3D {
     name: string;
     modelPath: string;
-    textContent: string;
+    textContent: [];
     camPos: number;
     light: number;
     CS_camPos: number;
+    subtitle: string;
+    origin: number;
+    primary_influences: [];
 }
 
 // export type {Model3D as Model3DType};

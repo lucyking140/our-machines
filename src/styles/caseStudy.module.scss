@@ -1,25 +1,40 @@
 .container{
     display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
+    flex-direction: row-reverse; //column;
     overflow-x: hidden;
     height: 80vh;
     width: 80vw;
+    align-items: flex-start
     // position: relative;
+}
+
+@media only screen and (max-width: 1000px){
+
+    .container{
+        flex-direction: column;
+    }
+}
+
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 80vh;
 }
 
 .modelName{
     font-size: 2rem;
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 .content{
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 .model{
-    width: 80vw;
+    // width: 80vw;
 }
 
 @media only screen and (max-width: 1000px){
@@ -30,28 +45,36 @@
 }
 
 .header{
-    position: sticky;
-    top: 0;
+    // position: sticky;
+    // top: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     z-index: 100;
     background-color: var(--background-color);
 }
 
+.subheader{
+    padding: 10px 20px;
+    font-size: 1.5rem;
+}
+
 .textContent{
-    padding: 20px;
+    overflow-y: scroll;
+    padding: 3vh;
     font-size: 1rem;
     line-height: 2rem;
+    // height: 90%;
 }
 
 .para{
-    padding-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 @media only screen and (max-width: 1000px){
+
     .textContent{
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .modelName{

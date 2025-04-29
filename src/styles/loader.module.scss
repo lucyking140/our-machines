@@ -26,3 +26,9 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+// FOR MINI LOADER
+
+.loaderIcon{
+  background-color: var(--background-color);
+}

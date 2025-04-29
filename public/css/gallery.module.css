@@ -1,5 +1,6 @@
 .allContainer {
   padding: 30px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -119,6 +120,21 @@
   align-items: center;
 }
 
+.uploadBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--font-color);
+  color: var(--background-color);
+  text-align: center;
+  cursor: pointer;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+
 .uploadButtonBlank {
   width: inherit;
   height: 1.5vh;
@@ -137,6 +153,30 @@
 
 .subtitle {
   padding-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.loaderBox {
+  background-color: var(--background-color);
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=gallery.module.css.map */

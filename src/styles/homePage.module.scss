@@ -17,6 +17,7 @@
 .personalizemenubutton{
     padding: 7px;
     cursor: pointer;
+    // font-size: 1.5rem;
     //background-color: lightpink;
 }
 
@@ -56,4 +57,23 @@
     cursor: pointer;
     // width: inherit;
     // background-color: lightpink;
+}
+
+.footerTitle{
+    position: fixed;
+    bottom: 7px;
+    right: 2vw;
+    padding: 7px;
+    font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 1000px){
+    .footerTitle{
+        display: none;
+    }
+}
+
+.link{
+    text-decoration: none;
+    color: var(--font-color);
 }

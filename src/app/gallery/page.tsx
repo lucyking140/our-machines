@@ -7,10 +7,13 @@ import styles from "../../../public/css/gallery.module.css";
 import React, {useState, useEffect} from 'react';
 
 import {SubmissionForm} from "../../components/SubmissionForm";
-import {MenuIcon, PlusIcon} from "../../components/icons";
+import {Loader} from "../../components/loader";
+
+import {MenuIcon, PlusIcon, UploadIcon} from "../../components/icons";
 import SubInfo from "../../components/subInfo";
 
 import { usePersContext } from "../contexts/usePersContext";
+import { getSelectUtilityClasses } from "@mui/material";
 
 /*
 Collection of other users' personalizations
@@ -79,35 +82,40 @@ export default function Gallery() {
     const [uploadForm, setUploadForm] = React.useState<boolean | null>(false);
 
     const toggleSubForm = () =>{
-        setUploadForm(!uploadForm);
-        console.log("reaching toggle form");
-        if (document.body.style.overflow=='scroll'){
-            document.body.style.overflow='hidden';
-            console.log("changing to hidden");
-        } else {
+        //console.log("reaching toggle form");
+        if (uploadForm){ // we are now turning the uploadForm OFF
             document.body.style.overflow='scroll';
-            console.log("changing to scroll");
+            //console.log("changing to scroll");
+        } else {
+            document.body.style.overflow='hidden';
+            //console.log("changing to hidden");
         }
+
+        setUploadForm(!uploadForm);
     }
 
     // opens a case study component for the given model
     const openCaseStudy = (sub) => {
         setCaseStudy(sub);
         document.body.style.overflow='hidden';
+        //console.log("setting hidden");
     };
 
     const handleCSClose = () => {
         setCaseStudy(null);
         document.body.style.overflow='scroll';
+        //console.log("setting scroll");
     };
 
     const caseStudyDiv = caseStudy ? (
         
-        <div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
-            <div className={styles.close} onClick={handleCSClose}>
-                <PlusIcon fill={features.fontColor} size='30px' />
+        <div className={styles.overlay}>
+            <div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
+                <div className={styles.close} onClick={handleCSClose}>
+                    <PlusIcon fill={features.fontColor} size='30px' />
+                </div>
+                <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
             </div>
-            <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
         </div>
       ): null;
 
@@ -168,7 +176,10 @@ export default function Gallery() {
     
     return(
         <div>
+            {/* <div className={styles.backButton}> */}
             <BackButton destination={"/"} />
+            {/* </div> */}
+            
             <div className={styles.allContainer}>
 
                 <div className={styles.title}>
@@ -178,7 +189,12 @@ export default function Gallery() {
                 <div className={styles.subtitle}> 
                     {/* So many of our projections of self are meaningless without interaction with others  */}
                     Expressive objects gain meaning when experienced collectively. Here, explore personal devices that others consider particularly   
-                    meaningful to themselves and their communities. Reflect on what you might assume about them from their items and step into their
+                    meaningful to themselves and their communities. 
+
+                    <br />
+                    <br />
+                    
+                    Reflect on what you might assume about them from their items and step into their
                     shoes by applying their page customizations to your experience of the site. 
                 </div>
                 
@@ -195,19 +211,29 @@ export default function Gallery() {
                 }
                 {/* <div className={styles.header}> */}
                     
-                { !uploadForm ? 
+                {/* { !uploadForm ? 
                     <div className={styles.uploadButton} onClick={() =>{toggleSubForm()}}>
                         Submit your Creation
                     </div> : 
                     // just a blank button to make the page the same size
                     <div className={styles.uploadButtonBlank}> </div> 
-                }   
+                }    */}
             
                 
-                {loading ? <div> 
-                    Loading...
-                </div> 
+                {loading ? 
+                    <div className={styles.loaderBox}> 
+                        <Loader fill={features.fontColor} />
+                    </div> 
                 : <div className={styles.submissionContainer}>
+                    {/* submit box */}
+                    <div className={styles.submission} onClick={() => (toggleSubForm())}>
+                        
+                        <div className={styles.uploadBlock}>
+                            {/* <UploadIcon size='50px' fill={features.backgroundColor}/> */}
+                            <PlusIcon fill={features.backgroundColor} size='40px' />
+                            Share a personal device
+                        </div>
+                    </div>
                     {submissionBoxes}
                 </div> }
 

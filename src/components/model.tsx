@@ -9,6 +9,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { Model3D, Model3dType } from "../types";
 
+import {Loader} from "./loader";
+
 
 import styles from "../../public/css/catalogue.module.css";
 
@@ -108,43 +110,6 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
     setModelLoaded(true);
   };
 
-  const Loader = () => {
-    return (
-      <div className={inCaseStudy ? styles.loaderCS : styles.loaderCat}>
-        <div className={styles.loaderIcon} >
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill='none'
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="20"
-                cy="20"
-                r="18"
-                stroke={features.fontColor} // fill color
-                strokeWidth="4"
-                strokeDasharray="113"
-                strokeDashoffset="40"
-                strokeLinecap="round"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  from="0 20 20"
-                  to="360 20 20"
-                  dur="1s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </svg>
-          </div>
-
-      </div>
-    );
-  }
-
   const [hoverName, setHoverName] = useState(false);
   
   const handleMouseEnter = () => {
@@ -168,7 +133,11 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
                   {model.name}
               </div>
           ) : null }
-        <Suspense fallback={Loader()} >
+        <Suspense fallback={
+          <div className={inCaseStudy ? styles.loaderCS : styles.loaderCat}>
+            {<Loader fill={features.fontColor}/>}
+          </div>
+        } >
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {/* dif based on location to set width/height correctly */}
             <div className={inCaseStudy? styles.canvasBoxCS : styles.canvasBoxCat}>

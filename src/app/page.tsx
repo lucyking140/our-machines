@@ -39,7 +39,7 @@ export default function Home() {
               3000
             ]}
             wrapper="div"
-            speed={10}
+            speed={3}
             //style={{width: 'inherit', wordBreak: 'break-all', hyphens: 'auto'}}
             repeat={Infinity}
             preRenderFirstString={true}
@@ -49,9 +49,9 @@ export default function Home() {
         </div>
         {/* subtitle  */}
         <div className={styles.subtitle}>
-            How do we express ourselves at the border between physical and digital realms, 
-            <br />
-            in our digital spaces and devices we use to access them?
+            {/* How do we express ourselves at the border between physical and digital realms, in our digital spaces and devices we use to access them? */}
+            {/* Personal identity, expressed at the bridge between our digital spaces and devices we use to access them */}
+            Exploring our reflections through digital spaces and devices we use to access them
         </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>
@@ -65,13 +65,13 @@ export default function Home() {
                     <Link key={"intro"}
                     href={{
                       pathname: '/intro',
-                    }} > EDITOR'S NOTE - digital manifestations of the real | real manifestations of the digital </Link>
+                    }} > <div className={styles.menuHeader}>EDITOR'S NOTE</div> digital manifestations of the physical ; physical manifestations of the digital </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"case-studies"} href={`/case-studies`}> STATEMENT PIECES - a showroom for a few particularly descriptive devices </Link>
+                    <Link key={"case-studies"} href={`/case-studies`}> <div className={styles.menuHeader}>STATEMENT PIECES</div> a showroom for particularly descriptive devices </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"gallery"} href={`/gallery`}> OTHER PEOPLES’ THINGS - explore objects that have influenced others and submit your own </Link>
+                    <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>OTHER PEOPLES’ THINGS</div> an exposition objects that have influenced others and an opportunity submit your own </Link>
                   </div>
                 </div>
               ) : null}

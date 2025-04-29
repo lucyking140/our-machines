@@ -29,5 +29,8 @@
     transform: rotate(360deg);
   }
 }
+.loaderIcon {
+  background-color: var(--background-color);
+}
 
 /*# sourceMappingURL=loader.module.css.map */

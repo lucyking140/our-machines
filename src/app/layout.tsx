@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import '../../public/css/global.css';
+import Link from 'next/link';
 
 import { Providers } from './contexts/providers';
 
 import React from "react";
 import StickerContainer from "../components/stickerContainer";
+
+import styles from "../../public/css/homePage.module.css";
 
 export const metadata: Metadata = {
   title: "Our Machines",
@@ -27,6 +30,12 @@ export default function RootLayout({
 
             {/* Stickers container and footer */}
             <StickerContainer />
+            {/* title footer in lower right-hand corner */}
+            <div className={styles.footerTitle}>
+              <Link href="/" className={styles.link}>
+                OUR MACHINES
+              </Link>
+            </div>
         </Providers>
       </body>
      </html>

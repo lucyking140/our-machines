@@ -26,13 +26,15 @@ export default function SubInfo({sub, onSelect}: any) {
             By {data.Name}
         </div>) : null }
 
+        {data.Description ? (<div className={styles.textContent}>
+            {data.Description}
+        </div>) : null }
+
         {data.Name ? (<div className={styles.exploreButton} onClick={() => handleSelect(sub)}>
             Explore {data.Name}'s submission 
         </div>) : <div className={styles.exploreButton} onClick={() => handleSelect(sub)}> Explore this submission </div> }
 
-        {data.Description ? (<div className={styles.textContent}>
-            {data.Description}
-        </div>) : null }
+        
         
     </div>
     );
