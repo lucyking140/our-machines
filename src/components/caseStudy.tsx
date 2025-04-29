@@ -32,8 +32,8 @@ export default function CaseStudy({ model }: Model3dType) {
         </div>
         
         <div className={styles.textContent}>
-            Text content:
-            {model.textContent}
+            Text content NEW:
+            <div dangerouslySetInnerHTML={{ __html: model.textContent }} />
         </div>
       </div>
     </div>

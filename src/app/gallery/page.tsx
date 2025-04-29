@@ -170,6 +170,17 @@ export default function Gallery() {
         <div>
             <BackButton destination={"/"} />
             <div className={styles.allContainer}>
+
+                <div className={styles.title}>
+                    Other Peoples' Things
+                </div>
+
+                <div className={styles.subtitle}> 
+                    {/* So many of our projections of self are meaningless without interaction with others  */}
+                    Expressive objects gain meaning when experienced collectively. Here, explore personal devices that others consider particularly   
+                    meaningful to themselves and their communities. Reflect on what you might assume about them from their items and step into their
+                    shoes by applying their page customizations to your experience of the site. 
+                </div>
                 
                 { uploadForm &&
                 // onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}

@@ -61,13 +61,13 @@ export function SubmissionForm() {
 
                     {/* visual styles inputs */}
                     <div className={styles.formEntry}>
-                        <label for="title"> Your Site's Title </label>
-                        <input name="title" type="text" placeholder="Randomly generated if left blank" className={styles.input}/>
+                        <label for="title"> Title </label>
+                        <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input}/>
                     </div>
                     
                     <div className={styles.formEntry}>
                         <label for="title"> Your Name </label>
-                        <input name="name" type="text" placeholder="Optional" required className={styles.input} />
+                        <input name="name" type="text" placeholder="Optional" className={styles.input} />
                     </div>
 
                     <div className={styles.formEntry}>

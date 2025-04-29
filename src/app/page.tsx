@@ -47,6 +47,12 @@ export default function Home() {
             className={styles.animatedtitle}
           />
         </div>
+        {/* subtitle  */}
+        <div className={styles.subtitle}>
+            How do we express ourselves at the border between physical and digital realms, 
+            <br />
+            in our digital spaces and devices we use to access them?
+        </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>
           <div className={open ? styles.menuiconopen : styles.menuicon }>
@@ -59,13 +65,13 @@ export default function Home() {
                     <Link key={"intro"}
                     href={{
                       pathname: '/intro',
-                    }} > Introduction </Link>
+                    }} > EDITOR'S NOTE - digital manifestations of the real | real manifestations of the digital </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"case-studies"} href={`/case-studies`}> Case Studies </Link>
+                    <Link key={"case-studies"} href={`/case-studies`}> STATEMENT PIECES - a showroom for a few particularly descriptive devices </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"gallery"} href={`/gallery`}> User Gallery </Link>
+                    <Link key={"gallery"} href={`/gallery`}> OTHER PEOPLES’ THINGS - explore objects that have influenced others and submit your own </Link>
                   </div>
                 </div>
               ) : null}

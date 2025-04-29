@@ -43,6 +43,10 @@
   line-height: 2rem;
 }
 
+.para {
+  padding-bottom: 15px;
+}
+
 @media only screen and (max-width: 1000px) {
   .textContent {
     font-size: 2rem;

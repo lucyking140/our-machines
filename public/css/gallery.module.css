@@ -131,4 +131,12 @@
   justify-content: space-between;
 }
 
+.title {
+  font-size: 3rem;
+}
+
+.subtitle {
+  padding-bottom: 10px;
+}
+
 /*# sourceMappingURL=gallery.module.css.map */

@@ -454,7 +454,7 @@ export default function StickerContainer(){
             </div>
             
             <div className={styles.personalizemenubutton} onClick={handleOpenMenu} id="menu-button" ref={menuButtonRef} >
-                Add Personalization
+                Customize Page
             </div>
         </div>
     </div>
