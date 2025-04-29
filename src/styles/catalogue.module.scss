@@ -118,6 +118,29 @@ $catDesk: 30vw;
     background-color: var(--background-color);
 }
 
+.wholePage{
+    position: fixed;
+    top: 0vh;
+    left: 0vh;
+    width: 100vw;
+    height: 100vh;
+    background-color: none;
+    pointer-events: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
 .caseStudyBox{
     position: fixed;
     top: 5vh;
@@ -126,6 +149,7 @@ $catDesk: 30vw;
     height: 90vh;
     border: 1px solid var(--font-color);
     background-color: var(--background-color);
+    // pointer-events: auto;
 }
 
 .close{

@@ -76,11 +76,24 @@ export default function Gallery() {
     const [caseStudy, setCaseStudy] = React.useState(null);
 
     // show or hide upload submission form
-    const [uploadForm, setUploadForm] = React.useState<boolean | null>(null);
+    const [uploadForm, setUploadForm] = React.useState<boolean | null>(false);
+
+    const toggleSubForm = () =>{
+        setUploadForm(!uploadForm);
+        console.log("reaching toggle form");
+        if (document.body.style.overflow=='scroll'){
+            document.body.style.overflow='hidden';
+            console.log("changing to hidden");
+        } else {
+            document.body.style.overflow='scroll';
+            console.log("changing to scroll");
+        }
+    }
 
     // opens a case study component for the given model
     const openCaseStudy = (sub) => {
         setCaseStudy(sub);
+        document.body.style.overflow='hidden';
     };
 
     const handleCSClose = () => {
@@ -159,18 +172,20 @@ export default function Gallery() {
             <div className={styles.allContainer}>
                 
                 { uploadForm &&
-                
-                    <div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
-                        <div className={styles.close} onClick={() => {setUploadForm(false)}}>
-                            <PlusIcon fill={features.fontColor} size='30px' />
+                // onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}
+                    <div className={styles.overlay}>
+                        <div className={styles.caseStudyBox}>
+                            <div className={styles.close} onClick={() => {toggleSubForm()}}>
+                                <PlusIcon fill={features.fontColor} size='30px' />
+                            </div>
+                            <SubmissionForm />
                         </div>
-                        <SubmissionForm />
                     </div>
                 }
                 {/* <div className={styles.header}> */}
                     
                 { !uploadForm ? 
-                    <div className={styles.uploadButton} onClick={() =>{setUploadForm(true)}}>
+                    <div className={styles.uploadButton} onClick={() =>{toggleSubForm()}}>
                         Submit your Creation
                     </div> : 
                     // just a blank button to make the page the same size

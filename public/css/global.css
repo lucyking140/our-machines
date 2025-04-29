@@ -4,6 +4,10 @@
   --background-color: #fff9f5;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 div::selection {
   color: var(--background-color);
   background: var(--font-color);

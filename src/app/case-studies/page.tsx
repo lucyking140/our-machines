@@ -31,12 +31,14 @@ export default function Catalogue() {
   const openCaseStudy = (model: Model3dType) => {
     setCaseStudy(model);
     document.body.style.overflow='hidden';
+    //document.body.classList.add('no-scroll');
   };
 
   const handleCSClose = () => {
     setCaseStudy(null);
     // correcting scroll feature that we removed to avoid un-scroll when cs is open
     document.body.style.overflow='scroll';
+    //document.body.classList.remove('no-scroll');
   };
 
   // const modelHovers = modelData.map((model) => {
@@ -59,15 +61,27 @@ export default function Catalogue() {
     </div>
   ));
 
+  /*
+
+var link = document.querySelector('.link');
+link.addEventListener( 'click', function(e) {
+e.stopPropagation();
+ alert("link");
+});
+  */
+
   const caseStudyDiv = caseStudy ? (
     // from https://stackoverflow.com/questions/10211203/scrolling-child-div-scrolls-the-window-how-do-i-stop-that 
     //<div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
-    <div className={styles.caseStudyBox}>
-      <div className={styles.close} onClick={handleCSClose}>
-          <PlusIcon fill={features.fontColor} size='30px' />
-      </div>
-      <CaseStudy model={caseStudy} className={styles.caseStudy} />
+    <div className={styles.overlay}>
+        <div className={styles.caseStudyBox}>
+          <div className={styles.close} onClick={handleCSClose}>
+              <PlusIcon fill={features.fontColor} size='30px' />
+          </div>
+          <CaseStudy model={caseStudy} className={styles.caseStudy} />
+        </div>
     </div>
+    
   ): null;
 
   return (

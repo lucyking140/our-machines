@@ -75,6 +75,19 @@
     font-size: 2rem;
   }
 }
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
 .caseStudyBox {
   position: fixed;
   top: 10%;

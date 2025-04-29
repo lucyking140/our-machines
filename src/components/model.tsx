@@ -19,7 +19,6 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
   //   onModelLoaded(); // Still call onModelLoaded on error
   // });
   const gltf = useLoader(GLTFLoader, modelPath);
-  // After the model is fully loaded, call the callback
 
   const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
 
