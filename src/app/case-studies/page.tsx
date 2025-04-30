@@ -68,32 +68,32 @@ export default function Catalogue() {
 
   // const observer = new IntersectionObserver(callback, options);
 
-  // generating list of models for each item in modelData
-  // const models = modelData.map((model, i) => (
-  //   <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
-  //       <ModelViewer 
-  //           model={model}
-  //           width={null} // not used
-  //           height={null}
-  //           camPos={model.camPos}
-  //           light={model.light}
-  //           // onLoaded={handleModelLoaded}
-  //       />
-  //   </div>
-  // ));
+  //generating list of models for each item in modelData
   const models = modelData.map((model, i) => (
-    // testing repeating the test object 8 times
-    <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}-${i}`}  >
-         <ModelViewer 
-            model={modelData[0]}
+    <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
+        <ModelViewer 
+            model={model}
             width={null} // not used
             height={null}
-            camPos={modelData[0].camPos}
-            light={modelData[0].light}
+            camPos={model.camPos}
+            light={model.light}
             // onLoaded={handleModelLoaded}
         />
     </div>
   ));
+  // const models = modelData.map((model, i) => (
+  //   // testing repeating the test object 8 times
+  //   <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}-${i}`}  >
+  //        <ModelViewer 
+  //           model={modelData[0]}
+  //           width={null} // not used
+  //           height={null}
+  //           camPos={modelData[0].camPos}
+  //           light={modelData[0].light}
+  //           // onLoaded={handleModelLoaded}
+  //       />
+  //   </div>
+  // ));
 
   /*
 

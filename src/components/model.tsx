@@ -27,8 +27,6 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
   // loader.setMeshoptDecoder(MeshoptDecoder);
   // const gltf = useLoader(loader, modelPath); //formerly GLTF loader
 
-  // const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
-
   // const { scene } = useGLTF(modelPath, true, (loader) => {
   //   // Set up MeshoptDecoder for meshopt compression
   //   loader.setMeshoptDecoder(MeshoptDecoder);

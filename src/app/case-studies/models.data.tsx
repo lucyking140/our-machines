@@ -2,40 +2,23 @@
 // // list of all models with corresponding info to display
 
 export const modelData = [
-    // {
-    //     name: "Over-Ear Headphones",
-    //     modelPath: "/3d_models/koss_porta_pro/scene.gltf",
-    //     textContent: [
-    //         "Trends in personal technology also doesn't necessarily abide by the near-linear pace of technical development — instead, it can cycle more like fashion. Again, like in the fashion industry, there is a sense that previous generations did it better, removing such devices from the typically starry-eyed vision of technology's ever-improving quality. The popularity of first the wired and subsequently the over-ear headphone is one example of this cycle in action.",
-    //         "In 2021, after preferences had largely fallen in line with technical progress for years, wired headphones experienced a surge in popularity. This trend could be seen as a continuation of the broader Y2K movement, in which tech like tamagotchis and other gaming devices, digital cameras, and vintage headphones was a key component of the broader trend. The wired headphones were seen as an effortless indication of one's distance from the digital world.",
-    //         "The subsequent shift from the wired headphone to the over ear represents another frequent fashion cycle from minimalist to maximalist silhouettes. The release and popularity of the chunky, ostentatious Apple Airpod Maxes represent this transition at the corporate level, as the device has become both a status symbol due to its hefty price tag and a key component of 'clean girl' aesthetics that revolve around a sense of perfectly-manicured simplicity. The Maxes, like many of Apple's products, serve as a blank canvas for customization through decorative charms, covers, and cases, but a parallel rise of the Koss Porta Pros suggests that the choice of the device itself without additional decorations is also a form of personal expression.",
-    //         "The popularity of the Porta Pros represented a continuation of the wired headphone trend, providing a high-quality listening experience characteristic of over ear headphones while maintaining the affordable accessibility and distinctly retro aesthetic of the wired headphones. Unlike the maxes, these devices are themselves a personalization – they don't require any additional details other than their default 70s aesthetic to communicate their intended message.",
-    //         "As accessories that interact with our physical bodies much as clothes do, headphones are one item of personal technology that acts more like an article of clothing than a piece of technology — the choice of the item itself communicates a message about its owner, following a model of pre-purchased uniqueness in contrast to other personalizations that require more modifications to the object itself.",
-    //         "Like lovers of vinyl records or digital cameras, many over-ear headphone users accredit their choice to the devices' superior functionality, which also brings the message communicated by the device one layer deeper. Alluding to a sense of functionality portrays oneself as rational and passionate, perhaps alluding to the devices' owner's superior expertise — itself an impression caused by the choice to adorn oneself with a specific set."
-    //     ],
-    //     camPos: 1,
-    //     light: 20,
-    //     CS_camPos: 0.8,
-    //     subtitle: "Personal technology as fashion, trend cycles and all",
-    //     origin: 2000,
-    //     primary_influences: ["gen z", "music"],
-    // },
     {
-        name: "TEST",
-        modelPath: "/3d_models/output.glb",
+        name: "Over-Ear Headphones",
+        modelPath: "/3d_models/koss_porta_pro.glb", //"/3d_models/koss_porta_pro/scene.gltf",
         textContent: [
-            "We identify ourselves not only through personal expression, but also through who we choose to associate with. When one choses to depict someone on their lock screen, this otherwise often unsaid dynamic is manifested as a physical indicator of one's most important connection.",
-            "Intentional announcements of one's relationships, especially romantic ones, has been a key tradition for many, dating from the era of news paper ads. First translated to the digital world through features like Facebook's relationship status, symbols of our commitment to our significant other are a key step in the strictly-defined and oft-discussed prescribed path to romantic success. In this dynamic, the public nature of the announcement is key -- bringing the relationship from the uncertainty of a secret out for anyone to see holds both members accountable to their relationship's many witnesses.",
-            "After use of the Facebooks relationship status has plummeted in the last 10 years, many users suggest that it was also this sense of publicness that prompted them to move away from the app's status update feature. Today, representing one's relationship through their lock screen continues to build on Facebook's digitization of the relationship status — while still the most public component of one's cell phone, the lock screen is theoretically accessible to anyone who might take only a passing glance toward a phone — reducing the directness of the status update while still clearly indicating that the relationship is no longer secret or private.",
-            "The use of the cell phone in recording our most valued relationships also acknowledges that the phone has taken over the role of 'default' personal object from something like the wallet. Storing one's image in your wallet was previously high praise, with the wallet representing an object that is so necessary and often-used that placing an image inside it indicates a desire to keep constantly close with its subject. Now, this same sentiment is ascribed to the cell phone — with the average person checking their phone 58 times per day, the lock screen truly is one of the most prominent mediums we view.",
-            "Inversely, our choice of where to display relationship announcements also reflects their immense personal value — in a wallet, the images of one's loved ones sit directly next to one's official IDs, suggesting that those people contribute to one's identity as much as their official status. Similarly, on Facebook, one's relationship status is displayed along with their profile, placing one's partner as an identifying trait just like a name or biography. Perhaps this pattern suggests that the cell phone has also increasingly become our form of identification [DIDN'T WE TALK ABOUT THIS IN CLASS], as it is the most accessible device through which we message, post, and document our digital lives."
+            "Trends in personal technology also doesn't necessarily abide by the near-linear pace of technical development — instead, it can cycle more like fashion. Again, like in the fashion industry, there is a sense that previous generations did it better, removing such devices from the typically starry-eyed vision of technology's ever-improving quality. The popularity of first the wired and subsequently the over-ear headphone is one example of this cycle in action.",
+            "In 2021, after preferences had largely fallen in line with technical progress for years, wired headphones experienced a surge in popularity. This trend could be seen as a continuation of the broader Y2K movement, in which tech like tamagotchis and other gaming devices, digital cameras, and vintage headphones was a key component of the broader trend. The wired headphones were seen as an effortless indication of one's distance from the digital world.",
+            "The subsequent shift from the wired headphone to the over ear represents another frequent fashion cycle from minimalist to maximalist silhouettes. The release and popularity of the chunky, ostentatious Apple Airpod Maxes represent this transition at the corporate level, as the device has become both a status symbol due to its hefty price tag and a key component of 'clean girl' aesthetics that revolve around a sense of perfectly-manicured simplicity. The Maxes, like many of Apple's products, serve as a blank canvas for customization through decorative charms, covers, and cases, but a parallel rise of the Koss Porta Pros suggests that the choice of the device itself without additional decorations is also a form of personal expression.",
+            "The popularity of the Porta Pros represented a continuation of the wired headphone trend, providing a high-quality listening experience characteristic of over ear headphones while maintaining the affordable accessibility and distinctly retro aesthetic of the wired headphones. Unlike the maxes, these devices are themselves a personalization – they don't require any additional details other than their default 70s aesthetic to communicate their intended message.",
+            "As accessories that interact with our physical bodies much as clothes do, headphones are one item of personal technology that acts more like an article of clothing than a piece of technology — the choice of the item itself communicates a message about its owner, following a model of pre-purchased uniqueness in contrast to other personalizations that require more modifications to the object itself.",
+            "Like lovers of vinyl records or digital cameras, many over-ear headphone users accredit their choice to the devices' superior functionality, which also brings the message communicated by the device one layer deeper. Alluding to a sense of functionality portrays oneself as rational and passionate, perhaps alluding to the devices' owner's superior expertise — itself an impression caused by the choice to adorn oneself with a specific set."
         ],
         camPos: 1,
-        light: 1,
-        CS_camPos: 1,
-        subtitle: "The Facebook relationship status update, modernized",
+        light: 20,
+        CS_camPos: 0.8,
+        subtitle: "Personal technology as fashion, trend cycles and all",
         origin: 2000,
-        primary_influences: [],
+        primary_influences: ["gen z", "music"],
     },
     {
         name: "Mobile Lock Screens",
@@ -56,7 +39,7 @@ export const modelData = [
     },
     {
         name: "Mechanical Keyboards",
-        modelPath: "/3d_models/mechanical_keyboard_-_aesthetic/scene.glb",
+        modelPath: "/3d_models/mechanical_keyboard.glb", //"/3d_models/mechanical_keyboard_-_aesthetic/scene.glb",
         textContent: [
             "Personalizations aren't always visible. The rise of 'creamy' keyboards highlights an auditory characteristic that is uniquely communal – very few noises other than keyboard clicks are appropriate to hear from others in public – introducing a new sensory realm through which to express ourselves. Often built from foundational cases with infinitely-customizable keycaps, mechanical keyboards offer both visual and oral personalization.",
             "Elevating the keyboard click also incentivizes rapid typing to generate more of the desired sound. In this dimension, personalized creamy keyboards give productivity an aesthetic medium, as non-stop rapid typing becomes desirable not only to maximize work completed but also for one's auditory enjoyment.",
@@ -71,7 +54,7 @@ export const modelData = [
     },
     {
         name: "Smart Watches",
-        modelPath: "/3d_models/apple_watch_series_5/scene.gltf",
+        modelPath: "/3d_models/apple_watch.glb",//"/3d_models/apple_watch_series_5/scene.gltf",
         textContent: [],
         camPos: 0.8,
         light: 1,
@@ -82,7 +65,7 @@ export const modelData = [
     },
     {
         name: "Cell Phone Accessories",
-        modelPath: "/3d_models/phone-case.glb",
+        modelPath: "/3d_models/phone_case.glb",
         textContent: [
             "The smart phone revolutionized the shape of our telephones not only through its functionality but also its lack thereof – the perceived fragility of the early glass-encased smartphone models accelerated an existing trend to create protective cases that reduced damage on the increasingly expensive devices.",
             "Today, however, phone cases have become a key opportunity for personalization – one can choose their case based on color, texture, included accessories, and, of course, on its protective functionality. However, radical improvements in reinforced glass technology and an increasing availability of flimsy, obviously useless cases has led to the cases' aesthetic role trumping its functionality.",
@@ -114,7 +97,7 @@ export const modelData = [
     },
     {
         name: "Nintendo Switches",
-        modelPath: "/3d_models/nintendo_switch_2/scene.gltf",
+        modelPath: "/3d_models/nintendo_switch.glb", //"/3d_models/nintendo_switch_2/scene.gltf",
         textContent: [],
         camPos: 1.2,
         light: 1,
