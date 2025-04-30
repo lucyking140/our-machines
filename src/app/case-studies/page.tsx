@@ -46,6 +46,28 @@ export default function Catalogue() {
   //      value: false,}
   // });
 
+  // const options = {
+  //   root: document.querySelector("#scrollArea"),
+  //   rootMargin: "0px",
+  //   threshold: 1.0,
+  // };
+
+  // const callback = (entries, observer) => {
+  //   entries.forEach((entry) => {
+  //     // Each entry describes an intersection change for one observed
+  //     // target element:
+  //     //   entry.boundingClientRect
+  //     //   entry.intersectionRatio
+  //     //   entry.intersectionRect
+  //     //   entry.isIntersecting
+  //     //   entry.rootBounds
+  //     //   entry.target
+  //     //   entry.time
+  //   });
+  // };
+
+  // const observer = new IntersectionObserver(callback, options);
+
   // generating list of models for each item in modelData
   const models = modelData.map((model, i) => (
     <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >

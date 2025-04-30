@@ -20,38 +20,38 @@ export const modelData = [
         origin: 2000,
         primary_influences: ["gen z", "music"],
     },
-    // {
-    //     name: "Mobile Lock Screens",
-    //     modelPath: "/3d_models/patty-lock-phone.glb",
-    //     textContent: [
-    //         "We identify ourselves not only through personal expression, but also through who we choose to associate with. When one choses to depict someone on their lock screen, this otherwise often unsaid dynamic is manifested as a physical indicator of one's most important connection.",
-    //         "Intentional announcements of one's relationships, especially romantic ones, has been a key tradition for many, dating from the era of news paper ads. First translated to the digital world through features like Facebook's relationship status, symbols of our commitment to our significant other are a key step in the strictly-defined and oft-discussed prescribed path to romantic success. In this dynamic, the public nature of the announcement is key -- bringing the relationship from the uncertainty of a secret out for anyone to see holds both members accountable to their relationship's many witnesses.",
-    //         "After use of the Facebooks relationship status has plummeted in the last 10 years, many users suggest that it was also this sense of publicness that prompted them to move away from the app's status update feature. Today, representing one's relationship through their lock screen continues to build on Facebook's digitization of the relationship status — while still the most public component of one's cell phone, the lock screen is theoretically accessible to anyone who might take only a passing glance toward a phone — reducing the directness of the status update while still clearly indicating that the relationship is no longer secret or private.",
-    //         "The use of the cell phone in recording our most valued relationships also acknowledges that the phone has taken over the role of 'default' personal object from something like the wallet. Storing one's image in your wallet was previously high praise, with the wallet representing an object that is so necessary and often-used that placing an image inside it indicates a desire to keep constantly close with its subject. Now, this same sentiment is ascribed to the cell phone — with the average person checking their phone 58 times per day, the lock screen truly is one of the most prominent mediums we view.",
-    //         "Inversely, our choice of where to display relationship announcements also reflects their immense personal value — in a wallet, the images of one's loved ones sit directly next to one's official IDs, suggesting that those people contribute to one's identity as much as their official status. Similarly, on Facebook, one's relationship status is displayed along with their profile, placing one's partner as an identifying trait just like a name or biography. Perhaps this pattern suggests that the cell phone has also increasingly become our form of identification [DIDN'T WE TALK ABOUT THIS IN CLASS], as it is the most accessible device through which we message, post, and document our digital lives."
-    //     ],
-    //     camPos: 1,
-    //     light: 1,
-    //     CS_camPos: 1,
-    //     subtitle: "The Facebook relationship status update, modernized",
-    //     origin: 2000,
-    //     primary_influences: [],
-    // },
-    // {
-    //     name: "Mechanical Keyboards",
-    //     modelPath: "/3d_models/mechanical_keyboard_-_aesthetic/scene.glb",
-    //     textContent: [
-    //         "Personalizations aren't always visible. The rise of 'creamy' keyboards highlights an auditory characteristic that is uniquely communal – very few noises other than keyboard clicks are appropriate to hear from others in public – introducing a new sensory realm through which to express ourselves. Often built from foundational cases with infinitely-customizable keycaps, mechanical keyboards offer both visual and oral personalization.",
-    //         "Elevating the keyboard click also incentivizes rapid typing to generate more of the desired sound. In this dimension, personalized creamy keyboards give productivity an aesthetic medium, as non-stop rapid typing becomes desirable not only to maximize work completed but also for one's auditory enjoyment.",
-    //         "As well as perhaps motivating the keyboard's user to work more, the effervescent nature of keyboard noises also communicates a message to others that the keyboards' owner is performing efficiently. The dispersal of sound from such keyboards spreads their message to anyone nearby regardless of their intention to perceive the noise, serving as a constant communal reminder that the keyboard's owner is actively at work."
-    //     ],
-    //     camPos: 1,
-    //     light: 1,
-    //     CS_camPos: 1.1,
-    //     subtitle: "The curation of a personal sound",
-    //     origin: 2000,
-    //     primary_influences: [],
-    // },
+    {
+        name: "Mobile Lock Screens",
+        modelPath: "/3d_models/patty-lock-phone.glb",
+        textContent: [
+            "We identify ourselves not only through personal expression, but also through who we choose to associate with. When one choses to depict someone on their lock screen, this otherwise often unsaid dynamic is manifested as a physical indicator of one's most important connection.",
+            "Intentional announcements of one's relationships, especially romantic ones, has been a key tradition for many, dating from the era of news paper ads. First translated to the digital world through features like Facebook's relationship status, symbols of our commitment to our significant other are a key step in the strictly-defined and oft-discussed prescribed path to romantic success. In this dynamic, the public nature of the announcement is key -- bringing the relationship from the uncertainty of a secret out for anyone to see holds both members accountable to their relationship's many witnesses.",
+            "After use of the Facebooks relationship status has plummeted in the last 10 years, many users suggest that it was also this sense of publicness that prompted them to move away from the app's status update feature. Today, representing one's relationship through their lock screen continues to build on Facebook's digitization of the relationship status — while still the most public component of one's cell phone, the lock screen is theoretically accessible to anyone who might take only a passing glance toward a phone — reducing the directness of the status update while still clearly indicating that the relationship is no longer secret or private.",
+            "The use of the cell phone in recording our most valued relationships also acknowledges that the phone has taken over the role of 'default' personal object from something like the wallet. Storing one's image in your wallet was previously high praise, with the wallet representing an object that is so necessary and often-used that placing an image inside it indicates a desire to keep constantly close with its subject. Now, this same sentiment is ascribed to the cell phone — with the average person checking their phone 58 times per day, the lock screen truly is one of the most prominent mediums we view.",
+            "Inversely, our choice of where to display relationship announcements also reflects their immense personal value — in a wallet, the images of one's loved ones sit directly next to one's official IDs, suggesting that those people contribute to one's identity as much as their official status. Similarly, on Facebook, one's relationship status is displayed along with their profile, placing one's partner as an identifying trait just like a name or biography. Perhaps this pattern suggests that the cell phone has also increasingly become our form of identification [DIDN'T WE TALK ABOUT THIS IN CLASS], as it is the most accessible device through which we message, post, and document our digital lives."
+        ],
+        camPos: 1,
+        light: 1,
+        CS_camPos: 1,
+        subtitle: "The Facebook relationship status update, modernized",
+        origin: 2000,
+        primary_influences: [],
+    },
+    {
+        name: "Mechanical Keyboards",
+        modelPath: "/3d_models/mechanical_keyboard_-_aesthetic/scene.glb",
+        textContent: [
+            "Personalizations aren't always visible. The rise of 'creamy' keyboards highlights an auditory characteristic that is uniquely communal – very few noises other than keyboard clicks are appropriate to hear from others in public – introducing a new sensory realm through which to express ourselves. Often built from foundational cases with infinitely-customizable keycaps, mechanical keyboards offer both visual and oral personalization.",
+            "Elevating the keyboard click also incentivizes rapid typing to generate more of the desired sound. In this dimension, personalized creamy keyboards give productivity an aesthetic medium, as non-stop rapid typing becomes desirable not only to maximize work completed but also for one's auditory enjoyment.",
+            "As well as perhaps motivating the keyboard's user to work more, the effervescent nature of keyboard noises also communicates a message to others that the keyboards' owner is performing efficiently. The dispersal of sound from such keyboards spreads their message to anyone nearby regardless of their intention to perceive the noise, serving as a constant communal reminder that the keyboard's owner is actively at work."
+        ],
+        camPos: 1,
+        light: 1,
+        CS_camPos: 1.1,
+        subtitle: "The curation of a personal sound",
+        origin: 2000,
+        primary_influences: [],
+    },
     // {
     //     name: "Smart Watches",
     //     modelPath: "/3d_models/apple_watch_series_5/scene.gltf",

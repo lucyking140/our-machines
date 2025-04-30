@@ -62,22 +62,22 @@ export function SubmissionForm() {
                     {/* visual styles inputs */}
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="title"> What is this called? </label>
+                        <label htmlFor="title"> Device Name </label>
                         <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input}/>
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="name"> Who are you? </label>
-                        <input name="name" type="text" placeholder="publically-displayed name; randomly generated if left blank" className={styles.input} />
+                        <label htmlFor="name"> Your Name </label>
+                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="dev_img"> What does it look like? </label>
-                        <input name="dev_img" type="file" className={styles.input} />
+                        <label htmlFor="dev_img"> Upload an image </label>
+                        <input name="dev_img" type="file" placeholder="Upload an image" className={styles.input} />
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="about"> What about this device is particularly meaningful to you? </label>
+                        <label htmlFor="about"> What about this device is meaningful to you? </label>
                         <input name="about" type="text" placeholder="Optional" className={styles.input} />
                     </div>
 
