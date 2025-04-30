@@ -51,7 +51,7 @@ export default function Home() {
         <div className={styles.subtitle}>
             {/* How do we express ourselves at the border between physical and digital realms, in our digital spaces and devices we use to access them? */}
             {/* Personal identity, expressed at the bridge between our digital spaces and devices we use to access them */}
-            Exploring our reflections through digital spaces and devices we use to access them
+            Exploring our reflections in digital spaces and devices we use to access them
         </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>
@@ -71,7 +71,7 @@ export default function Home() {
                     <Link key={"case-studies"} href={`/case-studies`}> <div className={styles.menuHeader}>STATEMENT PIECES</div> a showroom for particularly descriptive devices </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>OTHER PEOPLES’ THINGS</div> an exposition objects that have influenced others and an opportunity submit your own </Link>
+                    <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>OTHER PEOPLES’ THINGS</div> an exposition of objects that have influenced others and an opportunity submit your own </Link>
                   </div>
                 </div>
               ) : null}

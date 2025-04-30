@@ -49,7 +49,7 @@ export default function CaseStudy({ model }: Model3dType) {
               {/* <div dangerouslySetInnerHTML={{ __html: model.textContent }} /> */}
               {model.textContent.map((par) => {
                 return(
-                  <div className={styles.para}>
+                  <div className={styles.para} key={par ? par.substring(0, 5) : "no para"}>
                     {par}
                   </div>
                 );

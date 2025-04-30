@@ -49,30 +49,36 @@ export function SubmissionForm() {
         <div className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.modelName}>
-                    Submit your Creation
+                    Submit your device
                 </div>
             </div>
             <div className={styles.content} >
-                <form name="designs" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" onSubmit={handleFormSubmit} className={styles.formContainer} >
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
                     <input type="hidden" name="features" value={JSON.stringify(features)} />
                     <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
 
                     {/* visual styles inputs */}
+
                     <div className={styles.formEntry}>
-                        <label for="title"> Title </label>
+                        <label htmlFor="title"> What is this called? </label>
                         <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input}/>
-                    </div>
-                    
-                    <div className={styles.formEntry}>
-                        <label for="title"> Your Name </label>
-                        <input name="name" type="text" placeholder="Optional" className={styles.input} />
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label for="title"> Description </label>
-                        <input name="description" type="text" placeholder="Optional" className={styles.input} />
+                        <label htmlFor="name"> Who are you? </label>
+                        <input name="name" type="text" placeholder="publically-displayed name; randomly generated if left blank" className={styles.input} />
+                    </div>
+
+                    <div className={styles.formEntry}>
+                        <label htmlFor="dev_img"> What does it look like? </label>
+                        <input name="dev_img" type="file" className={styles.input} />
+                    </div>
+
+                    <div className={styles.formEntry}>
+                        <label htmlFor="about"> What about this device is particularly meaningful to you? </label>
+                        <input name="about" type="text" placeholder="Optional" className={styles.input} />
                     </div>
 
                     <button type="submit" disabled={status === 'pending'}>
