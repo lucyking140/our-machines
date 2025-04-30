@@ -112,31 +112,31 @@ export const modelData = [
         origin: 2000,
         primary_influences: [],
     },
-    // {
-    //     name: "Nintendo Switches",
-    //     modelPath: "/3d_models/nintendo_switch_2/scene.gltf",
-    //     textContent: [],
-    //     camPos: 1.2,
-    //     light: 1,
-    //     CS_camPos: 0.9,
-    //     subtitle: "Engineering individuality",
-    //     origin: 2000,
-    //     primary_influences: [],
-    // },
-    // {
-    //     name: "Mobile Home Screens",
-    //     modelPath: "/3d_models/patty-home-phone.glb",
-    //     textContent: [
-    //         "Many personalizations are made to communicate a message to others, but the cell phone home screen is a space unlikely to be seen by many others. Despite this privacy, home screen organization has become an important expressive outlet for many. With a growing industry of highly-customizable digital organization tools that often pitch their necessity on a constant demand for optimization, home screen customization perhaps serves to as a self-affirmation of one's control and organization.",
-    //         "Like intricately-designed Notion pages and the growing popularity (https://business.yougov.com/content/49901-scribbles-and-screens-a-look-at-the-evolving-stationery-market-in-the-uk) of highly-optimized stationary products, a well-organized home screen is a near-constant reminder of one's sense of control. As our lives are increasingly reflected through the digital platforms we access through our home screens, maintaining its pristine aesthetic might percolate this sense of calm and control to the overwhelming digital world beyond the home screen."
-    //     ],
-    //     camPos: 1,
-    //     light: 1,
-    //     CS_camPos: 1,
-    //     subtitle: "Convincing ourselves of our own projections",
-    //     origin: 2000,
-    //     primary_influences: [],
-    // },
+    {
+        name: "Nintendo Switches",
+        modelPath: "/3d_models/nintendo_switch_2/scene.gltf",
+        textContent: [],
+        camPos: 1.2,
+        light: 1,
+        CS_camPos: 0.9,
+        subtitle: "Engineering individuality",
+        origin: 2000,
+        primary_influences: [],
+    },
+    {
+        name: "Mobile Home Screens",
+        modelPath: "/3d_models/patty-home-phone.glb",
+        textContent: [
+            "Many personalizations are made to communicate a message to others, but the cell phone home screen is a space unlikely to be seen by many others. Despite this privacy, home screen organization has become an important expressive outlet for many. With a growing industry of highly-customizable digital organization tools that often pitch their necessity on a constant demand for optimization, home screen customization perhaps serves to as a self-affirmation of one's control and organization.",
+            "Like intricately-designed Notion pages and the growing popularity (https://business.yougov.com/content/49901-scribbles-and-screens-a-look-at-the-evolving-stationery-market-in-the-uk) of highly-optimized stationary products, a well-organized home screen is a near-constant reminder of one's sense of control. As our lives are increasingly reflected through the digital platforms we access through our home screens, maintaining its pristine aesthetic might percolate this sense of calm and control to the overwhelming digital world beyond the home screen."
+        ],
+        camPos: 1,
+        light: 1,
+        CS_camPos: 1,
+        subtitle: "Convincing ourselves of our own projections",
+        origin: 2000,
+        primary_influences: [],
+    },
 ];
 
 // export const modelData = [
