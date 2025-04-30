@@ -69,15 +69,27 @@ export default function Catalogue() {
   // const observer = new IntersectionObserver(callback, options);
 
   // generating list of models for each item in modelData
+  // const models = modelData.map((model, i) => (
+  //   <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
+  //       <ModelViewer 
+  //           model={model}
+  //           width={null} // not used
+  //           height={null}
+  //           camPos={model.camPos}
+  //           light={model.light}
+  //           // onLoaded={handleModelLoaded}
+  //       />
+  //   </div>
+  // ));
   const models = modelData.map((model, i) => (
-    <div className={styles.model} onClick={() => (openCaseStudy(model))} key={`${model.modelPath}-${i}`}  >
-        
-        <ModelViewer 
-            model={model}
+    // testing repeating the test object 8 times
+    <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}-${i}`}  >
+         <ModelViewer 
+            model={modelData[0]}
             width={null} // not used
             height={null}
-            camPos={model.camPos}
-            light={model.light}
+            camPos={modelData[0].camPos}
+            light={modelData[0].light}
             // onLoaded={handleModelLoaded}
         />
     </div>
@@ -111,9 +123,29 @@ e.stopPropagation();
 
       {/* only show this when case study isn't open, otherwise action is kind of wierd */}
       { !caseStudy && <BackButton destination={"/"}  /> }
-    
+      {/* // just to get more models in */}
       <div className={styles.collection}>
           {models}
+          <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+         <ModelViewer 
+            model={modelData[0]}
+            width={null} // not used
+            height={null}
+            camPos={modelData[0].camPos}
+            light={modelData[0].light}
+            // onLoaded={handleModelLoaded}
+        />
+    </div>
+    <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+         <ModelViewer 
+            model={modelData[0]}
+            width={null} // not used
+            height={null}
+            camPos={modelData[0].camPos}
+            light={modelData[0].light}
+            // onLoaded={handleModelLoaded}
+        />
+    </div>
       </div>
 
       {caseStudyDiv}
