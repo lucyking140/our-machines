@@ -83,13 +83,13 @@ export default function Catalogue() {
   // ));
   const models = modelData.map((model, i) => (
     // testing repeating the test object 8 times
-    <div className={styles.model} onClick={() => (openCaseStudy(modelData[1]))} key={`${modelData[1].modelPath}-${i}`}  >
+    <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}-${i}`}  >
          <ModelViewer 
-            model={modelData[1]}
+            model={modelData[0]}
             width={null} // not used
             height={null}
-            camPos={modelData[1].camPos}
-            light={modelData[1].light}
+            camPos={modelData[0].camPos}
+            light={modelData[0].light}
             // onLoaded={handleModelLoaded}
         />
     </div>

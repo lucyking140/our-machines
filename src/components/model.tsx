@@ -6,6 +6,8 @@ import { OrbitControls, useGLTF, Center } from '@react-three/drei';
 import { usePersContext } from "../app/contexts/usePersContext";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+
 
 import { Model3D, Model3dType } from "../types";
 
@@ -20,7 +22,26 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
   //   console.error("Error loading model:", error);
   //   onModelLoaded(); // Still call onModelLoaded on error
   // });
-  const gltf = useLoader(GLTFLoader, modelPath);
+
+  // var loader = new GLTFLoader();
+  // loader.setMeshoptDecoder(MeshoptDecoder);
+  // const gltf = useLoader(loader, modelPath); //formerly GLTF loader
+
+  // const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
+
+  // const { scene } = useGLTF(modelPath, true, (loader) => {
+  //   // Set up MeshoptDecoder for meshopt compression
+  //   loader.setMeshoptDecoder(MeshoptDecoder);
+  // });
+
+  const gltf = useLoader(GLTFLoader, modelPath, (loader) => {
+    loader.setMeshoptDecoder(MeshoptDecoder);
+  });
+
+  // const { scene, nodes, materials } = useGLTF(modelPath, true, (error) => {
+  //   console.error("Error loading model:", error);
+  //   onModelLoaded(); // Still call onModelLoaded on error
+  // });
 
   const scene = gltf.scene.clone(); //THIS IS KEY TO AVOID THE CONTEXT LOSS ISSUE
 
@@ -78,7 +99,10 @@ function Model({modelPath, onModelLoaded}: {modelPath: string, onModelLoaded: ()
 // setting up camera to take into account model size
 function CameraSetup({modelPath, camPos}: {modelPath: string, camPos: number}) {
   const { camera } = useThree();
-  const gltf = useLoader(GLTFLoader, modelPath);
+  const gltf = useLoader(GLTFLoader, modelPath, (loader) => {
+    loader.setMeshoptDecoder(MeshoptDecoder);
+  });
+  //const gltf = useLoader(GLTFLoader, modelPath);
   
   useEffect(() => {
     if (gltf && gltf.scene) {

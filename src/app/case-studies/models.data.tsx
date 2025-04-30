@@ -22,7 +22,7 @@ export const modelData = [
     // },
     {
         name: "TEST",
-        modelPath: "/3d_models/opt_scene.glb",
+        modelPath: "/3d_models/output.glb",
         textContent: [
             "We identify ourselves not only through personal expression, but also through who we choose to associate with. When one choses to depict someone on their lock screen, this otherwise often unsaid dynamic is manifested as a physical indicator of one's most important connection.",
             "Intentional announcements of one's relationships, especially romantic ones, has been a key tradition for many, dating from the era of news paper ads. First translated to the digital world through features like Facebook's relationship status, symbols of our commitment to our significant other are a key step in the strictly-defined and oft-discussed prescribed path to romantic success. In this dynamic, the public nature of the announcement is key -- bringing the relationship from the uncertainty of a secret out for anyone to see holds both members accountable to their relationship's many witnesses.",
