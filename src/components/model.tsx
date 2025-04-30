@@ -144,13 +144,13 @@ const ModelViewer = ({model, width = 800, height=600, camPos=1, light=1, orbit=f
             <Canvas
               key={key}
               style={{ background: features.backgroundColor}}
-              onCreated={({ gl }) => {
-                // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
-                // gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
-                //   e.preventDefault();
-                //   console.log('WebGL context lost');
-                // }, false);
-              }}
+              // onCreated={({ gl }) => {
+              //   // from https://www.khronos.org/webgl/wiki/HandlingContextLost 
+              //   // gl.getContext().canvas.addEventListener('webglcontextlost', (e) => {
+              //   //   e.preventDefault();
+              //   //   console.log('WebGL context lost');
+              //   // }, false);
+              // }}
           >
             
             <ambientLight intensity={light} />
