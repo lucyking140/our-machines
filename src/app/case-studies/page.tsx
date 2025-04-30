@@ -126,43 +126,43 @@ e.stopPropagation();
       {/* // just to get more models in */}
       <div className={styles.collection}>
           {/* {models} */}
-          <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+          <div className={styles.model} onClick={() => (openCaseStudy(modelData[1]))} key={`${modelData[1].modelPath}`}  >
               <ModelViewer 
-                  model={modelData[0]}
+                  model={modelData[1]}
                   width={null} // not used
                   height={null}
-                  camPos={modelData[0].camPos}
-                  light={modelData[0].light}
+                  camPos={modelData[1].camPos}
+                  light={modelData[1].light}
                   // onLoaded={handleModelLoaded}
               />
           </div>
-          <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+          <div className={styles.model} onClick={() => (openCaseStudy(modelData[1]))} key={`${modelData[1].modelPath}`}  >
               <ModelViewer 
-                  model={modelData[0]}
+                  model={modelData[1]}
                   width={null} // not used
                   height={null}
-                  camPos={modelData[0].camPos}
-                  light={modelData[0].light}
+                  camPos={modelData[1].camPos}
+                  light={modelData[1].light}
                   // onLoaded={handleModelLoaded}
               />
           </div>
-          <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+          <div className={styles.model} onClick={() => (openCaseStudy(modelData[1]))} key={`${modelData[1].modelPath}`}  >
               <ModelViewer 
-                  model={modelData[0]}
+                  model={modelData[1]}
                   width={null} // not used
                   height={null}
-                  camPos={modelData[0].camPos}
-                  light={modelData[0].light}
+                  camPos={modelData[1].camPos}
+                  light={modelData[1].light}
                   // onLoaded={handleModelLoaded}
               />
           </div>
-          <div className={styles.model} onClick={() => (openCaseStudy(modelData[0]))} key={`${modelData[0].modelPath}`}  >
+          <div className={styles.model} onClick={() => (openCaseStudy(modelData[1]))} key={`${modelData[1].modelPath}`}  >
               <ModelViewer 
-                  model={modelData[0]}
+                  model={modelData[1]}
                   width={null} // not used
                   height={null}
-                  camPos={modelData[0].camPos}
-                  light={modelData[0].light}
+                  camPos={modelData[1].camPos}
+                  light={modelData[1].light}
                   // onLoaded={handleModelLoaded}
               />
           </div>
