@@ -46,10 +46,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         setContents({ [e.target.name]: e.target.files[0] });
       };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
-        fetch("/form.html", {
+        console.log("Form name: ", form.getAttribute("name"));
+        await fetch('/form.html', {
           method: "POST",
           headers: { 'Content-Type': 'multipart/form-data' },
           body: encode({
@@ -58,7 +59,18 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
           })
         })
         //   .then(() => navigateTo(form.getAttribute("action")))
-          .catch(error => alert(error));
+         .catch(error => alert(error));
+        //  setStatus('pending');
+        //  setError(null);
+        //  const myForm = e.target;
+        //  const formData = new FormData(myForm);
+        //  const res = await fetch('/form.html', {
+        //      method: 'POST',
+        //      // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //      headers: { 'Content-Type': 'multipart/form-data' },
+        //      //body: new URLSearchParams(formData).toString()
+        //      body: formData,
+        //  });
       };
 
     // const handleFormSubmit = async (event) => {
@@ -176,8 +188,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="name"> Your Name </label>
-                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
+                        <label htmlFor="name0"> Your Name </label>
+                        <input name="name0" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
                     </div>
 
                     <div className={styles.formEntry}>
