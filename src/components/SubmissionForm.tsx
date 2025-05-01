@@ -117,7 +117,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 // No headers - let browser set the content type with boundary
             });
             */
-            const res = await fetch('/form.html', {
+            const res = await fetch('/.netlify/functions/submission-created', {
                 method: 'POST',
                 //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 headers: { 'Content-Type': 'multipart/form-data' },
