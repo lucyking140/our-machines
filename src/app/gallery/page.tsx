@@ -159,17 +159,25 @@ export default function Gallery() {
                 <div className={styles.stickersContainer}>
                 
                 </div> */}
-                <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
-                    <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
-                        OUR MACHINES
+                {/* checking if the submission has an image attached, otherwise using plain background */}
+                { sub.dev_img ? 
+                    <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                        IMAGE URL: {sub.dev_img}
                     </div>
-                    <div className={styles.menuicon}>
-                        <MenuIcon fill={feats.fontColor}/>
+                 : <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                        <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
+                            OUR MACHINES
+                        </div>
+                        <div className={styles.menuicon}>
+                            <MenuIcon fill={feats.fontColor}/>
+                        </div>
                     </div>
-                </div>
+                }
+
                 <div className={styles.nameBox}> 
                     {sub.name}
                 </div>
+                
             </div>)
         });
     }
@@ -189,13 +197,13 @@ export default function Gallery() {
                 <div className={styles.subtitle}> 
                     {/* So many of our projections of self are meaningless without interaction with others  */}
                     Expressive objects gain meaning when experienced collectively. Here, explore personal devices that others consider particularly   
-                    meaningful to themselves and their communities. 
+                    meaningful and submit your own.
 
                     <br />
                     <br />
-                    
-                    Reflect on what you might assume about them from their items and step into their
-                    shoes by applying their page customizations to your experience of the site. 
+
+                    For a closer connection, step into their shoes by applying their personalizations to this site to your own.   
+                
                 </div>
                 
                 { uploadForm &&
@@ -205,7 +213,9 @@ export default function Gallery() {
                             <div className={styles.close} onClick={() => {toggleSubForm()}}>
                                 <PlusIcon fill={features.fontColor} size='30px' />
                             </div>
-                            <SubmissionForm />
+                            <div className={styles.subContent}>
+                                <SubmissionForm />
+                            </div>
                         </div>
                     </div>
                 }

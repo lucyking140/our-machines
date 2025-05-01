@@ -94,7 +94,7 @@
   top: 10%;
   left: 10%;
   width: 80%;
-  height: 80%;
+  height: 80vh;
   border: 1px solid var(--font-color);
   background-color: var(--background-color);
   z-index: 2;
@@ -102,10 +102,15 @@
 
 .close {
   width: 40px;
-  height: 40px;
+  height: 10%;
   padding: 15px;
   transform: rotate(45deg);
   cursor: pointer;
+}
+
+.subContent {
+  height: 80%;
+  overflow: scroll;
 }
 
 .uploadButton {
