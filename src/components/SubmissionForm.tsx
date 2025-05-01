@@ -76,7 +76,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 </div>
             </div>
             <div className={styles.content} >
-                <form name="designs" method="POST" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} >
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
                     <input type="hidden" name="features" value={JSON.stringify(features)} />
