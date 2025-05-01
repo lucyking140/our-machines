@@ -88,12 +88,12 @@ export function SubmissionForm() {
                     </div>
 
                     <div className={styles.formEntry}>
-                        {/* <label htmlFor="dev_img"> Upload an image </label> */}
-                        <label htmlFor="dev_img" style={{cursor: 'pointer'}} className={styles.switchLabel}>
+                        <label htmlFor="dev_img"> Upload an image </label>
+                        {/* <label htmlFor="dev_img" style={{cursor: 'pointer'}} className={styles.switchLabel}>
                             Upload an image
                             <PlusIcon fill={features.fontColor} size='30px'/>
-                        </label>
-                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} style={{display: 'none'}}/>
+                        </label> */}
+                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} />
                     </div>
 
                     <div className={styles.formEntry}>
