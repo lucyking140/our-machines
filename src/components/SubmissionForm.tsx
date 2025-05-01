@@ -120,7 +120,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             const res = await fetch('/.netlify/functions/submission-created', {
                 method: 'POST',
                 //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                headers: { 'Content-Type': 'multipart/form-data' },
+                //headers: { 'Content-Type': 'multipart/form-data' },
                 //headers: {'Content-Type': 'image/jpeg'},
                 //body: new URLSearchParams(formData).toString(),
                 body: formData,
