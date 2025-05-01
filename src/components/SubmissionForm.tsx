@@ -106,13 +106,14 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             setStatus('pending');
             setError(null);
             const myForm = event.target;
+            console.log("myForm, event.target: ", myForm);
             const formData = new FormData(myForm);
-            console.log("Form data: ", formData);
+            console.log("Form data: ", formData.getAll("dev_img"));
             console.log("Form data but formatted like body: ", new URLSearchParams(formData).toString());
             const res = await fetch('/form.html', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                //headers: { 'Content-Type': 'multipart/form-data' },
+                //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 'Content-Type': 'multipart/form-data' },
                 //headers: {'Content-Type': 'image/jpeg'},
                 body: new URLSearchParams(formData).toString(),
                 //body: formData,
@@ -157,7 +158,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                <form name="designs" method="POST" data-netlify="true"  onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} >
                 {/* <form
                     name="designs"
                     method="post"
@@ -191,8 +192,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     </div>
 
                     <div className={styles.formEntry}>
-                        <label htmlFor="name0"> Your Name </label>
-                        <input name="name0" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
+                        <label htmlFor="name"> Your Name </label>
+                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
                     </div>
 
                     <div className={styles.formEntry}>
@@ -210,8 +211,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     </div>
 
                     <div className={styles.formEntry}>
-                        {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> */}
-                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />
+                        {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
+                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
                         <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
                             {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
                             Make your personalizations to this site public?
