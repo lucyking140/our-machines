@@ -110,13 +110,20 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             const formData = new FormData(myForm);
             console.log("Form data: ", formData.getAll("dev_img"));
             console.log("Form data but formatted like body: ", new URLSearchParams(formData).toString());
+            /* backup option
+            const res = await fetch('/.netlify/functions/submission-created', {
+                method: 'POST',
+                body: formData,
+                // No headers - let browser set the content type with boundary
+            });
+            */
             const res = await fetch('/form.html', {
                 method: 'POST',
                 //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 headers: { 'Content-Type': 'multipart/form-data' },
                 //headers: {'Content-Type': 'image/jpeg'},
-                body: new URLSearchParams(formData).toString(),
-                //body: formData,
+                //body: new URLSearchParams(formData).toString(),
+                body: formData,
             });
             if (res.status === 200) {
                 setStatus('ok');
