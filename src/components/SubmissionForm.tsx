@@ -12,12 +12,13 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import styles from "../../public/css/subForm.module.css";
 
 // FROM https://opennext.js.org/netlify/forms 
-export function SubmissionForm() {
+export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
     const {features, stickers} = usePersContext();
 
     const [status, setStatus] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isPublic, setPublic] = useState<boolean | null>(false);
 
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
@@ -29,10 +30,12 @@ export function SubmissionForm() {
             setError(null);
             const myForm = event.target;
             const formData = new FormData(myForm);
-            const res = await fetch('/form.html', {
+            const res = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
+                //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 'Content-Type': 'multipart/form-data' },
+                //body: new URLSearchParams(formData).toString()
+                body: formData
             });
             if (res.status === 200) {
                 setStatus('ok');
@@ -45,6 +48,10 @@ export function SubmissionForm() {
             setError(`${e}`);
         }
     };
+
+    const handleSwitchChange = () => {
+        setPublic(!isPublic);
+    }
     /*
     things to submit:
     - features
@@ -67,7 +74,7 @@ export function SubmissionForm() {
                 </div>
             </div>
             <div className={styles.content} >
-                <form name="designs" method="POST" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
                     <input type="hidden" name="features" value={JSON.stringify(features)} />
@@ -107,12 +114,12 @@ export function SubmissionForm() {
                         <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
                             {/* <PlusIcon fill={features.fontColor} size='30px'/> */}
                             Make your personalizations to this site public?
-                            <Switch color='primary' />
+                            <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
                         </label>
-                        <input name="personalizations" id="personalizations" type="checkbox" placeholder="Optional" className={styles.input} style={{display: 'none'}} />
+                       <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />
                     </div>
 
-                    <button type="submit" disabled={status === 'pending'}>
+                    <button type="submit" disabled={status === 'pending'} onClick={() => closeOnSubmit()}>
                         Submit
                     </button>
 

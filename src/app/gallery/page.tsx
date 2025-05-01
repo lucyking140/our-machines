@@ -214,7 +214,7 @@ export default function Gallery() {
                                 <PlusIcon fill={features.fontColor} size='30px' />
                             </div>
                             <div className={styles.subContent}>
-                                <SubmissionForm />
+                                <SubmissionForm closeOnSubmit={toggleSubForm}/>
                             </div>
                         </div>
                     </div>
