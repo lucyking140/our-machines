@@ -37,7 +37,7 @@ export default function RootLayout({
             {/* title footer in lower right-hand corner */}
             <div className={styles.footerTitle}>
               <Link href="/" className={styles.link}>
-                OUR MACHINES
+                OUR_MACHINES
               </Link>
             </div>
         </Providers>

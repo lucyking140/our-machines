@@ -50,8 +50,26 @@ export default function Gallery() {
         }
     }
 
+    const verifyApply = (sub) => {
+        const data = sub.human_fields;
+        const sticks = JSON.parse(data.Stickers);
+
+        // if the user has applied any stickers, tell them before we delete them
+        if(sticks.length > 0){
+            // returning early and cancelling the action if so
+            if(confirm("Applying another user's submission will erase your current personalizations, including stickers")){
+                console.log("reaching affirmative case");
+                applySubmission(sub);
+            }
+
+        } else {
+            applySubmission(sub);
+        }
+    }
+
     // applying all of the features and stickers from sub onto the current page, removing all others
     const applySubmission = (sub) =>{
+        console.log("Reaching apply submission!");
 
         const data = sub.human_fields;
 
@@ -65,6 +83,7 @@ export default function Gallery() {
         changeFeature("font", feats.font);
 
         // clearing all stickers to replace them with new sub's stickers
+        console.log("reaching delete all stickers");
         deleteAllStickers();
 
         //adding new stickers
@@ -72,7 +91,7 @@ export default function Gallery() {
             addSticker(stick);
         });
 
-        setCaseStudy(null); //auto-closing case study
+        handleCSClose(); //auto-closing case study
     }
 
     // represents current open case study or none if there isn't one
@@ -98,13 +117,13 @@ export default function Gallery() {
     const openCaseStudy = (sub) => {
         setCaseStudy(sub);
         document.body.style.overflow='hidden';
-        //console.log("setting hidden");
+        console.log("setting hidden");
     };
 
     const handleCSClose = () => {
         setCaseStudy(null);
         document.body.style.overflow='scroll';
-        //console.log("setting scroll");
+        console.log("setting scroll");
     };
 
     const caseStudyDiv = caseStudy ? (
@@ -114,7 +133,7 @@ export default function Gallery() {
                 <div className={styles.close} onClick={handleCSClose}>
                     <PlusIcon fill={features.fontColor} size='30px' />
                 </div>
-                <SubInfo sub={caseStudy} onSelect={applySubmission} className={styles.caseStudy} />
+                <SubInfo sub={caseStudy} onSelect={verifyApply} className={styles.caseStudy} />
             </div>
         </div>
       ): null;

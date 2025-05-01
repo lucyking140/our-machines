@@ -1,9 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
-  height: 80vh;
-  width: 80vw;
+  width: 78vw;
   padding: 10px;
 }
 
@@ -12,18 +10,30 @@
   flex-direction: row;
 }
 
+.topImageBox {
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+  z-index: 300;
+  padding-bottom: 15px;
+}
+
+.topImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .header {
-  position: sticky;
-  top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 100;
   font-size: 2rem;
 }
 
 .name {
   font-size: 1.3rem;
+  padding: 10px 0px;
 }
 
 .textContent {
@@ -38,6 +48,22 @@
   width: 93%;
   margin: 10px 0px;
   font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.disabledExplore {
+  opacity: 80%;
+  background-color: var(--font-color);
+  color: var(--background-color);
+  padding: 5px;
+  width: 93%;
+  margin: 10px 0px;
+  font-size: 0.8rem;
+}
+
+.incompatible {
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 /*# sourceMappingURL=subInfo.module.css.map */

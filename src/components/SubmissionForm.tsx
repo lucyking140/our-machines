@@ -1,88 +1,3 @@
-// 'use client';
-
-// import { useState } from 'react';
-// import { usePersContext } from "../app/contexts/usePersContext";
-// import useWindowDimensions from "../hooks/useWindowDimensions";
-// import styles from "../../public/css/subForm.module.css";
-
-// export function SubmissionForm({ closeOnSubmit }: { closeOnSubmit: () => void }) {
-//   const { features, stickers } = usePersContext();
-//   const { width, height } = useWindowDimensions();
-
-//   const [name, setName] = useState('');
-//   const [devImg, setDevImg] = useState<File | null>(null);
-
-//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0] || null;
-//     setDevImg(file);
-//   };
-
-//   return (
-//     <div>
-//       <form
-//         className="formContainer"
-//         name="designs"
-//         method="POST"
-//         data-netlify="true"
-//         encType="multipart/form-data"
-//         onSubmit={() => {
-//           alert('Submitting form...');
-//           closeOnSubmit(); 
-//         }}
-//       >
-//         <input type="hidden" name="form-name" value="designs" />
-
-//         <label htmlFor="name">Name: </label>
-//         <input
-//           type="text"
-//           name="name"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//         />
-
-//         <div className={styles.formEntry}>
-//           <label htmlFor="dev_img">Upload an image</label>
-//           <input
-//             name="dev_img"
-//             id="dev_img"
-//             type="file"
-//             className={styles.input}
-//             onChange={handleFileChange}
-//           />
-//         </div>
-
-//         <input type="hidden" name="features" value={JSON.stringify(features)} />
-//         <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
-//         <input type="hidden" name="windowWidth" value={width} />
-//         <input type="hidden" name="windowHeight" value={height} />
-
-//         <div className={styles.formEntry}>
-//           <label htmlFor="title">Device Name</label>
-//           <input
-//             name="title"
-//             type="text"
-//             placeholder="Randomly generated if left blank"
-//             className={styles.input}
-//           />
-//         </div>
-
-//         <div className={styles.formEntry}>
-//           <label htmlFor="your_name">Your Name</label>
-//           <input
-//             name="your_name"
-//             type="text"
-//             placeholder="Randomly generated if left blank"
-//             className={styles.input}
-//           />
-//         </div>
-
-//         <button style={{ marginTop: '15px' }} type="submit">Submit</button>
-//       </form>
-//     </div>
-//   );
-// }
-
-
 'use client';
 
 import { useState } from 'react';
@@ -95,6 +10,7 @@ import { usePersContext } from "../app/contexts/usePersContext";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import styles from "../../public/css/subForm.module.css";
+import { generateSlug } from "random-word-slugs";
 
 import React from 'react';
 
@@ -105,6 +21,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const [status, setStatus] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isPublic, setPublic] = useState<boolean | null>(false);
+
+    // for random word replacements
+    const nameSlug = generateSlug();
+    const deviceSlug = generateSlug();
+    console.log("name slug: ", nameSlug);
 
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
@@ -117,6 +38,14 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
         const myForm = e.target;
         const formData = new FormData(myForm);
+
+        // if title or name is blank, randomly select them
+        if(formData.get("title") == ""){
+            formData.set("title", deviceSlug);
+        } 
+        if(formData.get("name") == ""){
+            formData.set("name", nameSlug);
+        } 
 
         console.log("file in formData: ", formData.get("dev_img"));
 
@@ -194,7 +123,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     {/* device name */}
                     <div className={styles.formEntry}>
                         <label htmlFor="title"> Device name </label>
-                        <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} />
+                        <input name="title" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
                     </div>
 
                     {/* author name */}
@@ -205,11 +134,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
                     {/* image/file upload */}
                     <div className={styles.formEntry} >
-                                    <label htmlFor="dev_img"> Upload an image </label>
-                                    <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
-                                    { invalidFile ? <div className={styles.validation}>
-                                        Invalid file type - please submit a different image. 
-                                    </div> : null}
+                        <label htmlFor="dev_img"> Upload an image of the device </label>
+                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
+                        { invalidFile ? <div className={styles.validation}>
+                            Invalid file type - please submit a different image. 
+                        </div> : null}
                     </div>
                     
 
@@ -486,4 +415,88 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 //             </div>
 //         </div>
 //     );
+// }
+
+// 'use client';
+
+// import { useState } from 'react';
+// import { usePersContext } from "../app/contexts/usePersContext";
+// import useWindowDimensions from "../hooks/useWindowDimensions";
+// import styles from "../../public/css/subForm.module.css";
+
+// export function SubmissionForm({ closeOnSubmit }: { closeOnSubmit: () => void }) {
+//   const { features, stickers } = usePersContext();
+//   const { width, height } = useWindowDimensions();
+
+//   const [name, setName] = useState('');
+//   const [devImg, setDevImg] = useState<File | null>(null);
+
+//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files?.[0] || null;
+//     setDevImg(file);
+//   };
+
+//   return (
+//     <div>
+//       <form
+//         className="formContainer"
+//         name="designs"
+//         method="POST"
+//         data-netlify="true"
+//         encType="multipart/form-data"
+//         onSubmit={() => {
+//           alert('Submitting form...');
+//           closeOnSubmit(); 
+//         }}
+//       >
+//         <input type="hidden" name="form-name" value="designs" />
+
+//         <label htmlFor="name">Name: </label>
+//         <input
+//           type="text"
+//           name="name"
+//           value={name}
+//           onChange={(e) => setName(e.target.value)}
+//         />
+
+//         <div className={styles.formEntry}>
+//           <label htmlFor="dev_img">Upload an image</label>
+//           <input
+//             name="dev_img"
+//             id="dev_img"
+//             type="file"
+//             className={styles.input}
+//             onChange={handleFileChange}
+//           />
+//         </div>
+
+//         <input type="hidden" name="features" value={JSON.stringify(features)} />
+//         <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+//         <input type="hidden" name="windowWidth" value={width} />
+//         <input type="hidden" name="windowHeight" value={height} />
+
+//         <div className={styles.formEntry}>
+//           <label htmlFor="title">Device Name</label>
+//           <input
+//             name="title"
+//             type="text"
+//             placeholder="Randomly generated if left blank"
+//             className={styles.input}
+//           />
+//         </div>
+
+//         <div className={styles.formEntry}>
+//           <label htmlFor="your_name">Your Name</label>
+//           <input
+//             name="your_name"
+//             type="text"
+//             placeholder="Randomly generated if left blank"
+//             className={styles.input}
+//           />
+//         </div>
+
+//         <button style={{ marginTop: '15px' }} type="submit">Submit</button>
+//       </form>
+//     </div>
+//   );
 // }

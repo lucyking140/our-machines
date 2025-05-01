@@ -1,29 +1,48 @@
 .container{
     display: flex;
     flex-direction: column;
-    overflow: scroll;
-    height: 80vh;
-    width: 80vw;
+    // overflow: scroll;
+    // height: 78vh;
+    width: 78vw;
     padding: 10px;
 
 }
 .content{
     display: flex;
     flex-direction: row;
+    // overflow: scroll;
+}
+
+.topImageBox{
+    width: 100%;
+    // padding-left: 10%;
+    height: 50vh;
+    overflow: hidden;
+    z-index: 300;
+    padding-bottom: 15px;
+}
+
+.topImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // overflow: hidden;
 }
 
 .header{
-    position: sticky;
-    top: 0;
+    // position: sticky;
+    // top: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    z-index: 100;
+    // z-index: 2;
     font-size: 2rem;
+    // padding-top: 50vh;
 }
 
 .name{
     font-size: 1.3rem;
+    padding: 10px 0px;
 }
 
 .textContent{
@@ -39,5 +58,21 @@
     width: 93%;
     margin: 10px 0px;
     font-size: 0.8rem;
-    
+    cursor: pointer;
+}
+
+.disabledExplore{
+    opacity: 80%;
+
+    background-color: var(--font-color);
+    color: var(--background-color);
+    padding: 5px;
+    width: 93%;
+    margin: 10px 0px;
+    font-size: 0.8rem;
+}
+
+.incompatible{
+    font-size: 0.8rem;
+    font-style: italic;
 }
