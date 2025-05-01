@@ -24,22 +24,43 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const {width, height} = useWindowDimensions();
 
     const handleFormSubmit = async (event) => {
+        // event.preventDefault();
+        // try {
+        //     setStatus('pending');
+        //     setError(null);
+        //     const myForm = event.target;
+        //     const formData = new FormData(myForm);
+        //     // const res = await fetch('/form.html', {
+        //     //     method: 'POST',
+        //     //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //     //     headers: { 'Content-Type': 'multipart/form-data' },
+        //     //     //body: new URLSearchParams(formData).toString()
+        //     //     body: formData
+        //     // });
+        //     const res = await fetch('/', {
+        //         method: 'POST',
+        //         body: formData
+        //     });
+        //     if (res.status === 200) {
+        //         setStatus('ok');
+        //     } else {
+        //         setStatus('error');
+        //         setError(`${res.status} ${res.statusText}`);
+        //     }
+        // } catch (e) {
+        //     setStatus('error');
+        //     setError(`${e}`);
+        // }
         event.preventDefault();
         try {
             setStatus('pending');
             setError(null);
             const myForm = event.target;
             const formData = new FormData(myForm);
-            // const res = await fetch('/form.html', {
-            //     method: 'POST',
-            //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            //     headers: { 'Content-Type': 'multipart/form-data' },
-            //     //body: new URLSearchParams(formData).toString()
-            //     body: formData
-            // });
-            const res = await fetch('/', {
+            const res = await fetch('/form.html', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
             });
             if (res.status === 200) {
                 setStatus('ok');
