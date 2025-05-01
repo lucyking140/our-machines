@@ -51,6 +51,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         const form = e.target;
         fetch("/", {
           method: "POST",
+          headers: { 'Content-Type': 'multipart/form-data' },
           body: encode({
             "form-name": form.getAttribute("name"),
             ...contents
