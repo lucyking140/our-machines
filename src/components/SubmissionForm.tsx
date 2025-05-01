@@ -53,10 +53,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         await fetch('/form.html', {
           method: "POST",
           headers: { 'Content-Type': 'multipart/form-data' },
-          body: encode({
-            "form-name": form.getAttribute("name"),
-            ...contents
-          })
+        //   body: encode({
+        //     "form-name": form.getAttribute("name"),
+        //     ...contents
+        //   })
+            body: form,
         })
         //   .then(() => navigateTo(form.getAttribute("action")))
          .catch(error => alert(error));
