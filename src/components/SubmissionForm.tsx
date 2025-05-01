@@ -30,7 +30,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             setError(null);
             const myForm = event.target;
             const formData = new FormData(myForm);
-            const res = await fetch('/', {
+            const res = await fetch('/form.html', {
                 method: 'POST',
                 //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 headers: { 'Content-Type': 'multipart/form-data' },
@@ -121,12 +121,13 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                        <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />
                     </div>
 
-                    <button type="submit" disabled={status === 'pending'} >
+                    {status === 'error' && <div>{error}</div>}
+
+                    <button type="submit" disabled={status === 'pending'} style={{cursor: 'pointer'}}>
                         Submit
                     </button>
 
                     {/* {status === 'ok' && <div> Submitted!</div>} */}
-                    {status === 'error' && <div>{error}</div>}
                 </form>
             </div>
         </div>
