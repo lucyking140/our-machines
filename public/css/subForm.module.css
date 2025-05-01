@@ -104,4 +104,9 @@
   justify-content: space-between;
 }
 
+.validation {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 /*# sourceMappingURL=subForm.module.css.map */

@@ -141,6 +141,20 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         setPublic(!isPublic);
     }
 
+    const [invalidFile, setInvalidFile ] = useState<boolean>(false);
+    const validateFile = (e) => {
+        const curFile = e.target.files[0];
+        console.log("curFile: ", curFile);
+        if (curFile){
+            const name = curFile.name;
+            if(name.includes(".HEIC") || name.includes(".heic")){
+                // alert("Wrong file type!");
+                setInvalidFile(true);
+                console.log("reaching heic case");
+            }
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -192,8 +206,12 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     {/* image/file upload */}
                     <div className={styles.formEntry} >
                                     <label htmlFor="dev_img"> Upload an image </label>
-                                    <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} />
+                                    <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
+                                    { invalidFile ? <div className={styles.validation}>
+                                        Invalid file type - please submit a different image. 
+                                    </div> : null}
                     </div>
+                    
 
                     {/* description */}
                     <div className={styles.formEntry}>
@@ -221,7 +239,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                    
                     {status === 'error' && <div>{error}</div>}
 
-                    <button type="submit" disabled={status === 'pending'} style={{cursor: 'pointer'}}>
+                    <button type="submit" disabled={status === 'pending' || invalidFile} style={{cursor: 'pointer'}}>
                         Submit
                     </button>
 

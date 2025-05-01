@@ -153,6 +153,7 @@ export default function Gallery() {
     if(submissions.length > 0){
         submissionBoxes = submissions.map((sub, i) =>{
             console.log("SUB: ", sub);
+            console.log("Sub img: ", sub.data.dev_img);
             const feats = JSON.parse(sub.data.features);
             return (<div className={styles.submission} key={`${sub.name}-${i}`} onClick={() => (openCaseStudy(sub))}>
                 {/* maps stickers over entire caseStudyBox
@@ -160,9 +161,10 @@ export default function Gallery() {
                 
                 </div> */}
                 {/* checking if the submission has an image attached, otherwise using plain background */}
-                { sub.dev_img ? 
+                { sub.data.dev_img ? 
                     <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
-                        IMAGE URL: {sub.dev_img}
+                        {/* IMAGE: {sub.data.dev_img.url.toString()} */}
+                        <img src={sub.data.dev_img.url} className={styles.thumbImg}/>
                     </div>
                  : <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
                         <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
