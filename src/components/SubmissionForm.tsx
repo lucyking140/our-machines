@@ -111,27 +111,27 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
     /////////////////
     // from https://github.com/dmytro-petrenko/sample-dropzone/blob/main/pages/index.js
-  const [name, setName] = useState('');
-  const [dev_img, setDevImg] = useState('');
-  // const [atachment, setAttachment] = useState([]);
+//   const [name, setName] = useState('');
+//   const [dev_img, setDevImg] = useState('');
+//   // const [atachment, setAttachment] = useState([]);
 
-  const nameHandler = (e) => {
-    setName(e.target.value)
-  };
+//   const nameHandler = (e) => {
+//     setName(e.target.value)
+//   };
 
-  const fileHandler = (e) => {
-    console.log("Entire target: ", e.target);
-    console.log("reached file handler for file: ", e.target.files);
-    setDevImg(e.target.files[0]);
-  };
+//   const fileHandler = (e) => {
+//     console.log("Entire target: ", e.target);
+//     console.log("reached file handler for file: ", e.target.files);
+//     // setDevImg(e.target.files[0]);
+//   };
   
   // const atachmentHandle = (e) => {
   //   console.log('Attached file: ', e.target.files[0])
   //   setAttachment(e.target.files[0]);
   // }
 
-  console.log('name: ', name);
-  console.log('dev_img: ', dev_img);
+//   console.log('name: ', name);
+//   console.log('dev_img: ', dev_img);
   // console.log('attachment: ', atachment);
 
   const encode = (data) => {
@@ -152,22 +152,22 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
   // };
 
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
 
     // testing this version with myForm
     const myForm = e.target;
     const formData = new FormData(myForm);
 
-    const data = { "form-name": "designs", name, dev_img }
-    console.log('Data: ', data);
+    //const data = { "form-name": "designs", name, dev_img }
+    //console.log('Data: ', data);
 
-    console.log('encoded data: ', encode(data).getAll("dev_img"));
+    //console.log('encoded data: ', encode(data).getAll("dev_img"));
 
     fetch("/form.html", {
       method: "POST",
       // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
       // headers: { "Content-Type": 'multipart/form-data' },
-      body: formData//encode(data)
+      body: formData //encode(data)
     })
       .then(() => alert("Form Submission Successful!!"))
       .catch(err => alert("Form Submission Failed!", err));
@@ -188,8 +188,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         >
         <input id='name' type="hidden" name="form-name" value="designs" />
 
-        <label htmlFor='name'>Name: </label>
-        <input type='text' name='name' value={name} onChange={(e) => nameHandler(e)} />
+        {/* <label htmlFor='name'>Name: </label>
+        <input type='text' name='name' value={name} onChange={(e) => nameHandler(e)} /> */}
 
         <div className={styles.formEntry}>
                         <label htmlFor="dev_img"> Upload an image </label>
