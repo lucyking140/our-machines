@@ -35,16 +35,16 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
 
-    const [contents, setContents] = useState<any>();
+    // const [contents, setContents] = useState<any>();
 
     
-      const handleChange = (e) => {
-        setContents({ [e.target.name]: e.target.value });
-      };
+    //   const handleChange = (e) => {
+    //     setContents({ [e.target.name]: e.target.value });
+    //   };
     
-      const handleAttachment = (e) => {
-        setContents({ [e.target.name]: e.target.files[0] });
-      };
+    //   const handleAttachment = (e) => {
+    //     setContents({ [e.target.name]: e.target.files[0] });
+    //   };
     
     //   const handleSubmit = async (e) => {
     //     // e.preventDefault();
@@ -110,9 +110,10 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             const res = await fetch('/form.html', {
                 method: 'POST',
                 // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                headers: { 'Content-Type': 'multipart/form-data' },
-                //body: new URLSearchParams(formData).toString()
-                body: formData,
+                //headers: { 'Content-Type': 'multipart/form-data' },
+                headers: {'Content-Type': 'image/jpeg'},
+                body: new URLSearchParams(formData).toString()
+                //body: formData,
             });
             if (res.status === 200) {
                 setStatus('ok');
@@ -154,7 +155,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                CORRECT ONE: <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
                 {/* <form
                     name="designs"
                     method="post"
@@ -182,7 +183,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
                     {/* visual styles inputs */}
 
-                    <div className={styles.formEntry}>
+                    {/* <div className={styles.formEntry}>
                         <label htmlFor="title"> Device Name </label>
                         <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} onChange={handleChange}/>
                     </div>
@@ -190,7 +191,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     <div className={styles.formEntry}>
                         <label htmlFor="name0"> Your Name </label>
                         <input name="name0" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
-                    </div>
+                    </div> */}
 
                     <div className={styles.formEntry}>
                         <label htmlFor="dev_img"> Upload an image </label>
@@ -201,27 +202,28 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                         <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={handleAttachment}/>
                     </div>
 
-                    <div className={styles.formEntry}>
+                    {/* <div className={styles.formEntry}>
                         <label htmlFor="about"> What about this device is meaningful to you? </label>
                         <input name="about" type="text" placeholder="Optional" className={styles.input} onChange={handleChange} />
                     </div>
 
                     <div className={styles.formEntry}>
                         {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label>
-                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} /> */}
+                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />
                         <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
-                            {/* <PlusIcon fill={features.fontColor} size='30px'/> */}
+                            {/* <PlusIcon fill={features.fontColor} size='30px'/>
                             Make your personalizations to this site public?
                             <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
                         </label>
-                       {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} /> */}
+                       {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />
                        <input
                             type="hidden"
                             name="personalizations"
                             value={isPublic ? "true" : "false"}
                             onChange={handleChange}
                         />
-                    </div>
+                    </div> 
+                    */}
 
                     {status === 'error' && <div>{error}</div>}
 
