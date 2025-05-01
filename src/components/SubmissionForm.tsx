@@ -53,7 +53,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const data = { "form-name": "designs", name, file }
     console.log('Data: ', data);
 
-    fetch("/", {
+    fetch("/form.html", {
       method: "POST",
       // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
       // headers: { "Content-Type": 'multipart/form-data' },
