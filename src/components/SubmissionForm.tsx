@@ -59,7 +59,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             const formData = new FormData(myForm);
             const res = await fetch('/form.html', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(formData).toString()
             });
             if (res.status === 200) {
@@ -144,7 +144,12 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             Make your personalizations to this site public?
                             <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
                         </label>
-                       <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />
+                       {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} /> */}
+                       <input
+                            type="hidden"
+                            name="personalizations"
+                            value={isPublic ? "true" : "false"}
+                        />
                     </div>
 
                     {status === 'error' && <div>{error}</div>}

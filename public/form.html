@@ -2,7 +2,8 @@
     <head></head>
     <body>
         <!-- <form name="designs" data-netlify="true" enctype="application/x-www-form-urlencoded" method="POST" hidden> -->
-        <form name="designs" data-netlify="true" enctype="multipart/form-data" method="POST" hidden>
+        <!-- <form name="designs" data-netlify="true" enctype="multipart/form-data" method="POST" hidden> -->
+        <form name="designs" data-netlify="true" method="POST" hidden>
             <input type="hidden" name="form-name" value="designs" />
             <input type="hidden" name="features" value="" />
             <input type="hidden" name="stickers" value="" />
@@ -13,7 +14,7 @@
             <input name="title" type="text" />
             <input name="about" type="text" />
             <input name="dev_img" type="file" />
-            <input name="personalizations" type="checkbox" />
+            <input type="hidden" name="personalizations" />
         </form>
     </body>
 </html>
