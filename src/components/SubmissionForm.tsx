@@ -35,16 +35,16 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
 
-    // const [contents, setContents] = useState<any>();
+    const [contents, setContents] = useState<any>();
 
     
-    //   const handleChange = (e) => {
-    //     setContents({ [e.target.name]: e.target.value });
-    //   };
+      const handleChange = (e) => {
+        setContents({ [e.target.name]: e.target.value });
+      };
     
-    //   const handleAttachment = (e) => {
-    //     setContents({ [e.target.name]: e.target.files[0] });
-    //   };
+      const handleAttachment = (e) => {
+        setContents({ [e.target.name]: e.target.files[0] });
+      };
     
     //   const handleSubmit = async (e) => {
     //     // e.preventDefault();
@@ -107,6 +107,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             setError(null);
             const myForm = event.target;
             const formData = new FormData(myForm);
+            console.log("Form data: ", formData);
             const res = await fetch('/form.html', {
                 method: 'POST',
                 // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
