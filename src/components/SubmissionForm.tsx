@@ -49,7 +49,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
       const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        fetch("/", {
+        fetch("/form.html", {
           method: "POST",
           headers: { 'Content-Type': 'multipart/form-data' },
           body: encode({
