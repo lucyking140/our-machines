@@ -158,7 +158,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} encType="multipart/form-data" className={styles.formContainer} >
                 {/* <form
                     name="designs"
                     method="post"
