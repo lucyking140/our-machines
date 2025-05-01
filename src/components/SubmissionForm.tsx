@@ -120,8 +120,9 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
   };
 
   const fileHandler = (e) => {
-    console.log("reached file handler for file: ", e.target.file[0]);
-    setDevImg(e.target.file[0]);
+    console.log("Entire target: ", e.target);
+    console.log("reached file handler for file: ", e.target.files);
+    setDevImg(e.target.files[0]);
   };
   
   // const atachmentHandle = (e) => {
@@ -187,7 +188,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
         <div className={styles.formEntry}>
                         <label htmlFor="dev_img"> Upload an image </label>
-                        <input name="dev_img" value={dev_img} id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={(e) => fileHandler(e)}/>
+                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={(e) => fileHandler(e)}/>
         </div>
 
         <input type="hidden" name="features" value={JSON.stringify(features)} />
