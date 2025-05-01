@@ -30,11 +30,15 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             setError(null);
             const myForm = event.target;
             const formData = new FormData(myForm);
-            const res = await fetch('/form.html', {
+            // const res = await fetch('/form.html', {
+            //     method: 'POST',
+            //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            //     headers: { 'Content-Type': 'multipart/form-data' },
+            //     //body: new URLSearchParams(formData).toString()
+            //     body: formData
+            // });
+            const res = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                //headers: { 'Content-Type': 'multipart/form-data' },
-                //body: new URLSearchParams(formData).toString()
                 body: formData
             });
             if (res.status === 200) {
@@ -76,7 +80,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 </div>
             </div>
             <div className={styles.content} >
-                <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                {/* <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
+                <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
                     <input type="hidden" name="features" value={JSON.stringify(features)} />
