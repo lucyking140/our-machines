@@ -153,6 +153,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
 
   const handleSubmit = e => {
+
+    // testing this version with myForm
+    const myForm = e.target;
+    const formData = new FormData(myForm);
+
     const data = { "form-name": "designs", name, dev_img }
     console.log('Data: ', data);
 
@@ -162,7 +167,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
       method: "POST",
       // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
       // headers: { "Content-Type": 'multipart/form-data' },
-      body: encode(data)
+      body: formData//encode(data)
     })
       .then(() => alert("Form Submission Successful!!"))
       .catch(err => alert("Form Submission Failed!", err));
