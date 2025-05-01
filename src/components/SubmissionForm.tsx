@@ -11,6 +11,18 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import styles from "../../public/css/subForm.module.css";
 
+///////////
+function encode(data) {
+    const formData = new FormData();
+  
+    for (const key of Object.keys(data)) {
+      formData.append(key, data[key]);
+    }
+  
+    return formData;
+  }
+ /////////// 
+
 // FROM https://opennext.js.org/netlify/forms 
 export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
@@ -23,60 +35,85 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
 
-    const handleFormSubmit = async (event) => {
-        // event.preventDefault();
-        // try {
-        //     setStatus('pending');
-        //     setError(null);
-        //     const myForm = event.target;
-        //     const formData = new FormData(myForm);
-        //     // const res = await fetch('/form.html', {
-        //     //     method: 'POST',
-        //     //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        //     //     headers: { 'Content-Type': 'multipart/form-data' },
-        //     //     //body: new URLSearchParams(formData).toString()
-        //     //     body: formData
-        //     // });
-        //     const res = await fetch('/', {
-        //         method: 'POST',
-        //         body: formData
-        //     });
-        //     if (res.status === 200) {
-        //         setStatus('ok');
-        //     } else {
-        //         setStatus('error');
-        //         setError(`${res.status} ${res.statusText}`);
-        //     }
-        // } catch (e) {
-        //     setStatus('error');
-        //     setError(`${e}`);
-        // }
-        event.preventDefault();
-        try {
-            setStatus('pending');
-            setError(null);
-            const myForm = event.target;
-            const formData = new FormData(myForm);
-            const res = await fetch('/form.html', {
-                method: 'POST',
-                // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                headers: { 'Content-Type': 'multipart/form-data' },
-                //body: new URLSearchParams(formData).toString()
-                body: formData,
-            });
-            if (res.status === 200) {
-                setStatus('ok');
-            } else {
-                setStatus('error');
-                setError(`${res.status} ${res.statusText}`);
-            }
-        } catch (e) {
-            setStatus('error');
-            setError(`${e}`);
-        }
-        // finally closing the form window
-        closeOnSubmit();
-    };
+    const [contents, setContents] = useState<any>();
+
+    
+      const handleChange = (e) => {
+        setContents({ [e.target.name]: e.target.value });
+      };
+    
+      const handleAttachment = (e) => {
+        setContents({ [e.target.name]: e.target.files[0] });
+      };
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        fetch("/", {
+          method: "POST",
+          body: encode({
+            "form-name": form.getAttribute("name"),
+            ...contents
+          })
+        })
+        //   .then(() => navigateTo(form.getAttribute("action")))
+          .catch(error => alert(error));
+      };
+
+    // const handleFormSubmit = async (event) => {
+    //     // event.preventDefault();
+    //     // try {
+    //     //     setStatus('pending');
+    //     //     setError(null);
+    //     //     const myForm = event.target;
+    //     //     const formData = new FormData(myForm);
+    //     //     // const res = await fetch('/form.html', {
+    //     //     //     method: 'POST',
+    //     //     //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //     //     //     headers: { 'Content-Type': 'multipart/form-data' },
+    //     //     //     //body: new URLSearchParams(formData).toString()
+    //     //     //     body: formData
+    //     //     // });
+    //     //     const res = await fetch('/', {
+    //     //         method: 'POST',
+    //     //         body: formData
+    //     //     });
+    //     //     if (res.status === 200) {
+    //     //         setStatus('ok');
+    //     //     } else {
+    //     //         setStatus('error');
+    //     //         setError(`${res.status} ${res.statusText}`);
+    //     //     }
+    //     // } catch (e) {
+    //     //     setStatus('error');
+    //     //     setError(`${e}`);
+    //     // }
+    //     event.preventDefault();
+    //     try {
+    //         setStatus('pending');
+    //         setError(null);
+    //         const myForm = event.target;
+    //         const formData = new FormData(myForm);
+    //         const res = await fetch('/form.html', {
+    //             method: 'POST',
+    //             // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //             headers: { 'Content-Type': 'multipart/form-data' },
+    //             //body: new URLSearchParams(formData).toString()
+    //             body: formData,
+    //         });
+    //         if (res.status === 200) {
+    //             setStatus('ok');
+    //         } else {
+    //             setStatus('error');
+    //             setError(`${res.status} ${res.statusText}`);
+    //         }
+    //     } catch (e) {
+    //         setStatus('error');
+    //         setError(`${e}`);
+    //     }
+    //     // finally closing the form window
+    //     closeOnSubmit();
+    // };
 
     const handleSwitchChange = () => {
         setPublic(!isPublic);
@@ -104,24 +141,42 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                {/* CORRECT ONE: <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
+                <form
+                    name="designs"
+                    method="post"
+                    // action="/thanks/"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    onSubmit={handleSubmit}
+                    className={styles.formContainer}
+                    >
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
+
                     <input type="hidden" name="features" value={JSON.stringify(features)} />
                     <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
                     <input type="hidden" name="windowWidth" value={width} />
                     <input type="hidden" name="windowHeight" value={height} />
 
+                    {/* anti bot stuff */}
+                    <p hidden>
+                        <label>
+                        Don’t fill this out:{" "}
+                        <input name="bot-field" onChange={handleChange} />
+                        </label>
+                    </p>
+
                     {/* visual styles inputs */}
 
                     <div className={styles.formEntry}>
                         <label htmlFor="title"> Device Name </label>
-                        <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input}/>
+                        <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} onChange={handleChange}/>
                     </div>
 
                     <div className={styles.formEntry}>
                         <label htmlFor="name"> Your Name </label>
-                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
+                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
                     </div>
 
                     <div className={styles.formEntry}>
@@ -130,12 +185,12 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             Upload an image
                             <PlusIcon fill={features.fontColor} size='30px'/>
                         </label> */}
-                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} />
+                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={handleAttachment}/>
                     </div>
 
                     <div className={styles.formEntry}>
                         <label htmlFor="about"> What about this device is meaningful to you? </label>
-                        <input name="about" type="text" placeholder="Optional" className={styles.input} />
+                        <input name="about" type="text" placeholder="Optional" className={styles.input} onChange={handleChange} />
                     </div>
 
                     <div className={styles.formEntry}>
@@ -151,6 +206,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             type="hidden"
                             name="personalizations"
                             value={isPublic ? "true" : "false"}
+                            onChange={handleChange}
                         />
                     </div>
 
