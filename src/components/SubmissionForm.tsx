@@ -81,6 +81,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         <label htmlFor='name'>Name: </label>
         <input type='text' name='name' value={name} onChange={(e) => nameHandler(e)} />
 
+        <div className={styles.formEntry}>
+                        <label htmlFor="dev_img"> Upload an image </label>
+                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} />
+        </div>
+
         {/* <input id="file" type="file" name="Atachment" onChange={(e) => atachmentHandle(e)} /> */}
 
         {/* <UploadDropzone name="file" isDisabled={false} setFile={setFile} /> */}
