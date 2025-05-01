@@ -109,118 +109,128 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     // cur window dims to determine if mobile or desktop for a given submission
     const {width, height} = useWindowDimensions();
 
-    /////////////////
     // from https://github.com/dmytro-petrenko/sample-dropzone/blob/main/pages/index.js
-//   const [name, setName] = useState('');
-//   const [dev_img, setDevImg] = useState('');
-//   // const [atachment, setAttachment] = useState([]);
 
-//   const nameHandler = (e) => {
-//     setName(e.target.value)
-//   };
+    const handleSubmit = (e) => {
 
-//   const fileHandler = (e) => {
-//     console.log("Entire target: ", e.target);
-//     console.log("reached file handler for file: ", e.target.files);
-//     // setDevImg(e.target.files[0]);
-//   };
-  
-  // const atachmentHandle = (e) => {
-  //   console.log('Attached file: ', e.target.files[0])
-  //   setAttachment(e.target.files[0]);
-  // }
+        setStatus('pending');
 
-//   console.log('name: ', name);
-//   console.log('dev_img: ', dev_img);
-  // console.log('attachment: ', atachment);
+        const myForm = e.target;
+        const formData = new FormData(myForm);
 
-  const encode = (data) => {
-    // console.log('data: ', data)
-    const formData = new FormData();
-    Object.keys(data).forEach((k) => {
-      formData.append(k, data[k])
-    });
-    return formData
-  };
+        console.log("file in formData: ", formData.get("dev_img"));
 
-  // const encode = (data) => {
-  //     return Object.keys(data)
-  //       .map(
-  //         (key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-  //       )
-  //       .join('&');
-  // };
+        fetch("/form.html", {
+            method: "POST",
+            // headers: { "Content-Type": 'multipart/form-data' },
+            body: formData //encode(data)
+        })
+            .then(() => {
+                closeOnSubmit();
+                setStatus('ok');
+            })
+            .catch(err => {
+                alert("Form Submission Failed!", err);
+                setStatus('error');
+            });
 
+        e.preventDefault();
+    };
 
-  const handleSubmit = (e) => {
+    const handleSwitchChange = () => {
+        setPublic(!isPublic);
+    }
 
-    // testing this version with myForm
-    const myForm = e.target;
-    const formData = new FormData(myForm);
+    return (
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <div className={styles.modelName}>
+                    Submit your device
+                </div>
+                <div className={styles.subtitle}>
+                    Your device will be included in a public gallery viewable by others. If you'd like,
+                    submit it along with the personalizations you've made to this site -- those who 
+                    view your description of the device will have a chance to apply your personalizations to their own 
+                    site.
+                </div>
+            </div>
+            <div className={styles.content} >
+                <form
+                className="formContainer"
+                name="designs"
+                method="POST"
+                data-netlify="true"
+                // encType="multipart-form/data"
+                // encType="multipart/form-data"
+                onSubmit={handleSubmit} 
+                className={styles.formContainer}
+                >
+                
+                    {/* required input to link form to netlify */}
+                    <input id='name' type="hidden" name="form-name" value="designs" />
 
-    //const data = { "form-name": "designs", name, dev_img }
-    //console.log('Data: ', data);
-
-    //console.log('encoded data: ', encode(data).getAll("dev_img"));
-
-    fetch("/form.html", {
-      method: "POST",
-      // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
-      // headers: { "Content-Type": 'multipart/form-data' },
-      body: formData //encode(data)
-    })
-      .then(() => alert("Form Submission Successful!!"))
-      .catch(err => alert("Form Submission Failed!", err));
-
-    e.preventDefault();
-  };
-
-  return (
-    <div>
-      <form
-        className="formContainer"
-        name="designs"
-        method="POST"
-        data-netlify="true"
-        // encType="multipart-form/data"
-        // encType="multipart/form-data"
-        onSubmit={handleSubmit} 
-        >
-        <input id='name' type="hidden" name="form-name" value="designs" />
-
-        {/* <label htmlFor='name'>Name: </label>
-        <input type='text' name='name' value={name} onChange={(e) => nameHandler(e)} /> */}
-
-        <div className={styles.formEntry}>
-                        <label htmlFor="dev_img"> Upload an image </label>
-                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={(e) => fileHandler(e)}/>
-        </div>
-
-        <input type="hidden" name="features" value={JSON.stringify(features)} />
-        <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
-        <input type="hidden" name="windowWidth" value={width} />
-        <input type="hidden" name="windowHeight" value={height} />
+                    {/* hidden inputs */}
+                    <input type="hidden" name="features" value={JSON.stringify(features)} />
+                    <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+                    <input type="hidden" name="windowWidth" value={width} />
+                    <input type="hidden" name="windowHeight" value={height} />
 
                     {/* visual styles inputs */}
 
+                    {/* device name */}
                     <div className={styles.formEntry}>
-                        <label htmlFor="title"> Device Name </label>
+                        <label htmlFor="title"> Device name </label>
                         <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} />
                     </div>
 
+                    {/* author name */}
                     <div className={styles.formEntry}>
-                        <label htmlFor="name"> Your Name </label>
+                        <label htmlFor="name"> Your name </label>
                         <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
                     </div>
 
-        {/* <input id="file" type="file" name="Atachment" onChange={(e) => atachmentHandle(e)} /> */}
+                    {/* image/file upload */}
+                    <div className={styles.formEntry} >
+                                    <label htmlFor="dev_img"> Upload an image </label>
+                                    <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} />
+                    </div>
 
-        {/* <UploadDropzone name="file" isDisabled={false} setFile={setFile} /> */}
-        
-        <button style={{marginTop: '15px'}} type="submit">Submit</button>
-     </form>
-    </div>
-  )
+                    {/* description */}
+                    <div className={styles.formEntry}>
+                        <label htmlFor="about"> What about this device is meaningful to you? </label>
+                        <input name="about" type="text" placeholder="Optional" className={styles.input} />
+                    </div>
+
+                    {/* personalization public toggle */}
+                    <div className={styles.formEntry}>
+                        {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
+                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
+                        <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
+                            {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
+                            Make your personalizations to this site public?
+                            <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
+                        </label>
+                       {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />*/}
+                       <input
+                            type="hidden"
+                            name="personalizations"
+                            value={isPublic ? "true" : "false"}
+                            onChange={handleSwitchChange}
+                        />
+                    </div> 
+                   
+                    {status === 'error' && <div>{error}</div>}
+
+                    <button type="submit" disabled={status === 'pending'} style={{cursor: 'pointer'}}>
+                        Submit
+                    </button>
+
+                    {/* <button style={{marginTop: '15px'}} type="submit">Submit</button> */}
+                    
+                </form>
+            </div>
+        </div>
+    )
 }
 
 // ///////////
@@ -352,9 +362,9 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 //         closeOnSubmit();
 //     };
 
-//     const handleSwitchChange = () => {
-//         setPublic(!isPublic);
-//     }
+    // const handleSwitchChange = () => {
+    //     setPublic(!isPublic);
+    // }
 //     /*
 //     things to submit:
 //     - features
@@ -364,32 +374,32 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 //     - description
 //     */
 //     return (
-//         <div className={styles.container}>
-//             <div className={styles.header}>
-//                 <div className={styles.modelName}>
-//                     Submit your device
-//                 </div>
-//                 <div className={styles.subtitle}>
-//                     Your device will be included in a public gallery viewable by others. If you'd like,
-//                     submit it along with the personalizations you've made to this site -- those who 
-//                     view your description of the device will have a chance to apply your personalizations to their own 
-//                     site.
-//                 </div>
-//             </div>
-//             <div className={styles.content} >
-//                 {/* <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-//                 <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} encType="multipart/form-data" className={styles.formContainer} >
-//                 {/* <form
-//                     name="designs"
-//                     method="post"
-//                     // action="/thanks/"
-//                     data-netlify="true"
-//                     data-netlify-honeypot="bot-field"
-//                     onSubmit={handleSubmit}
-//                     className={styles.formContainer}
-//                     > */}
-//                     {/* hidden inputs */}
-//                     <input type="hidden" name="form-name" value="designs" />
+        // <div className={styles.container}>
+        //     <div className={styles.header}>
+        //         <div className={styles.modelName}>
+        //             Submit your device
+        //         </div>
+        //         <div className={styles.subtitle}>
+        //             Your device will be included in a public gallery viewable by others. If you'd like,
+        //             submit it along with the personalizations you've made to this site -- those who 
+        //             view your description of the device will have a chance to apply your personalizations to their own 
+        //             site.
+        //         </div>
+        //     </div>
+        //     <div className={styles.content} >
+        //         {/* <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
+        //         <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} encType="multipart/form-data" className={styles.formContainer} >
+        //         {/* <form
+        //             name="designs"
+        //             method="post"
+        //             // action="/thanks/"
+        //             data-netlify="true"
+        //             data-netlify-honeypot="bot-field"
+        //             onSubmit={handleSubmit}
+        //             className={styles.formContainer}
+        //             > */}
+        //             {/* hidden inputs */}
+        //             <input type="hidden" name="form-name" value="designs" />
 
                     // <input type="hidden" name="features" value={JSON.stringify(features)} />
                     // <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
@@ -416,42 +426,42 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     //     <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
                     // </div>
 
-//                     <div className={styles.formEntry}>
-//                         <label htmlFor="dev_img"> Upload an image </label>
-//                         {/* <label htmlFor="dev_img" style={{cursor: 'pointer'}} className={styles.switchLabel}>
-//                             Upload an image
-//                             <PlusIcon fill={features.fontColor} size='30px'/>
-//                         </label> */}
-//                         <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={handleAttachment}/>
-//                     </div>
+                    // <div className={styles.formEntry}>
+                    //     <label htmlFor="dev_img"> Upload an image </label>
+                    //     {/* <label htmlFor="dev_img" style={{cursor: 'pointer'}} className={styles.switchLabel}>
+                    //         Upload an image
+                    //         <PlusIcon fill={features.fontColor} size='30px'/>
+                    //     </label> */}
+                    //     <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={handleAttachment}/>
+                    // </div>
 
-//                     <div className={styles.formEntry}>
-//                         <label htmlFor="about"> What about this device is meaningful to you? </label>
-//                         <input name="about" type="text" placeholder="Optional" className={styles.input} onChange={handleChange} />
-//                     </div>
+                    // <div className={styles.formEntry}>
+                    //     <label htmlFor="about"> What about this device is meaningful to you? </label>
+                    //     <input name="about" type="text" placeholder="Optional" className={styles.input} onChange={handleChange} />
+                    // </div>
 
-//                     <div className={styles.formEntry}>
-//                         {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
-//                         <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
-//                         <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
-//                             {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
-//                             Make your personalizations to this site public?
-//                             <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
-//                         </label>
-//                        {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />*/}
-//                        <input
-//                             type="hidden"
-//                             name="personalizations"
-//                             value={isPublic ? "true" : "false"}
-//                             onChange={handleChange}
-//                         />
-//                     </div> 
+                    // <div className={styles.formEntry}>
+                    //     {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
+                    //     <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
+                    //     <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
+                    //         {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
+                    //         Make your personalizations to this site public?
+                    //         <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
+                    //     </label>
+                    //    {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />*/}
+                    //    <input
+                    //         type="hidden"
+                    //         name="personalizations"
+                    //         value={isPublic ? "true" : "false"}
+                    //         onChange={handleChange}
+                    //     />
+                    // </div> 
                    
-//                     {status === 'error' && <div>{error}</div>}
+                    // {status === 'error' && <div>{error}</div>}
 
-//                     <button type="submit" disabled={status === 'pending'} style={{cursor: 'pointer'}}>
-//                         Submit
-//                     </button>
+                    // <button type="submit" disabled={status === 'pending'} style={{cursor: 'pointer'}}>
+                    //     Submit
+                    // </button>
 
 //                     {/* {status === 'ok' && <div> Submitted!</div>} */}
 //                 </form>

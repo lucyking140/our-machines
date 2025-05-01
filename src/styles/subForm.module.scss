@@ -65,7 +65,7 @@
     input{
        //background-color: lightpink;
         border: 1px var(--font-color) solid;
-        padding: 5px 10px;
+        padding: 5px;
         width: inherit;
         font-family: var(--font-family);
     }
@@ -77,6 +77,15 @@
        outline: none;
     }
 
+    // for styling file submission button
+    input::file-selector-button {
+        color: var(--background-color);
+        background-color: var(--font-color);
+        border: 1px solid var(--font-color);
+        border-radius: 0px;
+        cursor: pointer;
+      }
+
     button {
         background-color: var(--font-color);
         color: var(--background-color);
@@ -85,6 +94,10 @@
         border: 1px var(--font-color) solid;
         padding: 5px 0px;
         outline: none;
+    }
+
+    button:disabled{
+        opacity: 50%;
     }
 
 
