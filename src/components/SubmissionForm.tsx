@@ -59,7 +59,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             const formData = new FormData(myForm);
             const res = await fetch('/form.html', {
                 method: 'POST',
-                //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 'Content-Type': 'multipart/form-data' },
                 body: new URLSearchParams(formData).toString()
             });
             if (res.status === 200) {
