@@ -135,52 +135,52 @@ export default function Gallery() {
     }, []);
 
     // // gets all stickers and scales them to the case study box size to apply there
-    // const appliedStickers = submissions.map((sub, i) =>{
-    //     const cs_width = document.getElementById("thumbnail")?.style.width;
-    //     const cs_height = document.getElementById("thumbnail")?.style.height;
+    const appliedStickers = submissions.map((sub, i) =>{
+        const cs_width = document.getElementById("thumbnail")?.style.width;
+        const cs_height = document.getElementById("thumbnail")?.style.height;
 
-    //     // scaling the images to match the original window size
-    //     const scaleFactor = cs_width / sub.window_width;
-    //     return(
-    //     <div>
-    //         <img   
+        // scaling the images to match the original window size
+        const scaleFactor = cs_width / sub.window_width;
+        return(
+        <div>
+            <img   
 
-    //         />
-    //     </div>);
-    // });
+            />
+        </div>);
+    });
 
-    // var submissionBoxes = null;
-    // if(submissions.length > 0){
-    //     submissionBoxes = submissions.map((sub, i) =>{
-    //         console.log("SUB: ", sub);
-    //         const feats = JSON.parse(sub.data.features);
-    //         return (<div className={styles.submission} key={`${sub.name}-${i}`} onClick={() => (openCaseStudy(sub))}>
-    //             {/* maps stickers over entire caseStudyBox
-    //             <div className={styles.stickersContainer}>
+    var submissionBoxes = null;
+    if(submissions.length > 0){
+        submissionBoxes = submissions.map((sub, i) =>{
+            console.log("SUB: ", sub);
+            const feats = JSON.parse(sub.data.features);
+            return (<div className={styles.submission} key={`${sub.name}-${i}`} onClick={() => (openCaseStudy(sub))}>
+                {/* maps stickers over entire caseStudyBox
+                <div className={styles.stickersContainer}>
                 
-    //             </div> */}
-    //             {/* checking if the submission has an image attached, otherwise using plain background */}
-    //             { sub.dev_img ? 
-    //                 <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
-    //                     IMAGE URL: {sub.dev_img}
-    //                 </div>
-    //              : <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
-    //                     <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
-    //                         OUR MACHINES
-    //                     </div>
-    //                     <div className={styles.menuicon}>
-    //                         <MenuIcon fill={feats.fontColor}/>
-    //                     </div>
-    //                 </div>
-    //             }
+                </div> */}
+                {/* checking if the submission has an image attached, otherwise using plain background */}
+                { sub.dev_img ? 
+                    <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                        IMAGE URL: {sub.dev_img}
+                    </div>
+                 : <div id="thumbnail" className={styles.thumbnail} style={{backgroundColor: feats.backgroundColor}}>
+                        <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
+                            OUR MACHINES
+                        </div>
+                        <div className={styles.menuicon}>
+                            <MenuIcon fill={feats.fontColor}/>
+                        </div>
+                    </div>
+                }
 
-    //             <div className={styles.nameBox}> 
-    //                 {sub.name}
-    //             </div>
+                <div className={styles.nameBox}> 
+                    {sub.name}
+                </div>
                 
-    //         </div>)
-    //     });
-    // }
+            </div>)
+        });
+    }
     
     return(
         <div>
@@ -244,7 +244,7 @@ export default function Gallery() {
                             Share a personal device
                         </div>
                     </div>
-                    {/* {submissionBoxes} */}
+                    {submissionBoxes}
                 </div> }
 
                 {caseStudyDiv}

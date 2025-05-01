@@ -14,8 +14,19 @@ import styles from "../../public/css/subForm.module.css";
 import React from 'react';
 
 export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
+
+    const {features, stickers} = usePersContext();
+
+    const [status, setStatus] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [isPublic, setPublic] = useState<boolean | null>(false);
+
+    // cur window dims to determine if mobile or desktop for a given submission
+    const {width, height} = useWindowDimensions();
+
+    /////////////////
   const [name, setName] = useState('');
-  const [file, setFile] = useState('');
+  const [dev_img, setDevImg] = useState('');
   // const [atachment, setAttachment] = useState([]);
 
   const nameHandler = (e) => {
@@ -24,7 +35,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
   const fileHandler = (e) => {
     console.log("reached file handler for file: ", e.target.value);
-    setFile(e.target.value);
+    setDevImg(e.target.value);
   };
   
   // const atachmentHandle = (e) => {
@@ -33,7 +44,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
   // }
 
   console.log('name: ', name);
-  console.log('file: ', file);
+  console.log('dev_img: ', dev_img);
   // console.log('attachment: ', atachment);
 
   const encode = (data) => {
@@ -55,8 +66,10 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
 
   const handleSubmit = e => {
-    const data = { "form-name": "designs", name, file }
+    const data = { "form-name": "designs", name, dev_img }
     console.log('Data: ', data);
+
+    console.log('encoded data: ', encode(data).getAll("dev_img"));
 
     fetch("/form.html", {
       method: "POST",
@@ -88,8 +101,25 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
         <div className={styles.formEntry}>
                         <label htmlFor="dev_img"> Upload an image </label>
-                        <input name="dev_img" value={file} id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={(e) => fileHandler(e)}/>
+                        <input name="dev_img" value={dev_img} id="dev_img" type="file" placeholder="Upload an image" className={styles.input} onChange={(e) => fileHandler(e)}/>
         </div>
+
+        <input type="hidden" name="features" value={JSON.stringify(features)} />
+        <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+        <input type="hidden" name="windowWidth" value={width} />
+        <input type="hidden" name="windowHeight" value={height} />
+
+                    {/* visual styles inputs */}
+
+                    <div className={styles.formEntry}>
+                        <label htmlFor="title"> Device Name </label>
+                        <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} />
+                    </div>
+
+                    <div className={styles.formEntry}>
+                        <label htmlFor="name"> Your Name </label>
+                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
+                    </div>
 
         {/* <input id="file" type="file" name="Atachment" onChange={(e) => atachmentHandle(e)} /> */}
 
@@ -116,14 +146,14 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 // // FROM https://opennext.js.org/netlify/forms 
 // export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
-//     const {features, stickers} = usePersContext();
+    // const {features, stickers} = usePersContext();
 
-//     const [status, setStatus] = useState<string | null>(null);
-//     const [error, setError] = useState<string | null>(null);
-//     const [isPublic, setPublic] = useState<boolean | null>(false);
+    // const [status, setStatus] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
+    // const [isPublic, setPublic] = useState<boolean | null>(false);
 
-//     // cur window dims to determine if mobile or desktop for a given submission
-//     const {width, height} = useWindowDimensions();
+    // // cur window dims to determine if mobile or desktop for a given submission
+    // const {width, height} = useWindowDimensions();
 
 //     const [contents, setContents] = useState<any>();
 
@@ -269,30 +299,30 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 //                     {/* hidden inputs */}
 //                     <input type="hidden" name="form-name" value="designs" />
 
-//                     <input type="hidden" name="features" value={JSON.stringify(features)} />
-//                     <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
-//                     <input type="hidden" name="windowWidth" value={width} />
-//                     <input type="hidden" name="windowHeight" value={height} />
+                    // <input type="hidden" name="features" value={JSON.stringify(features)} />
+                    // <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+                    // <input type="hidden" name="windowWidth" value={width} />
+                    // <input type="hidden" name="windowHeight" value={height} />
 
-//                     {/* anti bot stuff */}
-//                     <p hidden>
-//                         <label>
-//                         Don’t fill this out:{" "}
-//                         <input name="bot-field" onChange={handleChange} />
-//                         </label>
-//                     </p>
+                    // {/* anti bot stuff */}
+                    // <p hidden>
+                    //     <label>
+                    //     Don’t fill this out:{" "}
+                    //     <input name="bot-field" onChange={handleChange} />
+                    //     </label>
+                    // </p>
 
-//                     {/* visual styles inputs */}
+                    // {/* visual styles inputs */}
 
-//                     <div className={styles.formEntry}>
-//                         <label htmlFor="title"> Device Name </label>
-//                         <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} onChange={handleChange}/>
-//                     </div>
+                    // <div className={styles.formEntry}>
+                    //     <label htmlFor="title"> Device Name </label>
+                    //     <input name="title" type="text" placeholder="Randomly generated if left blank" required className={styles.input} onChange={handleChange}/>
+                    // </div>
 
-//                     <div className={styles.formEntry}>
-//                         <label htmlFor="name"> Your Name </label>
-//                         <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
-//                     </div>
+                    // <div className={styles.formEntry}>
+                    //     <label htmlFor="name"> Your Name </label>
+                    //     <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} onChange={handleChange} />
+                    // </div>
 
 //                     <div className={styles.formEntry}>
 //                         <label htmlFor="dev_img"> Upload an image </label>
