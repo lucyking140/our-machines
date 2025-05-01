@@ -46,88 +46,87 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         setContents({ [e.target.name]: e.target.files[0] });
       };
     
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        console.log("Form name: ", form.getAttribute("name"));
-        await fetch('/form.html', {
-          method: "POST",
-          headers: { 'Content-Type': 'multipart/form-data' },
-        //   body: encode({
-        //     "form-name": form.getAttribute("name"),
-        //     ...contents
-        //   })
-            body: form,
-        })
-        //   .then(() => navigateTo(form.getAttribute("action")))
-         .catch(error => alert(error));
-        //  setStatus('pending');
-        //  setError(null);
-        //  const myForm = e.target;
-        //  const formData = new FormData(myForm);
-        //  const res = await fetch('/form.html', {
-        //      method: 'POST',
-        //      // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        //      headers: { 'Content-Type': 'multipart/form-data' },
-        //      //body: new URLSearchParams(formData).toString()
-        //      body: formData,
-        //  });
-      };
+    //   const handleSubmit = async (e) => {
+    //     // e.preventDefault();
+    //     // const form = e.target;
+    //     // await fetch('/form.html', {
+    //     //   method: "POST",
+    //     //   headers: { 'Content-Type': 'multipart/form-data' },
+    //     // //   body: encode({
+    //     // //     "form-name": form.getAttribute("name"),
+    //     // //     ...contents
+    //     // //   })
+    //     //     body: form,
+    //     // })
+    //     // //   .then(() => navigateTo(form.getAttribute("action")))
+    //     //  .catch(error => alert(error));
+    //     //  setStatus('pending');
+    //     //  setError(null);
+    //     //  const myForm = e.target;
+    //     //  const formData = new FormData(myForm);
+    //     //  const res = await fetch('/form.html', {
+    //     //      method: 'POST',
+    //     //      // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //     //      headers: { 'Content-Type': 'multipart/form-data' },
+    //     //      //body: new URLSearchParams(formData).toString()
+    //     //      body: formData,
+    //     //  });
+    //   };
 
-    // const handleFormSubmit = async (event) => {
-    //     // event.preventDefault();
-    //     // try {
-    //     //     setStatus('pending');
-    //     //     setError(null);
-    //     //     const myForm = event.target;
-    //     //     const formData = new FormData(myForm);
-    //     //     // const res = await fetch('/form.html', {
-    //     //     //     method: 'POST',
-    //     //     //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //     //     //     headers: { 'Content-Type': 'multipart/form-data' },
-    //     //     //     //body: new URLSearchParams(formData).toString()
-    //     //     //     body: formData
-    //     //     // });
-    //     //     const res = await fetch('/', {
-    //     //         method: 'POST',
-    //     //         body: formData
-    //     //     });
-    //     //     if (res.status === 200) {
-    //     //         setStatus('ok');
-    //     //     } else {
-    //     //         setStatus('error');
-    //     //         setError(`${res.status} ${res.statusText}`);
-    //     //     }
-    //     // } catch (e) {
-    //     //     setStatus('error');
-    //     //     setError(`${e}`);
-    //     // }
-    //     event.preventDefault();
-    //     try {
-    //         setStatus('pending');
-    //         setError(null);
-    //         const myForm = event.target;
-    //         const formData = new FormData(myForm);
-    //         const res = await fetch('/form.html', {
-    //             method: 'POST',
-    //             // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //             headers: { 'Content-Type': 'multipart/form-data' },
-    //             //body: new URLSearchParams(formData).toString()
-    //             body: formData,
-    //         });
-    //         if (res.status === 200) {
-    //             setStatus('ok');
-    //         } else {
-    //             setStatus('error');
-    //             setError(`${res.status} ${res.statusText}`);
-    //         }
-    //     } catch (e) {
-    //         setStatus('error');
-    //         setError(`${e}`);
-    //     }
-    //     // finally closing the form window
-    //     closeOnSubmit();
-    // };
+    const handleFormSubmit = async (event) => {
+        // event.preventDefault();
+        // try {
+        //     setStatus('pending');
+        //     setError(null);
+        //     const myForm = event.target;
+        //     const formData = new FormData(myForm);
+        //     // const res = await fetch('/form.html', {
+        //     //     method: 'POST',
+        //     //     //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //     //     headers: { 'Content-Type': 'multipart/form-data' },
+        //     //     //body: new URLSearchParams(formData).toString()
+        //     //     body: formData
+        //     // });
+        //     const res = await fetch('/', {
+        //         method: 'POST',
+        //         body: formData
+        //     });
+        //     if (res.status === 200) {
+        //         setStatus('ok');
+        //     } else {
+        //         setStatus('error');
+        //         setError(`${res.status} ${res.statusText}`);
+        //     }
+        // } catch (e) {
+        //     setStatus('error');
+        //     setError(`${e}`);
+        // }
+        event.preventDefault();
+        try {
+            setStatus('pending');
+            setError(null);
+            const myForm = event.target;
+            const formData = new FormData(myForm);
+            const res = await fetch('/form.html', {
+                method: 'POST',
+                // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: { 'Content-Type': 'multipart/form-data' },
+                //body: new URLSearchParams(formData).toString()
+                body: formData,
+            });
+            if (res.status === 200) {
+                setStatus('ok');
+            } else {
+                setStatus('error');
+                setError(`${res.status} ${res.statusText}`);
+            }
+        } catch (e) {
+            setStatus('error');
+            setError(`${e}`);
+        }
+        // finally closing the form window
+        closeOnSubmit();
+    };
 
     const handleSwitchChange = () => {
         setPublic(!isPublic);
@@ -155,8 +154,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* <form name="designs" method="POST" data-netlify="true" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                {/* CORRECT ONE: <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} > */}
-                <form
+                CORRECT ONE: <form name="designs" method="POST" data-netlify="true" encType="multipart/form-data" onSubmit={handleFormSubmit} className={styles.formContainer} >
+                {/* <form
                     name="designs"
                     method="post"
                     // action="/thanks/"
@@ -164,7 +163,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className={styles.formContainer}
-                    >
+                    > */}
                     {/* hidden inputs */}
                     <input type="hidden" name="form-name" value="designs" />
 
