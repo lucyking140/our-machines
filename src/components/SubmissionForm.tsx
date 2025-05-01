@@ -47,6 +47,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             setStatus('error');
             setError(`${e}`);
         }
+        // finally closing the form window
+        closeOnSubmit();
     };
 
     const handleSwitchChange = () => {
@@ -119,7 +121,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                        <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />
                     </div>
 
-                    <button type="submit" disabled={status === 'pending'} onClick={() => closeOnSubmit()}>
+                    <button type="submit" disabled={status === 'pending'} >
                         Submit
                     </button>
 
