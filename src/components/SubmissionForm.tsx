@@ -61,7 +61,8 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 method: 'POST',
                 // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 headers: { 'Content-Type': 'multipart/form-data' },
-                body: new URLSearchParams(formData).toString()
+                //body: new URLSearchParams(formData).toString()
+                body: formData,
             });
             if (res.status === 200) {
                 setStatus('ok');
