@@ -1,13 +1,22 @@
 .container{
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: scroll;
     // height: 76vh; //80 for caseStudyBox - 4 for close
     width: 90%;
     padding: 0px 5%;
     font-size: 1.5rem;
     position: relative;
+    /* hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+    
+// from https://stackoverflow.com/questions/68111024/how-to-hide-scroll-bar-in-react-app-with-allowing-scrolling
+/* hide scrollbar for chrome, safari and opera */
+.container::-webkit-scrollbar {
+    display: none;
+  }
 
 .modelName{
     font-size: 2rem;
@@ -17,8 +26,15 @@
 .content{
     display: flex;
     flex-direction: row;
-    overflow: scroll;
+    overflow-y: scroll;
+    /* hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.content::-webkit-scrollbar {
+    display: none;
+  }
 
 @media only screen and (max-width: 1000px){
     .content{

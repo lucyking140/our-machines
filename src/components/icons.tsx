@@ -74,3 +74,32 @@ export const UploadIcon = (props: any) => {
     )
 }
 
+export const PointerArrow = (props: any) => {
+
+    return (
+        // <svg xmlns="http://www.w3.org/2000/svg" 
+        //     // shape-rendering="geometricPrecision" 
+        //     // text-rendering="geometricPrecision" 
+        //     // image-rendering="optimizeQuality" 
+        //     // fill-rule="evenodd" 
+        //     // clip-rule="evenodd" 
+        //     viewBox="0 0 512 243.58"
+            // width={props.size}
+            // height={props.size}
+            // fill={props.fill}
+        // >
+        //     {/* fill-rule="nonzero" */}
+        //     <path  d="M373.57 0 512 120.75 371.53 243.58l-20.92-23.91 94.93-83L0 137.09v-31.75l445.55-.41-92.89-81.02z"/>
+        // </svg>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            viewBox="0 0 40 16.5" width={props.width}
+            // height={props.height}
+            fill={props.fill}>
+        <g>
+            <polygon points="31,0 39.6,7.9 40,8.3 39.6,8.6 31,16.5 30.5,16 38.5,8.6 0,8.6 0,7.9 38.5,7.9 30.5,0.5 	"/>
+        </g>
+        </svg>
+
+    );
+}
+

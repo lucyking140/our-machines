@@ -17,8 +17,9 @@ export const modelData = [
         light: 20,
         CS_camPos: 0.8,
         subtitle: "Personal technology as fashion, trend cycles and all",
-        origin: 2000,
-        primary_influences: ["gen z", "music"],
+        origin: "Spread across pop culture in 1979 by the Sony Walkman after first developed mid-20th century alongside the portable transistor radio",
+        origin_source: "https://en.wikipedia.org/wiki/Headphones",
+        primary_influences: ["music", "nostalgia", "wearable tech", "fashion", "gen z", "millenials"],
     },
     {
         name: "Mobile Lock Screens",
@@ -34,8 +35,9 @@ export const modelData = [
         light: 1,
         CS_camPos: 1,
         subtitle: "The Facebook relationship status update, modernized",
-        origin: 2000,
-        primary_influences: [],
+        origin: "Circa 2003 with the release of the Neonode N1 phone featuring the first customizable lock screen",
+        origin_source: "https://en.wikipedia.org/wiki/Lock_screen",
+        primary_influences: ["relationships", "status updates", "digital socialization", "gen z", "gen alpha", "personalization via consumption"],
     },
     {
         name: "Mechanical Keyboards",
@@ -49,8 +51,9 @@ export const modelData = [
         light: 1,
         CS_camPos: 1.1,
         subtitle: "The curation of a personal sound",
-        origin: 2000,
-        primary_influences: [],
+        origin: "Current surge in popularity began in mid-2010s and exploded with COVID-19 pandemic. Original mechancial keyboards were standard in the 1960s on.",
+        origin_source: "https://www.reddit.com/r/MechanicalKeyboards/comments/mq4818/history_of_mechanical_keyboards/",
+        primary_influences: ["tech industry", "productivity", "nostalgia", "DIY personalization"],
     },
     {
         name: "Smart Watches",
@@ -60,8 +63,9 @@ export const modelData = [
         light: 1,
         CS_camPos: 0.8,
         subtitle: "",
-        origin: 2000,
-        primary_influences: [],
+        origin: "Initial idea of a watch controllable by a PC came in 1998 from Seiko Ruputer, popularized in 2004 by Microsoft SPOT",
+        origin_source: "https://www.intex.in/blogs/blogs/smartwatch-history-features-and-growth",
+        primary_influences: ["fitness", "wearables", "fashion", "gen z", "personalization via consumption"],
     },
     {
         name: "Cell Phone Accessories",
@@ -78,8 +82,9 @@ export const modelData = [
         light: 1,
         CS_camPos: 1,
         subtitle: "Aesthetics at the cost of functionality",
-        origin: 2000,
-        primary_influences: [],
+        origin: "Popularized in Japan in the late 1990s and early 2000s",
+        origin_source: "https://en.wikipedia.org/wiki/Mobile_phone_charm",
+        primary_influences: ["collectibles", "nostalgia", "gen z", "personalization via consumption"],
     },
     {
         name: "Laptops",
@@ -87,13 +92,14 @@ export const modelData = [
         textContent: [
             "Stickers communicate in- and out-group status, speaking only directly to those who recognize the reference they make. Long popular as an expression of our identity or presence, stickers have been placed on everything from luggage to public infrastructure to water bottles. Their popularity on laptops represents the extension of an existing physical trend into the world of personal devices, and is especially interesting considering where laptop stickers are often placed — on the back of the device, facing away from the device's owner and oriented toward those around them. This positioning highlights the stickers' primary role as communication to other, not self-identification.",
             "Our laptops themselves are also increasingly catering to the assumption that they will be decorated. Apple's pioneering use of a flat, sleek screen creates a sense of a blank page made to be filled, and represents a larger move on the part of many manufacturers toward the production of a blank page ripe with possibility instead of an attempt to produce the perfect version for each customer [CAN ADD MORE HERE ABOUT THIS IF DESIRED]."
-        ],
+        ], // could also add info about idea that brands use people as walking advertizements, or that we associate ourselves with a brand?
         camPos: 1,
         light: 3,
         CS_camPos: 1,
         subtitle: "Stickers as cultural dog whistles",
-        origin: 2000,
-        primary_influences: [],
+        origin: "Early 2000s, with stickers quickly becoming the norm with the popularization of the personal laptop.",
+        origin_source: "https://www.stickeryou.com/blog/post/sticker-history-a-decade-by-decade-journey#:~:text=2000s%20Stickers:%20Digital%20and%20Custom%20Stickers&text=This%20was%20also%20the%20decade,beliefs%2C%20and%20your%20personal%20mantras.",
+        primary_influences: ["brand loyalty", "ingroup status", "identity flagging", "gen z", "millenials", "DIY personalization"],
     },
     {
         name: "Nintendo Switches",
@@ -103,8 +109,9 @@ export const modelData = [
         light: 1,
         CS_camPos: 0.9,
         subtitle: "Engineering individuality",
-        origin: 2000,
-        primary_influences: [],
+        origin: "First released in 2017, building on previous handheld Nintendo consoles since the 1980s that were also heavily personalized.",
+        origin_source: "https://en.wikipedia.org/wiki/Nintendo_video_game_consoles",
+        primary_influences: ["gaming", "DIY personalization", "millenials", "gen z"],
     },
     {
         name: "Mobile Home Screens",
@@ -117,9 +124,10 @@ export const modelData = [
         light: 1,
         CS_camPos: 1,
         subtitle: "Convincing ourselves of our own projections",
-        origin: 2000,
+        origin: "A customizable home page was first seen in Palm Pilots in 2002, Nokia and other early mobile phones in the early 2000s, and was popularized by iOS 1.1.3 in 2008.",
+        origin_source: "https://www.theverge.com/2011/12/13/2612736/ios-history-iphone-ipad",
         primary_influences: [],
-    },
+    }
 ];
 
 // export const modelData = [

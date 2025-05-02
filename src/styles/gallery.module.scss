@@ -116,7 +116,14 @@
     border: 1px solid var(--font-color);
     background-color: var(--background-color);
     z-index: 2;
-    overflow: auto;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    // overflow-x: hidden;
+}
+
+.caseStudy{
+    align-self: center;
 }
 
 .close{
@@ -130,7 +137,16 @@
 .subContent{
     height: 80%;
     overflow: scroll;
+    /* hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+// from https://stackoverflow.com/questions/68111024/how-to-hide-scroll-bar-in-react-app-with-allowing-scrolling
+/* hide scrollbar for chrome, safari and opera */
+.subContent::-webkit-scrollbar {
+    display: none;
+  }
 
 .uploadButton{
     padding: 10px;

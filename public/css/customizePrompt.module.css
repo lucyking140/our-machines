@@ -1,0 +1,57 @@
+.allContainer {
+  position: absolute;
+  width: 15vw;
+  bottom: 15vh;
+  left: 20vw;
+  border: 1px solid var(--font-color);
+  animation: fade-in 1s;
+  z-index: 10000;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  z-index: 2;
+  padding: 5px;
+  background-color: var(--background-color);
+}
+
+.close {
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.icon {
+  position: absolute;
+  bottom: -40px;
+  left: -20px;
+  transform: rotate(130deg);
+  z-index: 1;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .allContainer {
+    left: 15px;
+    bottom: 12vh;
+    width: 240px;
+  }
+  .icon {
+    transform: rotate(90deg);
+  }
+}
+
+/*# sourceMappingURL=customizePrompt.module.css.map */

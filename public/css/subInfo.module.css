@@ -5,6 +5,11 @@
   padding: 10px;
 }
 
+@media only screen and (max-width: 1000px) {
+  .container {
+    padding: 0px;
+  }
+}
 .content {
   display: flex;
   flex-direction: row;
@@ -16,6 +21,7 @@
   overflow: hidden;
   z-index: 300;
   padding-bottom: 15px;
+  align-self: center;
 }
 
 .topImage {

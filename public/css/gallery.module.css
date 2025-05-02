@@ -107,7 +107,13 @@
   border: 1px solid var(--font-color);
   background-color: var(--background-color);
   z-index: 2;
-  overflow: auto;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.caseStudy {
+  align-self: center;
 }
 
 .close {
@@ -121,6 +127,14 @@
 .subContent {
   height: 80%;
   overflow: scroll;
+  /* hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* hide scrollbar for chrome, safari and opera */
+.subContent::-webkit-scrollbar {
+  display: none;
 }
 
 .uploadButton {

@@ -12,6 +12,7 @@ import { origStickers } from "../app/stickers.data";
 import PersonalizationMenu from "../components/personalization-menu";
 
 import {FileUploader } from "../components/fileUploader";
+import CustomizePrompt from "../components/customizePrompt";
 
 import {Back} from "./icons";
 
@@ -430,7 +431,7 @@ export default function StickerContainer(){
     }
 
     return(
-    <div>
+    <div className={styles.allContainer}>
         {/* preview if on drag */}
         {isDragging && (
         <div ref={previewSticker} className={styles.stickerButton} style={{ position: 'absolute' }}>
@@ -457,6 +458,7 @@ export default function StickerContainer(){
                 Customize Page
             </div>
         </div>
+        <CustomizePrompt onClose={() => {console.log("closing")}} />
     </div>
     );
 }

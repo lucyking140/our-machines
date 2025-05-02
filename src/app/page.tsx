@@ -29,13 +29,13 @@ export default function Home() {
           <TypeAnimation
             sequence={[
               // Same substring at the start will only be typed out once, initially
-              'OUR MACHINES',
+              'OUR_MACHINES',
               3000, // wait 1s before replacing "Mice" with "Hamsters"
-              'MY DEVICES',
+              'MY_DEVICES',
               3000,
-              'THEIR COMPUTERS',
+              'THEIR_COMPUTERS',
               3000,
-              'YOUR TECHNOLOGY',
+              'YOUR_TECHNOLOGY',
               3000
             ]}
             wrapper="div"
@@ -51,7 +51,7 @@ export default function Home() {
         <div className={styles.subtitle}>
             {/* How do we express ourselves at the border between physical and digital realms, in our digital spaces and devices we use to access them? */}
             {/* Personal identity, expressed at the bridge between our digital spaces and devices we use to access them */}
-            Exploring our reflections in digital spaces and devices we use to access them
+            Exploring our reflections in our digital spaces and the devices we use to access them
         </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>

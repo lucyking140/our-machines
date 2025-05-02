@@ -6,7 +6,8 @@ export interface Model3D {
     light: number;
     CS_camPos: number;
     subtitle: string;
-    origin: number;
+    origin: string;
+    origin_source: string;
     primary_influences: [];
 }
 

@@ -30,10 +30,10 @@ export default function RootLayout({
 
             {/* Stickers container and footer */}
             <StickerContainer />
-            <form name="designs" netlify data-netlify="true" method="POST" hidden>
+            {/* <form name="designs" netlify data-netlify="true" method="POST" hidden>
               <input type="text" name="name" />
               <input type="file" name="dev_img" />
-            </form>
+            </form> */}
             {/* title footer in lower right-hand corner */}
             <div className={styles.footerTitle}>
               <Link href="/" className={styles.link}>

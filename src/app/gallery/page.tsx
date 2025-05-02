@@ -133,7 +133,9 @@ export default function Gallery() {
                 <div className={styles.close} onClick={handleCSClose}>
                     <PlusIcon fill={features.fontColor} size='30px' />
                 </div>
-                <SubInfo sub={caseStudy} onSelect={verifyApply} className={styles.caseStudy} />
+                <div className={styles.caseStudy}>
+                <SubInfo sub={caseStudy} onSelect={verifyApply}/>
+                </div>
             </div>
         </div>
       ): null;
@@ -189,9 +191,9 @@ export default function Gallery() {
                         <div className={styles.tnTitle} style={{color: feats.fontColor, fontFamily: feats.font}}>
                             OUR MACHINES
                         </div>
-                        <div className={styles.menuicon}>
+                        {/* <div className={styles.menuicon}>
                             <MenuIcon fill={feats.fontColor}/>
-                        </div>
+                        </div> */}
                     </div>
                 }
 

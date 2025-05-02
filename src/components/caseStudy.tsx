@@ -35,13 +35,23 @@ export default function CaseStudy({ model }: Model3dType) {
                   <i> {model.subtitle} </i>
               </div>
 
-              {/* <div className={styles.subheader}>
-                  Time of Origin: {model.origin}
+              <div className={styles.headInfo}>
+                  <b> Time of Origin: </b> {model.origin}
               </div>
               
-              <div className={styles.subheader}>
-                  Keywords: {model.primary_influences}
-              </div> */}
+              <div className={styles.headInfo}>
+                 
+                  <div className={styles.allKeywords}> 
+                  <b> Keywords: </b> 
+                    {model.primary_influences.map((word) => {
+                        return (
+                        <span className={styles.keyword}>
+                          {word}
+                        </span>);
+                      })}
+                  </div>
+                    
+              </div>
 
           </div>
           
