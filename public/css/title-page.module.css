@@ -6,82 +6,63 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 15vh;
+  padding-top: 30vh;
   padding-left: 3vw;
+}
+
+.titlebox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Changed to flex-start for left alignment */
+  width: 100%;
+  position: relative; /* Add position relative */
 }
 
 .title {
   font-weight: normal;
   font-size: 5rem;
   width: 100%;
-}
-
-.subtitle {
-  font-weight: normal;
-  font-size: 1.5rem;
-  width: 60%;
-  padding-left: 5px;
-  padding-bottom: 10px;
-}
-
-@media only screen and (max-width: 1000px) {
-  .subtitle {
-    width: 95%;
-    padding: 10px;
-  }
-}
-@media only screen and (max-width: 1000px) {
-  .title {
-    font-size: 4rem;
-    word-break: break-all;
-  }
-}
-.titlebox {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
+  position: absolute; /* Position the title absolutely */
+  bottom: 100%; /* Position it above the titlebox */
+  left: 0; /* Align it to the left */
+  margin-bottom: 10px; /* Add some spacing */
 }
 
 .animatedtitle {
   width: inherit;
   hyphens: auto;
   word-break: break-all;
-  padding-bottom: 20px;
+  text-align: left; /* Ensure text is left-aligned */
 }
 
-@media only screen and (max-width: 1000px) {
-  .animatedtitle {
-    height: 17vh;
-    padding: 10px;
-  }
+.subtitle {
+  font-weight: normal;
+  font-size: 1.5rem;
+  width: 60%;
+  padding-left: 0; /* Removed left padding for consistent alignment */
+  padding-bottom: 10px;
 }
+
 .menu {
   display: flex;
   flex-direction: row;
   margin-left: 0px;
   align-items: flex-start;
+  align-self: flex-start; /* Ensure menu stays aligned left */
 }
 
-@media only screen and (max-width: 1000px) {
-  .menu {
-    font-size: 1.3rem;
-    flex-direction: column;
-    padding: 10px;
-  }
-}
-.menuiconopen, .menuicon {
+/* Define a shared class for menu icons */
+.menuicon-shared {
   width: 85px;
   cursor: pointer;
 }
 
-@media only screen and (max-width: 1000px) {
-  .menuiconopen, .menuicon {
-    width: 70px;
-    padding-bottom: 10px;
-  }
+.menuicon {
+  composes: menuicon-shared;
 }
+
 .menuiconopen {
+  composes: menuicon-shared;
   transform: rotate(270deg);
 }
 
@@ -109,16 +90,12 @@
   color: var(--font-color);
 }
 
-@media only screen and (max-width: 1000px) {
-  .menuItem {
-    padding-bottom: 20px;
-  }
-}
 .menuHeader {
   font-size: 1.3rem;
   font-weight: 600;
 }
 
+/* For cursor if want to customize that */
 .animatedtitle::after {
   content: "|";
   animation: cursor 1.1s infinite step-start;
@@ -127,6 +104,32 @@
 @keyframes cursor {
   50% {
     opacity: 0;
+  }
+}
+/* Media queries */
+@media only screen and (max-width: 1000px) {
+  .title {
+    font-size: 4rem;
+    word-break: break-all;
+  }
+  .animatedtitle {
+    padding: 10px;
+  }
+  .subtitle {
+    width: 95%;
+    padding: 10px;
+  }
+  .menu {
+    font-size: 1.3rem;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .menuicon-shared {
+    width: 70px;
+    padding-bottom: 10px;
+  }
+  .menuItem {
+    padding-bottom: 20px;
   }
 }
 
