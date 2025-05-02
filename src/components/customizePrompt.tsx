@@ -32,13 +32,13 @@ export default function CustomizePrompt({onClose}: {onClose: () => void}) {
                 console.log("has already seen prompt");
             }
 
-            // auto-close after 2 seconds
-            // const timer = setTimeout(() => {
-            //     setIsVisible(false);
-            //     if (onClose) onClose();
-            // }, 2000);
+            //auto-close after 2 seconds
+            const timer = setTimeout(() => {
+                setIsVisible(false);
+                if (onClose) onClose();
+            }, 2000);
 
-            // return () => clearTimeout(timer);
+            return () => clearTimeout(timer);
         } else {
             console.log("win not defined");
         }

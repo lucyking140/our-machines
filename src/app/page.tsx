@@ -73,6 +73,10 @@ export default function Home() {
                   <div className={styles.menuItem}>
                     <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>OTHER PEOPLES’ THINGS</div> an exposition of objects that have influenced others and an opportunity submit your own </Link>
                   </div>
+                  <div style={{width: '100%', height: '100px'}}>
+                  
+                  </div>
+
                 </div>
               ) : null}
 
