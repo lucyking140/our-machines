@@ -257,7 +257,7 @@ export default function StickerContainer(){
         const newStick = e.currentTarget as HTMLElement;
 
         // to avoid float back thing before changing position
-        e.preventDefault();
+        //e.preventDefault();
         // to avoid other things on top being clicked/dragged
         e.stopPropagation();
 
@@ -280,8 +280,8 @@ export default function StickerContainer(){
             };
         }
 
-        document.addEventListener('touchmove', handleSelectTouchMove, {passive: 'false'});
-        document.addEventListener('touchend', handleSelectTouchUp, {passive: 'false'});
+        document.addEventListener('touchmove', handleSelectTouchMove, {passive: false});
+        document.addEventListener('touchend', handleSelectTouchUp, {passive: false});
     }
 
     const handleSelectTouchMove = (e: React.TouchEvent) => {
@@ -291,7 +291,7 @@ export default function StickerContainer(){
         // so if we click but don't move only the click behavior is activated
         isClicked.current = false;
         console.log("reaching select touch move");
-        e.preventDefault();
+        //();
         e.stopPropagation();
 
         const newX = touch.clientX - dragOffRef.current.x;
@@ -309,7 +309,7 @@ export default function StickerContainer(){
         const touch = e.changedTouches[0];
 
         console.log("reaching select touch up");
-        e.preventDefault();
+        //e.preventDefault();
         e.stopPropagation();
         setIsDragging(false);
         
@@ -402,12 +402,14 @@ export default function StickerContainer(){
                         onTouchStart={(e) => {handleSelectTouchDown(e, sticker, index)}}
                         //onMouseMove = {(e) => {handleSelectMove(e, sticker)}}
                         //onMouseUp = {(e) => {handleSelectUp(e, sticker)}}
+                        style={{touchAction: 'none'}}
                         >
                             <img 
                                 alt={sticker.alt} 
                                 src={sticker.url} 
                                 width={sticker.width} 
                                 height={sticker.height} 
+                                style={{zIndex: '10000000'}}
                             />
                         </div>
                        
@@ -458,7 +460,7 @@ export default function StickerContainer(){
                 Customize Page
             </div>
         </div>
-        <CustomizePrompt onClose={() => {console.log("closing")}} />
+        <CustomizePrompt onClose={() => {console.log("close")}} />
     </div>
     );
 }
