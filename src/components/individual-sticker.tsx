@@ -1,6 +1,14 @@
+'use client'
+
 import React, { useState, useEffect, useRef } from "react";
+import { usePersContext } from "../app/contexts/usePersContext";
+
+import { ResizeArrow } from "./icons";
 
 export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
+
+    const {features} = usePersContext();
+
     const [showDeleteButton, setShowDeleteButton] = useState(false);
     const [showResizeButton, setShowResizeButton] = useState(false);
 
@@ -247,8 +255,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         top: '-10px',
                         left: '-10px',
                         background: 'none',
-                        width: '45px',
-                        height: '45px',
+                        width: '30px',
+                        height: '30px',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -260,8 +268,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                 >
                     <img 
                         src="/cancel.svg" 
-                        width={45} 
-                        height={45} 
+                        width={30} 
+                        height={30} 
                         alt="Delete"
                         style={{ pointerEvents: 'auto' }}
                     />
@@ -278,8 +286,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         bottom: '-10px',
                         right: '-10px',
                         background: 'none',
-                        width: '45px',
-                        height: '45px',
+                        width: '30px',
+                        height: '30px',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -290,13 +298,16 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         touchAction: 'none'
                     }}
                 >
-                    <img 
+                    {/* <img 
                         src="/bow.svg" 
                         width={45} 
                         height={45} 
                         alt="Resize"
                         style={{ pointerEvents: 'auto', touchAction: 'none' }}
-                    />
+                    /> */}
+                    <div style={{transform: 'rotate(45deg)'}}>
+                        <ResizeArrow size='30' fill={features.fontColor}/>
+                    </div>
                 </button>
             )}
         </div>

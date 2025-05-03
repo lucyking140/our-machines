@@ -29,9 +29,15 @@
     font-family: var(--font-family);
     color: var(--font-color);
     width: 65%;
-    text-align: center;
+    text-align: justify;
     line-height: 2rem;
+}
 
+@media only screen and (max-width: 1000px){
+    .bodyText{
+        width: 85%;
+        text-align: justify;
+    }
 }
 
 .para{

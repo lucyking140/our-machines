@@ -120,14 +120,16 @@ export default function StickerContainer(){
     }
 
     const handleSelectSticker = (sticker: any) => {
+
         console.log("adding sticker from click");
+        console.log("window.scrollY: ", window.scrollY);
         addSticker({
             src: sticker.url,
             page: pathname,
             width: sticker.width,
             height: sticker.height,
             x: 100,
-            y: 100
+            y: window.scrollY + 100 // to ensure it's always placed within the viewport
         });
     }
 
@@ -222,13 +224,14 @@ export default function StickerContainer(){
         console.log("cur sticker: ", curStickerRef.current);
         if( !isClicked.current && curStickerRef.current){
             console.log("reaching cur sticker");
+            console.log("window scroll: ", window.scrollY);
             addSticker({
                 src: curStickerRef.current.url,
                 page: pathname,
                 width: curStickerRef.current.width,
                 height: curStickerRef.current.height,
                 x: newX,
-                y: newY
+                y: window.scrollY + newY // to account for ptentially not being at the top of the window
             });
         }
 
@@ -330,7 +333,7 @@ export default function StickerContainer(){
                 width: curStickerRef.current.width,
                 height: curStickerRef.current.height,
                 x: newX,
-                y: newY
+                y: window.scrollY + newY
             });
         }
 
@@ -436,7 +439,7 @@ export default function StickerContainer(){
     <div className={styles.allContainer}>
         {/* preview if on drag */}
         {isDragging && (
-        <div ref={previewSticker} className={styles.stickerButton} style={{ position: 'absolute' }}>
+        <div ref={previewSticker} className={styles.stickerButton} style={{ position: 'fixed' }}>
             <img src={curStickerRef.current?.url} width={curStickerRef.current?.width} height={curStickerRef.current?.height} />
         </div>
         )}
