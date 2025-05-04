@@ -97,9 +97,30 @@
   font-size: 1rem;
   line-height: 2rem;
 }
+.textContent a {
+  color: var(--font-family);
+  font-weight: 600;
+}
+.textContent a:after {
+  background-image: url("/icons/right-up.svg");
+  background-size: 20px 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  content: "";
+}
+.textContent a:visited {
+  color: var(--font-family);
+  opacity: 80;
+  background-color: lightblue;
+}
 
 .para {
   padding-bottom: 20px;
+}
+
+.innerPara {
+  padding: 0px;
 }
 
 @media only screen and (max-width: 1000px) {
