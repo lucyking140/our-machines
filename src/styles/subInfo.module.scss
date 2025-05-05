@@ -24,7 +24,7 @@
     // padding-left: 10%;
     height: 50vh;
     overflow: hidden;
-    z-index: 300;
+    z-index: 2;
     padding-bottom: 15px;
     align-self: center;
 }
@@ -42,7 +42,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    // z-index: 2;
     font-size: 2rem;
     // padding-top: 50vh;
 }

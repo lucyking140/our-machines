@@ -72,6 +72,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
     const [invalidFile, setInvalidFile ] = useState<boolean>(false);
     const validateFile = (e) => {
+        console.log("reaching val file again");
         const curFile = e.target.files[0];
         console.log("curFile: ", curFile);
         if (curFile){
@@ -80,6 +81,9 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 // alert("Wrong file type!");
                 setInvalidFile(true);
                 console.log("reaching heic case");
+            } else {
+                // in case prev file was invalid
+                setInvalidFile(false);
             }
         }
     }
@@ -168,7 +172,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                    
                     {status === 'error' && <div>{error}</div>}
 
-                    <button type="submit" disabled={status === 'pending' || invalidFile} style={{cursor: 'pointer'}}>
+                    <button type="submit" disabled={status === 'pending' || invalidFile}>
                         Submit
                     </button>
 

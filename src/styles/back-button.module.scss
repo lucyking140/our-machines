@@ -3,7 +3,7 @@
     width: 30px;
     position: fixed;
     // top: 0px;
-    z-index: 5000;
+    z-index: 5; // always on top (except for stickers)
 }
 
 .icon{

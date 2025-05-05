@@ -14,38 +14,47 @@ export default function SubInfo({sub, onSelect}: any) {
 
     const data = sub.human_fields;
 
+    const {width, height} = useWindowDimensions();
+
     // arbitrary pixel size to determine mobile vs web
     const mobileWid = 1000;
 
     // submits this submission to be applied
     const handleSelect = (sub) =>{
-        onSelect(sub);
+        // only actually select if valid
+        if(validateApplication() && allowApp){
+            onSelect(sub);
+        }
     }
 
+    // this is separate from validation so we can communicate if the problem is window size or permissions
     const [allowApp, setAllowApp] = useState<boolean>(true);
 
     // if this submission did not want personalization public
-    if (data.Personalization==false){
-        setAllowApp(false);
-    }
+    React.useEffect(() => {
+        if (data.Personalization === false) {
+            setAllowApp(false);
+        }
+    }, [data.Personalization]);
 
     const validateApplication = ():boolean =>{
 
         // win dims of submission
         console.log("data: ", data);
         const winHeight = data["Window Height"];
-        const winWidth = data["Window Width"];
-
-        //cur win dims of screen
-        const {width, height} = useWindowDimensions();
+        const winWidth = data["Window Width"];        
 
         console.log("submission width: ", winWidth, " and cur width: ", width);
 
+        // but this only matters if sub has stickers ... 
 
-        // sub mobile, user web || sub web, user mobile
-        if ((winWidth < mobileWid && width > mobileWid) || (winWidth > mobileWid && width < mobileWid)){
-            // setApplicable('invalid');
-            return false;
+        if (JSON.parse(data.Stickers).length > 0){
+            // console.log("data.stickers.length > 0");
+            // sub mobile, user web || sub web, user mobile
+            if ((winWidth < mobileWid && width > mobileWid) || (winWidth > mobileWid && width < mobileWid)){
+                // setApplicable('invalid');
+                return false;
+            }
         }
 
         // setApplicable('yes');
@@ -82,8 +91,8 @@ export default function SubInfo({sub, onSelect}: any) {
                 This author did not give permission to apply their personalizations.
             </div> : null}
 
-        {data.Description ? (<div className={styles.textContent}>
-            {data.Description}
+        {data.About ? (<div className={styles.textContent}>
+            {data.About}
         </div>) : <div className={styles.textContent} style={{fontStyle: 'italic'}}>
             No description provided.
         </div> }

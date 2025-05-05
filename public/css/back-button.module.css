@@ -2,7 +2,7 @@
   border: 1px var(--font-color);
   width: 30px;
   position: fixed;
-  z-index: 5000;
+  z-index: 5;
 }
 
 .icon {

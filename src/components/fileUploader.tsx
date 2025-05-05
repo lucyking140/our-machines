@@ -30,8 +30,10 @@ export function FileUploader() {
         console.log("fileInfo: ", fileInfo);
         const fullFile = {...fileInfo, alt: fileInfo.name, width: 100, height: 100};
 
+
         //const new_files = JSON.stringify({...cur_files, str_file});
-        cur_files.push(fullFile);
+        // unshift instead of push to add it to the beginning of the list --> better ui
+        cur_files.unshift(fullFile);
         console.log("cur files after loading most recent sticker: ", cur_files);
 
 
@@ -48,35 +50,19 @@ export function FileUploader() {
 
         if (!selectedFile) return;
         
-        // SVG Type validation
+        // type validation (TODO: add more file types)
         if (selectedFile.type !== 'image/svg+xml') {
-            //setError('Only SVG files are allowed.');
             console.log('Only SVG files are allowed.');
-            event.target.value = ''; // Reset the input
+            event.target.value = '';
             return;
         }
-        
-        // Size validation (limit to 2MB for SVG files)
-        if (selectedFile.size > 2 * 1024 * 1024) {
-            //   setError('SVG file is too large. Please select a file smaller than 2MB.');
-            console.log('SVG file is too large. Please select a file smaller than 2MB.');
-            event.target.value = ''; // Reset the input
-            return;
-        }
-        
+                
         const reader = new FileReader();
         
         reader.onload = (e) => {
             console.log("reaching on load");
           const dataUrl = e.target.result;
           
-          // Additional validation: Check if the file content actually contains SVG
-        //   if (!dataUrl.includes('<svg') && !dataUrl.includes('<?xml')) {
-        //     console.log('The file does not appear to be a valid SVG.');
-        //     return;
-        //   }
-          
-          // Create file object with metadata
           const newFile = {
             name: selectedFile.name,
             type: selectedFile.type,
@@ -85,27 +71,10 @@ export function FileUploader() {
             uploadedAt: new Date().toISOString()
           };
           
-          // Update state with new file
           const fileWithData = {...newFile, url: dataUrl};
           console.log("fileWithData: ", fileWithData);
           
-          // Store file in sessionStorage
           try {
-            //TODO: add hook function here
-            //uploadSticker(fileWithData);
-            // const str_file = JSON.stringify(fileWithData);
-
-            // // getting current list
-            // const all = localStorage.getItem('stickers');;
-            // var cur_files = {}
-            // if(all){
-            //     cur_files = JSON.parse(all);
-            // }
-
-            // const new_files = JSON.stringify({...cur_files, str_file});
-
-            // localStorage.setItem('stickers', new_files);
-            // console.log("Finished setting new sticker in storage!");
             uploadSticker(fileWithData);
           } catch (err) {
             console.error('Error saving to localStorage:', err);
@@ -117,7 +86,6 @@ export function FileUploader() {
           console.log(`Error reading file: ${selectedFile.name}`)
         };
         
-        // Read file as data URL
         reader.readAsDataURL(selectedFile);
        
       };

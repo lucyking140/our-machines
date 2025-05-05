@@ -381,10 +381,16 @@ export default function StickerContainer(){
                         <div onClick={() => handleOpenStickers()} style={{width: '35px', transform: 'rotate(270deg)', cursor: 'pointer'}}>
                             <Back fillColor={features.fontColor}/>
                         </div>
+                        {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '30%'}}> */}
+                            
                         <div style={{width: '35px', cursor: 'pointer'}}>
                             <FileUploader />
                         </div>
+                        
                     </div>
+                    <div style={{width: '98%', fontSize: '0.7rem', fontStyle: 'italic', textAlign: 'right'}}>
+                            SVGs only!
+                        </div>
                     <div className={styles.stickerOptions} onClick={() => handleHide()}>
                         <div style={{textAlign: 'center'}}> Hide All </div>
                         {/* <MySwitch /> */}

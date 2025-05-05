@@ -29,48 +29,94 @@ export const origStickers = [
       height: 100,
       alt: "decor"
     },
-    {
-      url: "/file.svg",
-      width: 100,
-      height: 100,
-      alt: "file"
-    },
+    // {
+    //   url: "/file.svg",
+    //   width: 100,
+    //   height: 100,
+    //   alt: "file"
+    // },
     {
       url: "/flower.svg",
       width: 100,
       height: 100,
       alt: "flower"
     },
-    {
-      url: "/globe.svg",
-      width: 100,
-      height: 100,
-      alt: "globe"
-    },
+    // {
+    //   url: "/globe.svg",
+    //   width: 100,
+    //   height: 100,
+    //   alt: "globe"
+    // },
     {
       url: "/heart_1.svg",
       width: 100,
       height: 100,
       alt: "heart_1"
     },
+    // {
+    //   url: "/next.svg",
+    //   width: 100,
+    //   height: 100,
+    //   alt: "next"
+    // },
+    // {
+    //   url: "/vercel.svg",
+    //   width: 100,
+    //   height: 100,
+    //   alt: "vercel"
+    // },
+    // {
+    //   url: "/window.svg",
+    //   width: 100,
+    //   height: 100,
+    //   alt: "window"
+    // },
     {
-      url: "/next.svg",
+      url: "/berlin_skyline.svg",
       width: 100,
       height: 100,
-      alt: "next"
+      alt: "berlin"
     },
     {
-      url: "/vercel.svg",
+      url: "/nyu_logo.svg",
       width: 100,
       height: 100,
-      alt: "vercel"
+      alt: "nyu"
     },
     {
-      url: "/window.svg",
+      url: "/columbia_logo.svg",
       width: 100,
       height: 100,
-      alt: "window"
+      alt: "columbia"
+    },
+    {
+      url: "/new_york.svg",
+      width: 100,
+      height: 100,
+      alt: "new york"
+    },
+    {
+      url: "/sex_wax.svg",
+      width: 100,
+      height: 100,
+      alt: "sex wax"
+    },
+    {
+      url: "/glossier.svg",
+      width: 100,
+      height: 100,
+      alt: "glossier"
+    },
+    {
+      url: "/glossier2.svg",
+      width: 100,
+      height: 100,
+      alt: "glossier2"
+    },
+    {
+      url: "/jolyn_color.svg",
+      width: 100,
+      height: 100,
+      alt: "berlin"
     }
-  ]
-  
-  ;
+  ];
