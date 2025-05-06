@@ -38,6 +38,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         //TODO: file type verification here!!
         if(fileInfo.url.length > 700000){
             alert("This file is too large -- please upload a smaller file.");
+            return;
         }
         console.log("length of data URL: ", fileInfo.url.length);
         setUploadedImg(fileInfo);
