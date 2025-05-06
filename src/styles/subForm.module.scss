@@ -71,6 +71,15 @@
     }
 }
 
+.wholeFormBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 25px;
+    padding-top: 10px;
+}
+
 .formContainer{
     display: flex;
     flex-direction: column;
@@ -125,6 +134,36 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.fileEntry{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 1000px){
+
+    .fileEntry{
+        flex-direction: column;
+    }
+
+    .fileUploadBox{
+        justify-content: space-between;
+    }
+}
+
+.fileUploadBox{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+.fileName{
+    width: 50px;
+    overflow: hidden;
 }
 
 .input{

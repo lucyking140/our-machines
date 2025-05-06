@@ -90,7 +90,7 @@ export const origStickers = [
       alt: "columbia"
     },
     {
-      url: "/new_york.svg",
+      url: "/new-york.svg",
       width: 100,
       height: 100,
       alt: "new york"

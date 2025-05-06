@@ -42,18 +42,6 @@ export default function StickerContainer(){
         },
         },
     });
-    // from https://mui.com/material-ui/react-switch/
-    // const MySwitch = styled(Switch)(({ theme }) => ({
-    //     '& .MuiSwitch-switchBase.Mui-checked': {
-    //         color: theme.palette.primary,
-    //     '&:hover': {
-    //         backgroundColor: theme.palette.primary,
-    //     },
-    //     },
-    //     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-    //         backgroundColor: theme.palette.primary,
-    //     },
-    // }));
 
     const [menu, setMenu] = useState(false);
     const [openStickers, setOpenStickers] = useState(false);
@@ -361,7 +349,7 @@ export default function StickerContainer(){
                 console.log("current stickers: ", curStickers);
                 setStickersData(JSON.parse(curStickers));
             }
-            // console.log("LIST OF STICKERS: ", Array(stickersData));
+            //console.log("LIST OF STICKERS: ", Array(stickersData));
         }
 
         updateStickers(); //setting initial conditions
@@ -388,7 +376,7 @@ export default function StickerContainer(){
 
         //need: alt, url, width, height
         console.log("fileInfo: ", fileInfo);
-        const fullFile = {...fileInfo, alt: fileInfo.name, width: 100, height: 100};
+        const fullFile = {...fileInfo, alt: fileInfo.name, width: 100}; //height: 100 CUTTING THIS OUT to try and get proportions right
 
 
         //const new_files = JSON.stringify({...cur_files, str_file});
@@ -424,9 +412,9 @@ export default function StickerContainer(){
                         </div>
                         
                     </div>
-                    <div style={{width: '98%', fontSize: '0.7rem', fontStyle: 'italic', textAlign: 'right'}}>
+                    {/* <div style={{width: '98%', fontSize: '0.7rem', fontStyle: 'italic', textAlign: 'right'}}>
                             SVGs only!
-                        </div>
+                        </div> */}
                     <div className={styles.stickerOptions} onClick={() => handleHide()}>
                         <div style={{textAlign: 'center'}}> Hide All </div>
                         {/* <MySwitch /> */}
@@ -453,7 +441,7 @@ export default function StickerContainer(){
                                 alt={sticker.alt} 
                                 src={sticker.url} 
                                 width={sticker.width} 
-                                height={sticker.height} 
+                                // height={sticker.height} 
                                 style={{zIndex: '10000000'}}
                             />
                         </div>
@@ -482,7 +470,8 @@ export default function StickerContainer(){
         {/* preview if on drag */}
         {isDragging && (
         <div ref={previewSticker} className={styles.stickerButton} style={{ position: 'fixed' }}>
-            <img src={curStickerRef.current?.url} width={curStickerRef.current?.width} height={curStickerRef.current?.height} />
+            {/* height={curStickerRef.current?.height} */}
+            <img src={curStickerRef.current?.url} width={curStickerRef.current?.width}  />
         </div>
         )}
 

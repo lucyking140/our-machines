@@ -33,6 +33,9 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
     const pointerPositionRef = useRef({ x: 0, y: 0 });
 
     const [width, setWidth] = useState(image.width);
+
+    // currently not using this for anything, but keep the infra updating it in case it's needed
+    // not using it so height auto-sets to proportional to width
     const [height, setHeight] = useState(image.height);
 
     // showing buttons on hover
@@ -94,15 +97,21 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         
         if (isResizingRef.current) {
             const deltaX = e.clientX - pointerPositionRef.current.x;
+            const deltaY = e.clientY - pointerPositionRef.current.y;
             
             // min width just so it doesn't totally disappear
             const newW = Math.max(50, width + (deltaX));
+            //const newH = Math.max(50, height + (deltaY));
+            // resizing so that width and height always stay proportional!!
+            const scalefactor = newW/width;
+            // console.log("scale factor in resize: ", scalefactor);
+            //const newH = Math.max(50, height * scalefactor);
             
             if (stickerRef.current) {
                 const img = stickerRef.current.querySelector('img');
                 if (img) {
                     img.style.width = `${newW}px`;
-                    img.style.height = `${newW}px`;
+                    //img.style.height = `${newH}px`;
                 }
             }
         } else if (isDraggingRef.current) {
@@ -136,6 +145,9 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
         if (isResizingRef.current) {
             const deltaX = e.clientX - pointerPositionRef.current.x;
             const newW = Math.max(50, width + (deltaX));
+            const scalefactor = newW/width;
+            const newH = Math.max(50, height * scalefactor);
+            console.log("Setting new height: ", newH);
             
             if (onDragEnd) {
                 onDragEnd({
@@ -143,13 +155,13 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         x: () => image.x,
                         y: () => image.y,
                         width: () => newW,
-                        height: () => newW,
+                        height: () => newH,
                     }
                 });
             }
             
             setWidth(newW);
-            setHeight(newW);
+            setHeight(newH);
             setIsResizing(false);
             isResizingRef.current = false;
         }
@@ -238,7 +250,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
             <img 
                 src={image.src} 
                 width={width} 
-                height={height} 
+                // height={height} // don't need this, so it's always same as width
                 draggable="false"
                 style={{ 
                     userSelect: 'none', 

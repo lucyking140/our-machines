@@ -199,7 +199,7 @@ export default function Gallery() {
                 }
 
                 <div className={styles.nameBox}> 
-                    {sub.name}
+                    {sub.data.title}
                 </div>
                 
             </div>)

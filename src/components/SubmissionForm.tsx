@@ -94,6 +94,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         console.log("curFile: ", curFile);
         if (curFile){
             const name = curFile.name;
+            // this is a bit outdated bc it's now handled in the fileUploader but can't hurt ig
             if(name.includes(".HEIC") || name.includes(".heic")){
                 // alert("Wrong file type!");
                 setInvalidFile(true);
@@ -120,88 +121,92 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             </div>
             <div className={styles.content} >
                 {/* file upload box (then passed in as a URL to the form itself) */}
-                <div className={styles.formEntry}>
-                        <div> Upload an image of your device: </div>
-                        <FileUploader onUpload={handleImgUpload} />
-                        <div> {uploadedImg.name} </div>
-                </div>
-                <form
-                className="formContainer"
-                name="designs"
-                method="POST"
-                data-netlify="true"
-                // encType="multipart-form/data"
-                // encType="multipart/form-data"
-                onSubmit={handleSubmit} 
-                className={styles.formContainer}
-                >
-                
-                    {/* required input to link form to netlify */}
-                    <input id='name' type="hidden" name="form-name" value="designs" />
-
-                    {/* hidden inputs */}
-                    <input type="hidden" name="features" value={JSON.stringify(features)} />
-                    <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
-                    <input type="hidden" name="windowWidth" value={width} />
-                    <input type="hidden" name="windowHeight" value={height} />
-                    <input type="hidden" name="imageUrl" value={uploadedImg.url} />
-
-                    {/* visual styles inputs */}
-
-                    {/* device name */}
-                    <div className={styles.formEntry}>
-                        <label htmlFor="title"> Device name </label>
-                        <input name="title" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
+                <div className={styles.wholeFormBox}>
+                    <div className={styles.fileEntry}>
+                            <div> Upload an image of your device: </div>
+                            <div className={styles.fileUploadBox}>
+                                <div> {uploadedImg.name} </div>
+                                <FileUploader onUpload={handleImgUpload} />
+                            </div>      
                     </div>
-
-                    {/* author name */}
-                    <div className={styles.formEntry}>
-                        <label htmlFor="name"> Your name </label>
-                        <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
-                    </div>
-
-                    {/* image/file upload */}
-                    {/* <div className={styles.formEntry} >
-                        <label htmlFor="dev_img"> Upload an image of the device </label>
-                        <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
-                        { invalidFile ? <div className={styles.validation}>
-                            Invalid file type - please submit a different image. 
-                        </div> : null}
-                    </div> */}
-
-                    {/* description */}
-                    <div className={styles.formEntry}>
-                        <label htmlFor="about"> What about this device is meaningful to you? </label>
-                        <input name="about" type="text" placeholder="Optional" className={styles.input} />
-                    </div>
-
-                    {/* personalization public toggle */}
-                    <div className={styles.formEntry}>
-                        {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
-                        <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
-                        <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
-                            {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
-                            Make your personalizations to this site public?
-                            <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
-                        </label>
-                       {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />*/}
-                       <input
-                            type="hidden"
-                            name="personalizations"
-                            value={isPublic ? "true" : "false"}
-                            onChange={handleSwitchChange}
-                        />
-                    </div> 
-                   
-                    {status === 'error' && <div>{error}</div>}
-
-                    <button type="submit" disabled={status === 'pending' || invalidFile}>
-                        Submit
-                    </button>
-
-                    {/* <button style={{marginTop: '15px'}} type="submit">Submit</button> */}
+                    <form
+                    name="designs"
+                    method="POST"
+                    data-netlify="true"
+                    // encType="multipart-form/data"
+                    // encType="multipart/form-data"
+                    onSubmit={handleSubmit} 
+                    className={styles.formContainer}
+                    >
                     
-                </form>
+                        {/* required input to link form to netlify */}
+                        <input id='name' type="hidden" name="form-name" value="designs" />
+
+                        {/* hidden inputs */}
+                        <input type="hidden" name="features" value={JSON.stringify(features)} />
+                        <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
+                        <input type="hidden" name="windowWidth" value={width} />
+                        <input type="hidden" name="windowHeight" value={height} />
+                        <input type="hidden" name="imageUrl" value={uploadedImg.url} />
+
+                        {/* visual styles inputs */}
+
+                        {/* device name */}
+                        <div className={styles.formEntry}>
+                            <label htmlFor="title"> Device name </label>
+                            <input name="title" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
+                        </div>
+
+                        {/* author name */}
+                        <div className={styles.formEntry}>
+                            <label htmlFor="name"> Your name </label>
+                            <input name="name" type="text" placeholder="Randomly generated if left blank" className={styles.input} />
+                        </div>
+
+                        {/* image/file upload */}
+                        {/* <div className={styles.formEntry} >
+                            <label htmlFor="dev_img"> Upload an image of the device </label>
+                            <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
+                            { invalidFile ? <div className={styles.validation}>
+                                Invalid file type - please submit a different image. 
+                            </div> : null}
+                        </div> */}
+
+                        {/* description */}
+                        <div className={styles.formEntry}>
+                            <label htmlFor="about"> What about this device is meaningful to you? </label>
+                            <input name="about" type="text" placeholder="Optional" className={styles.input} />
+                        </div>
+
+                        {/* personalization public toggle */}
+                        <div className={styles.formEntry}>
+                            {/* <label htmlFor="personalizations"> Make your personalizations to this site public? </label> 
+                            <input name="personalizations" type="text" placeholder="Optional" className={styles.input} />*/}
+                            <label htmlFor="personalizations" style={{cursor: 'pointer'}} className={styles.switchLabel}>
+                                {/* <PlusIcon fill={features.fontColor} size='30px'/>*/}
+                                Make your personalizations to this site public?
+                                <Switch color='primary' checked={isPublic} onChange={handleSwitchChange}/>
+                            </label>
+                        {/* <input name="personalizations" id="personalizations" type="checkbox" checked={isPublic} onChange={handleSwitchChange} placeholder="Optional" className={styles.input} style={{display: 'none'}} />*/}
+                        <input
+                                type="hidden"
+                                name="personalizations"
+                                value={isPublic ? "true" : "false"}
+                                onChange={handleSwitchChange}
+                            />
+                        </div> 
+                    
+                        {status === 'error' && <div>{error}</div>}
+
+                        <button type="submit" disabled={status === 'pending' || invalidFile}>
+                            Submit
+                        </button>
+
+                        {/* <button style={{marginTop: '15px'}} type="submit">Submit</button> */}
+                        
+                    </form>
+                </div>
+                
             </div>
         </div>
     )

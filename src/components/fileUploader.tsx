@@ -19,12 +19,20 @@ export function FileUploader({onUpload}: {onUpload: (param: any) => void}) {
 
         if (!selectedFile) return;
         
-        // type validation (TODO: add more file types)
-        // if (selectedFile.type !== 'image/svg+xml') {
-        //     console.log('Only SVG files are allowed.');
-        //     event.target.value = '';
-        //     return;
-        // }
+        console.log('selectedfile type: ', selectedFile.type);
+        // type validation -- currently just checking to make sure it's an image and not a HEIC
+        if (selectedFile.type == 'image/heic') {
+            console.log('found a heic!');
+            alert("This file type is not supported. Please choose another image.");
+            event.target.value = '';
+            return;
+        // checking if the file is an image more generally
+        } else if (!selectedFile.type.match(/^image\//)) {
+          console.log("non-image type!");
+          alert("This file type is not supported. Please choose another image.");
+          event.target.value = '';
+          return;
+        }
                 
         const reader = new FileReader();
 
