@@ -20,11 +20,11 @@ export function FileUploader({onUpload}: {onUpload: (param: any) => void}) {
         if (!selectedFile) return;
         
         // type validation (TODO: add more file types)
-        if (selectedFile.type !== 'image/svg+xml') {
-            console.log('Only SVG files are allowed.');
-            event.target.value = '';
-            return;
-        }
+        // if (selectedFile.type !== 'image/svg+xml') {
+        //     console.log('Only SVG files are allowed.');
+        //     event.target.value = '';
+        //     return;
+        // }
                 
         const reader = new FileReader();
 
@@ -59,6 +59,10 @@ export function FileUploader({onUpload}: {onUpload: (param: any) => void}) {
           }
           event.target.value = '';
         };
+
+        reader.onerror = (e) => {
+          alert("Something has gone wrong with the file upload. Please try again.");
+        }
        
       };
     
@@ -73,7 +77,7 @@ export function FileUploader({onUpload}: {onUpload: (param: any) => void}) {
             type="file" 
             className="hidden" 
             onChange={handleFileUpload}
-            accept=".svg" 
+            accept="image/*" //".svg" 
             style={{display: 'none'}}
           />
         </div>

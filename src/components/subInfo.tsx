@@ -22,7 +22,8 @@ export default function SubInfo({sub, onSelect}: any) {
     // submits this submission to be applied
     const handleSelect = (sub) =>{
         // only actually select if valid
-        if(validateApplication() && allowApp){
+        //if(validateDims() && validateMods() && allowApp){
+        if(isValid){
             onSelect(sub);
         }
     }
@@ -37,7 +38,7 @@ export default function SubInfo({sub, onSelect}: any) {
         }
     }, [data.Personalization]);
 
-    const validateApplication = ():boolean =>{
+    const validateDims = ():boolean =>{
 
         // win dims of submission
         console.log("data: ", data);
@@ -57,16 +58,43 @@ export default function SubInfo({sub, onSelect}: any) {
             }
         }
 
-        // setApplicable('yes');
         return true;
-
     }
+
+    // checks if there are actually any personalizations at all, if not disable button with that message
+    const validateMods = ():boolean => {
+        const feats = JSON.parse(data.Features)
+        if(feats.fontColor == "#000000" && feats.backgroundColor == "#fff9f5" && feats.font == "Helvetica, sans-serif" && JSON.parse(data.Stickers).length == 0){
+            return false;
+        } 
+
+        return true;
+    }
+
+    // SETTING MESSAGE if button is disabled
+
+    const dims = "This submission is not compatible with your currrent window dimensions.";
+    const perms = "This author did not give permission to apply their personalizations.";
+    const mods = "This submission contains no personalizations.";
+
+    let message = data.Name ? `Apply ${data.Name}'s submission to your site` : "Apply this submission to your site";
+    
+    const isValid = validateMods() && validateDims() && allowApp;
+    if(!allowApp){
+        message = perms;
+    } else if (!validateMods()){
+        message=mods;
+    } else if (!validateDims()){
+        message=dims;
+    } else{ //valid case
+        message = data.Name ? `Apply ${data.Name}'s submission to your site` : "Apply this submission to your site";
+    } 
 
     return (
     <div className={styles.container}>
 
-        { data["Dev Img"]? <div className={styles.topImageBox}>
-            <img src={data["Dev Img"]} className={styles.topImage}/>
+        { data["Image Url"]? <div className={styles.topImageBox}>
+            <img src={data["Image Url"]} className={styles.topImage}/>
         </div> : null }
 
         <div className={styles.header}>
@@ -77,19 +105,16 @@ export default function SubInfo({sub, onSelect}: any) {
             By {data.Name}
         </div>) : null }
 
-        {data.Name ? (<div className={ validateApplication() ? styles.exploreButton : styles.disabledExplore} onClick={() => handleSelect(sub)}>
-            Apply {data.Name}'s submission to your site
-        </div>) : <div className={ validateApplication() ? styles.exploreButton : styles.disabledExplore} onClick={() => handleSelect(sub)}> Apply this submission to your site </div> }
+        {/* deciding which message to display based on if we have the name or not */}
+        <div className={ isValid ? styles.exploreButton : styles.disabledExplore} onClick={() => handleSelect(sub)}>
+            {message}
+        </div>
 
-        { allowApp && !validateApplication() ? 
+        {/* allowApp = user submitted permissions; validateMods -- some personalization was done; validateDims -- they have done some personalization and it's the right screen size if it includes stickers */}
+        {/* { !isValid ? 
             <div className={styles.incompatible}> 
-                This submission is not compatible with your currrent window dimensions.
-            </div> : null}
-
-        { !allowApp ? 
-            <div className={styles.incompatible}> 
-                This author did not give permission to apply their personalizations.
-            </div> : null}
+                {message}
+            </div> : null} */}
 
         {data.About ? (<div className={styles.textContent}>
             {data.About}

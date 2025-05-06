@@ -396,8 +396,13 @@ export default function StickerContainer(){
         cur_files.unshift(fullFile);
         console.log("cur files after loading most recent sticker: ", cur_files);
 
-
-        localStorage.setItem('stickers', JSON.stringify(cur_files));
+        // common error -- certain encoded images are too large for char limit in localStorage
+        try{
+            localStorage.setItem('stickers', JSON.stringify(cur_files));
+        } catch{
+            alert("It looks like that image is too large! Please compress it or submit a smaller image.");
+        }
+        
         // triggering useEffect in sticker component
         window.dispatchEvent(new Event('stickers-updated'));
 

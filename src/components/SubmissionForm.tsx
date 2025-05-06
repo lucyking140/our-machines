@@ -24,7 +24,14 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const [isPublic, setPublic] = useState<boolean | null>(false);
 
     // stores a string w metadata and dataUrl of an uploaded images -- submited via hidden field to the form
-    const [uploadedImg, setUploadedImg] = useState<any>({});
+    const [uploadedImg, setUploadedImg] = useState<any>({
+        name: "",
+        type: "",
+        size: "",
+        lastModified: "",
+        uploadedAt: "",
+        url: ""
+    });
 
     const handleImgUpload = (fileInfo: any) => {
         console.log("File info in submission form!: ", JSON.stringify(fileInfo));
@@ -57,7 +64,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
             formData.set("name", nameSlug);
         } 
 
-        console.log("file in formData: ", formData.get("dev_img"));
+        //console.log("file in formData: ", formData.get("dev_img"));
 
         fetch("/form.html", {
             method: "POST",
