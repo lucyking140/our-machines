@@ -62,7 +62,7 @@ export default function Home() {
         <div className={styles.subtitle}>
             {/* How do we express ourselves at the border between physical and digital realms, in our digital spaces and devices we use to access them? */}
             {/* Personal identity, expressed at the bridge between our digital spaces and devices we use to access them */}
-            Exploring our reflections in our digital spaces and the devices we use to access them
+            Our reflections in our digital spaces and the devices we use to access them
         </div>
         {/* Menu with links to other pages */}
         <div className={styles.menu} onClick={handleOpen}>
@@ -76,13 +76,13 @@ export default function Home() {
                     <Link key={"intro"}
                     href={{
                       pathname: '/intro',
-                    }} > <div className={styles.menuHeader}>EDITOR'S NOTE</div> digital manifestations of the physical ; physical manifestations of the digital </Link>
+                    }} > <div className={styles.menuHeader}>EDITOR'S NOTE</div> </Link>
                   </div>
                   <div className={styles.menuItem}>
                     <Link key={"case-studies"} href={`/case-studies`}> <div className={styles.menuHeader}>STATEMENT PIECES</div> a showroom for particularly descriptive devices </Link>
                   </div>
                   <div className={styles.menuItem}>
-                    <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>OTHER PEOPLES’ THINGS</div> an exposition of objects that have influenced others and an opportunity submit your own </Link>
+                    <Link key={"gallery"} href={`/gallery`}> <div className={styles.menuHeader}>STYLED BY</div> an exposition of objects that have influenced others and an opportunity submit your own </Link>
                   </div>
                   <div style={{width: '100%', height: '100px'}}>
                   

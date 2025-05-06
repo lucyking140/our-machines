@@ -36,8 +36,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const handleImgUpload = (fileInfo: any) => {
         console.log("File info in submission form!: ", JSON.stringify(fileInfo));
         //TODO: file type verification here!!
-        setUploadedImg(fileInfo);
+        if(fileInfo.url.length > 700000){
+            alert("This file is too large -- please upload a smaller file.");
+        }
         console.log("length of data URL: ", fileInfo.url.length);
+        setUploadedImg(fileInfo);
     }
 
     // for random word replacements

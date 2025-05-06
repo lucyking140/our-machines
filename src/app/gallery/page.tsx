@@ -219,7 +219,7 @@ export default function Gallery() {
             <div className={styles.allContainer}>
 
                 <div className={styles.title}>
-                    Other Peoples' Things
+                    Styled By _______
                 </div>
 
                 <div className={styles.subtitle}> 
@@ -230,7 +230,7 @@ export default function Gallery() {
                     <br />
                     <br />
 
-                    For a closer connection, step into their shoes by applying their personalizations to this site to your own.   
+                    When viewing a device, step into the owner's shoes by applying their personalizations to this site to your own.   
                 
                 </div>
                 

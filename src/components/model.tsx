@@ -7,6 +7,7 @@ import { usePersContext } from "../app/contexts/usePersContext";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 
 import { Model3D, Model3dType } from "../types";
