@@ -37,6 +37,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
         console.log("File info in submission form!: ", JSON.stringify(fileInfo));
         //TODO: file type verification here!!
         setUploadedImg(fileInfo);
+        console.log("length of data URL: ", fileInfo.url.length);
     }
 
     // for random word replacements
@@ -130,7 +131,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             </div>      
                     </div>
                     <form
-                    name="designs"
+                    name="designs2"
                     method="POST"
                     data-netlify="true"
                     // encType="multipart-form/data"
@@ -140,7 +141,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     >
                     
                         {/* required input to link form to netlify */}
-                        <input id='name' type="hidden" name="form-name" value="designs3" />
+                        <input id='name' type="hidden" name="form-name" value="designs2" />
 
                         {/* hidden inputs */}
                         <input type="hidden" name="features" value={JSON.stringify(features)} />
