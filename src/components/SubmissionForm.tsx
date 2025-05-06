@@ -140,7 +140,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     >
                     
                         {/* required input to link form to netlify */}
-                        <input id='name' type="hidden" name="form-name" value="designs" />
+                        <input id='name' type="hidden" name="form-name" value="designs2" />
 
                         {/* hidden inputs */}
                         <input type="hidden" name="features" value={JSON.stringify(features)} />

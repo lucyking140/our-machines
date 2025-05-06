@@ -149,13 +149,18 @@ export default function Gallery() {
         const loadSubs = async () => {
             setLoading(true)
             const results = await fetchSubmissions();
-            setSubmissions(results);
+            if(results){
+                setSubmissions(results);
+            } else {
+                alert("Can't get form submissions");
+            }
             setLoading(false)
             console.log("FINAL: ", results);
         }
         loadSubs();
     }, []);
 
+    console.log("submissions: ", submissions);
     // // gets all stickers and scales them to the case study box size to apply there
     const appliedStickers = submissions.map((sub, i) =>{
         const cs_width = document.getElementById("thumbnail")?.style.width;
