@@ -31,7 +31,7 @@ export default function Gallery() {
             // const formData = new FormData(myForm);
             const form_id = '67fe837ccde56500077832c6';
             const api_key = process.env.NEXT_PUBLIC_NETLIFY_AUTH_TOKEN;
-            console.log("API key: ", api_key);
+            //console.log("API key: ", api_key);
             const res = await fetch(`https://api.netlify.com/api/v1/forms/${form_id}/submissions`, {
                 method: 'GET',
                 headers: {
@@ -104,10 +104,10 @@ export default function Gallery() {
         //console.log("reaching toggle form");
         if (uploadForm){ // we are now turning the uploadForm OFF
             document.body.style.overflow='scroll';
-            //console.log("changing to scroll");
+            console.log("changing to scroll");
         } else {
             document.body.style.overflow='hidden';
-            //console.log("changing to hidden");
+            console.log("changing to hidden");
         }
 
         setUploadForm(!uploadForm);
@@ -117,19 +117,20 @@ export default function Gallery() {
     const openCaseStudy = (sub) => {
         setCaseStudy(sub);
         document.body.style.overflow='hidden';
-        console.log("setting hidden");
+        console.log("setting hidden HAT");
     };
 
     const handleCSClose = () => {
         setCaseStudy(null);
         document.body.style.overflow='scroll';
-        console.log("setting scroll");
+        console.log("setting scroll HAT");
     };
 
     const caseStudyDiv = caseStudy ? (
         
         <div className={styles.overlay}>
-            <div className={styles.caseStudyBox} onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}}>
+            {/* onMouseOver={() => {document.body.style.overflow='hidden'}} onMouseOut={() => {document.body.style.overflow='scroll'}} */}
+            <div className={styles.caseStudyBox}>
                 <div className={styles.close} onClick={handleCSClose}>
                     <PlusIcon fill={features.fontColor} size='30px' />
                 </div>
@@ -208,7 +209,8 @@ export default function Gallery() {
     return(
         <div>
             {/* <div className={styles.backButton}> */}
-            <BackButton destination={"/"} />
+            {/* only want back button possible if case study NOT open */}
+            { !caseStudy && <BackButton destination={"/"} /> }
             {/* </div> */}
             
             <div className={styles.allContainer}>

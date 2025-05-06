@@ -126,6 +126,8 @@ const changeFeature = (type: string, newFeature: any) => {
     const addSticker = ({src, page, width, height, x, y}: any) => {
         console.log("reaching add sticker!");
 
+        const randInt = Math.random() * 100000;
+
         const newSticker = { 
           width,
           height,
@@ -133,7 +135,7 @@ const changeFeature = (type: string, newFeature: any) => {
           y,
           src,
           page,
-          id: `${src}-${Date.now()}`
+          id: `${src}-${Date.now()}-${randInt}`
         };
         
         setStickers(prevImages => {

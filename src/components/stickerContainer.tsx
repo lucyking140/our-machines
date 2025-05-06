@@ -373,6 +373,37 @@ export default function StickerContainer(){
         };
     }, []);
 
+    // uploads sticker to localStorage (passed into FileUploader)
+    const uploadSticker = (fileInfo: any) => {
+        // based on a provided file info json, add this 
+        // information to the list of stickers in localstorage
+
+        // getting current list
+        const all = localStorage.getItem('stickers');
+        console.log("all stickers: ", all);
+        let cur_files = [];
+        if(all){
+            cur_files = JSON.parse(all);
+        }
+
+        //need: alt, url, width, height
+        console.log("fileInfo: ", fileInfo);
+        const fullFile = {...fileInfo, alt: fileInfo.name, width: 100, height: 100};
+
+
+        //const new_files = JSON.stringify({...cur_files, str_file});
+        // unshift instead of push to add it to the beginning of the list --> better ui
+        cur_files.unshift(fullFile);
+        console.log("cur files after loading most recent sticker: ", cur_files);
+
+
+        localStorage.setItem('stickers', JSON.stringify(cur_files));
+        // triggering useEffect in sticker component
+        window.dispatchEvent(new Event('stickers-updated'));
+
+        console.log("Finished setting new sticker in storage!");
+    }
+
     // actual display of how users can select stickers
     const stickerSelector = stickersData ? (<div className="personalize-menu" id="menu-deep">
             <div className={styles.stickersPalette}>
@@ -381,10 +412,16 @@ export default function StickerContainer(){
                         <div onClick={() => handleOpenStickers()} style={{width: '35px', transform: 'rotate(270deg)', cursor: 'pointer'}}>
                             <Back fillColor={features.fontColor}/>
                         </div>
+                        {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '30%'}}> */}
+                            
                         <div style={{width: '35px', cursor: 'pointer'}}>
-                            <FileUploader />
+                            <FileUploader onUpload={uploadSticker}/>
                         </div>
+                        
                     </div>
+                    <div style={{width: '98%', fontSize: '0.7rem', fontStyle: 'italic', textAlign: 'right'}}>
+                            SVGs only!
+                        </div>
                     <div className={styles.stickerOptions} onClick={() => handleHide()}>
                         <div style={{textAlign: 'center'}}> Hide All </div>
                         {/* <MySwitch /> */}

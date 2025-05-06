@@ -6,6 +6,7 @@ import Switch from '@mui/material/Switch';
 import { PlusIcon } from "./icons";
 
 import { usePersContext } from "../app/contexts/usePersContext";
+import {FileUploader } from "../components/fileUploader";
 
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
@@ -21,6 +22,15 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const [status, setStatus] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isPublic, setPublic] = useState<boolean | null>(false);
+
+    // stores a string w metadata and dataUrl of an uploaded images -- submited via hidden field to the form
+    const [uploadedImg, setUploadedImg] = useState<any>({});
+
+    const handleImgUpload = (fileInfo: any) => {
+        console.log("File info in submission form!: ", JSON.stringify(fileInfo));
+        //TODO: file type verification here!!
+        setUploadedImg(fileInfo);
+    }
 
     // for random word replacements
     const nameSlug = generateSlug();
@@ -72,6 +82,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
 
     const [invalidFile, setInvalidFile ] = useState<boolean>(false);
     const validateFile = (e) => {
+        console.log("reaching val file again");
         const curFile = e.target.files[0];
         console.log("curFile: ", curFile);
         if (curFile){
@@ -80,6 +91,9 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 // alert("Wrong file type!");
                 setInvalidFile(true);
                 console.log("reaching heic case");
+            } else {
+                // in case prev file was invalid
+                setInvalidFile(false);
             }
         }
     }
@@ -98,6 +112,12 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                 </div>
             </div>
             <div className={styles.content} >
+                {/* file upload box (then passed in as a URL to the form itself) */}
+                <div className={styles.formEntry}>
+                        <div> Upload an image of your device: </div>
+                        <FileUploader onUpload={handleImgUpload} />
+                        <div> {uploadedImg.name} </div>
+                </div>
                 <form
                 className="formContainer"
                 name="designs"
@@ -117,6 +137,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     <input type="hidden" name="stickers" value={JSON.stringify(stickers)} />
                     <input type="hidden" name="windowWidth" value={width} />
                     <input type="hidden" name="windowHeight" value={height} />
+                    <input type="hidden" name="imageUrl" value={uploadedImg.url} />
 
                     {/* visual styles inputs */}
 
@@ -133,14 +154,13 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     </div>
 
                     {/* image/file upload */}
-                    <div className={styles.formEntry} >
+                    {/* <div className={styles.formEntry} >
                         <label htmlFor="dev_img"> Upload an image of the device </label>
                         <input name="dev_img" id="dev_img" type="file" placeholder="Upload an image" className={styles.fileInput} style={{border: '0', padding: '5px 0px'}} accept="image/*" onChange={(e) => validateFile(e)}/>
                         { invalidFile ? <div className={styles.validation}>
                             Invalid file type - please submit a different image. 
                         </div> : null}
-                    </div>
-                    
+                    </div> */}
 
                     {/* description */}
                     <div className={styles.formEntry}>
@@ -168,7 +188,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                    
                     {status === 'error' && <div>{error}</div>}
 
-                    <button type="submit" disabled={status === 'pending' || invalidFile} style={{cursor: 'pointer'}}>
+                    <button type="submit" disabled={status === 'pending' || invalidFile}>
                         Submit
                     </button>
 

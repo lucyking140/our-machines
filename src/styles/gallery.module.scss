@@ -101,7 +101,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2;
     overflow: hidden;
   }
 
@@ -115,7 +115,7 @@
     height: 80vh;
     border: 1px solid var(--font-color);
     background-color: var(--background-color);
-    z-index: 2;
+    z-index: 3; // on top of overlay
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -212,7 +212,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .overlay {
@@ -224,6 +224,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 3;
     overflow: hidden;
   }

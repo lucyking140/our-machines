@@ -3,7 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { usePersContext } from "../app/contexts/usePersContext";
 
-import { ResizeArrow } from "./icons";
+import { ResizeArrow, CancelIcon } from "./icons";
+
+import styles from "../../public/css/homePage.module.css";
+
 
 export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
 
@@ -219,7 +222,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
     return (
         <div 
             ref={stickerRef}
-            className="sticker-container" 
+            className={styles.sticker}
             style={{
                 position: 'absolute',
                 top: `${image.y}px`, 
@@ -240,7 +243,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                 style={{ 
                     userSelect: 'none', 
                     pointerEvents: 'auto', 
-                    zIndex: 500, 
+                    // zIndex: 500, 
                     touchAction: "none"
                 }}
             />
@@ -266,13 +269,16 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }: any) => {
                         pointerEvents: 'auto',
                     }}
                 >
-                    <img 
+                    {/* <img 
                         src="/cancel.svg" 
                         width={30} 
                         height={30} 
                         alt="Delete"
                         style={{ pointerEvents: 'auto' }}
-                    />
+                    /> */}
+                    <div style={{ pointerEvents: 'auto' }}>
+                        <CancelIcon size='30' fill={features.fontColor}/>
+                    </div>
                 </button>
             )}
 

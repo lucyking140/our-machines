@@ -36,14 +36,14 @@
         font-weight: 600;
     }
     
-    a:after{
-        background-image: url('/icons/right-up.svg');
-      background-size: 20px 20px;
-      display: inline-block;
-      width: 20px; 
-      height: 20px;
-      content:"";
-    }
+    // a:after{
+    //     background-image: url('/icons/right-up.svg');
+    //   background-size: 20px 20px;
+    //   display: inline-block;
+    //   width: 20px; 
+    //   height: 20px;
+    //   content:"";
+    // }
     
     a:visited{
         color: var(--font-family);

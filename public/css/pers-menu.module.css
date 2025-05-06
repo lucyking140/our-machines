@@ -30,7 +30,7 @@
 
 .popover {
   position: absolute;
-  z-index: 2;
+  z-index: 999;
   bottom: 100%;
   left: 0;
   border: 1px solid var(--font-color);

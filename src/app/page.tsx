@@ -22,6 +22,17 @@ export default function Home() {
     setOpen(!open);
   };
 
+  // https://stackoverflow.com/questions/50026028/react-how-to-detect-page-refresh-f5
+    React.useEffect(() => {
+      window.addEventListener("beforeunload", alertUser);
+      return () => {
+        window.removeEventListener("beforeunload", alertUser);
+      };
+    }, []);
+    const alertUser = (e) => {
+      alert("hello");
+    };
+
   return (
     <div className={styles.homecontainer}> 
       <div className={styles.titlebox}>

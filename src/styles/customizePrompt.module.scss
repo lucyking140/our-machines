@@ -6,7 +6,7 @@
     left: 20vw;
     border: 1px solid var(--font-color);
     animation: fade-in 1s;
-    z-index: 10000;
+    z-index: 10000; // also ok to be over stickers
 }
 
 .content{

@@ -7,7 +7,7 @@
     left: 15px;
     border: 1px var(--font-color) solid;
     width: 250px;
-    z-index: 1000000;
+    z-index: 999; // always above, EXCEPT for stickers!!
     background-color: var(--background-color);
     font-family: var(--font-family);
     color: var(--font-color);
@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
+    z-index: 1001; // higher than the stickers!!
 }
 
 .stickerOptions{
@@ -55,8 +56,14 @@
 .stickerButton{
     padding: 0px;
     cursor: pointer;
+    z-index: 1000;
     // width: inherit;
     // background-color: lightpink;
+}
+
+// in individual-sticker
+.sticker{
+    z-index: 1000;
 }
 
 .footerTitle{

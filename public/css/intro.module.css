@@ -35,14 +35,6 @@
   color: var(--font-family);
   font-weight: 600;
 }
-.bodyText a:after {
-  background-image: url("/icons/right-up.svg");
-  background-size: 20px 20px;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  content: "";
-}
 .bodyText a:visited {
   color: var(--font-family);
   opacity: 80;
