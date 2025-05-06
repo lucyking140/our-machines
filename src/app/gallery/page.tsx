@@ -29,7 +29,7 @@ export default function Gallery() {
             // setError(null);
             // const myForm = event.target;
             // const formData = new FormData(myForm);
-            const form_id = '67fe837ccde56500077832c6';
+            const form_id = '681a79a9a98d5a00081d9749'; //'67fe837ccde56500077832c6';
             const api_key = process.env.NEXT_PUBLIC_NETLIFY_AUTH_TOKEN;
             //console.log("API key: ", api_key);
             const res = await fetch(`https://api.netlify.com/api/v1/forms/${form_id}/submissions`, {
@@ -38,7 +38,7 @@ export default function Gallery() {
                     'Authorization': `Bearer ${api_key}`
                 }
             });
-
+            console.log("res: ", res);
             const data = await res.json();
             return data;
 
