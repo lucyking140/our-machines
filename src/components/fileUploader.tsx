@@ -65,18 +65,17 @@ export function FileUploader() {
         }
         
         const reader = new FileReader();
+
+        // actually doing the reading of the file but to a URL
+        reader.readAsDataURL(selectedFile);
         
+        // from https://developer.mozilla.org/en-US/docs/Web/API/FileReader/load_event 
+        // runs this after the file has loaded
         reader.onload = (e) => {
-            console.log("reaching on load");
+          console.log("reaching on load");
           const dataUrl = e.target.result;
-          
-          // Additional validation: Check if the file content actually contains SVG
-        //   if (!dataUrl.includes('<svg') && !dataUrl.includes('<?xml')) {
-        //     console.log('The file does not appear to be a valid SVG.');
-        //     return;
-        //   }
-          
-          // Create file object with metadata
+  
+          // getting additional file date from the submitted file
           const newFile = {
             name: selectedFile.name,
             type: selectedFile.type,
@@ -85,41 +84,19 @@ export function FileUploader() {
             uploadedAt: new Date().toISOString()
           };
           
-          // Update state with new file
+          // adding dataURL to above info
           const fileWithData = {...newFile, url: dataUrl};
-          console.log("fileWithData: ", fileWithData);
+          //console.log("fileWithData: ", fileWithData);
           
-          // Store file in sessionStorage
+          // actually doing the uploading
           try {
-            //TODO: add hook function here
-            //uploadSticker(fileWithData);
-            // const str_file = JSON.stringify(fileWithData);
-
-            // // getting current list
-            // const all = localStorage.getItem('stickers');;
-            // var cur_files = {}
-            // if(all){
-            //     cur_files = JSON.parse(all);
-            // }
-
-            // const new_files = JSON.stringify({...cur_files, str_file});
-
-            // localStorage.setItem('stickers', new_files);
-            // console.log("Finished setting new sticker in storage!");
             uploadSticker(fileWithData);
           } catch (err) {
-            console.error('Error saving to localStorage:', err);
+            console.error('Error:', err);
           }
           event.target.value = '';
         };
         
-        reader.onerror = () => {
-          console.log(`Error reading file: ${selectedFile.name}`)
-        };
-        
-        // Read file as data URL
-        reader.readAsDataURL(selectedFile);
-       
       };
     
     return(
