@@ -29,6 +29,9 @@ export default function Gallery() {
             // setError(null);
             // const myForm = event.target;
             // const formData = new FormData(myForm);
+            // SECOND form
+            //designs3: 681a7c3caa8b41000840a413
+            // using DESIGNS 2!!
             const form_id = '681a79a9a98d5a00081d9749'; //'67fe837ccde56500077832c6';
             const api_key = process.env.NEXT_PUBLIC_NETLIFY_AUTH_TOKEN;
             //console.log("API key: ", api_key);
@@ -221,7 +224,7 @@ export default function Gallery() {
             <div className={styles.allContainer}>
 
                 <div className={styles.title}>
-                    Other Peoples' Things
+                    Styled By _______
                 </div>
 
                 <div className={styles.subtitle}> 
@@ -232,7 +235,7 @@ export default function Gallery() {
                     <br />
                     <br />
 
-                    For a closer connection, step into their shoes by applying their personalizations to this site to your own.   
+                    When viewing a device, step into the owner's shoes by applying their personalizations to this site to your own.   
                 
                 </div>
                 

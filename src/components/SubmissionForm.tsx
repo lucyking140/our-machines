@@ -36,6 +36,11 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
     const handleImgUpload = (fileInfo: any) => {
         console.log("File info in submission form!: ", JSON.stringify(fileInfo));
         //TODO: file type verification here!!
+        if(fileInfo.url.length > 700000){
+            alert("This file is too large -- please upload a smaller file.");
+            return;
+        }
+        console.log("length of data URL: ", fileInfo.url.length);
         setUploadedImg(fileInfo);
     }
 
@@ -130,7 +135,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             </div>      
                     </div>
                     <form
-                    name="designs"
+                    name="designs2"
                     method="POST"
                     data-netlify="true"
                     // encType="multipart-form/data"

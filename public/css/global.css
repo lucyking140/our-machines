@@ -18,6 +18,7 @@ html {
   font-family: var(--font-family);
   color: var(--font-color);
   height: 100%;
+  overflow-wrap: break-word;
 }
 
 /*# sourceMappingURL=global.css.map */

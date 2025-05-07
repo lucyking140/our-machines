@@ -13,7 +13,7 @@ export const modelData = [
             "Like lovers of vinyl records or digital cameras, many vintage headphone users accredit their choice to the devices' superior functionality, adding a meta layer underneath the message already communicated by the device. Emphasizing this sense of functionality portrays oneself as rational and passionate, perhaps alluding to the owner's superior expertise in, in the case of headphones, the music world. "
         ],
         camPos: 1,
-        light: 20,
+        light: 40,
         CS_camPos: 0.8,
         subtitle: "Personal technology as fashion, trend cycles and all",
         origin: "Spread across pop culture in 1979 by the Sony Walkman after first developed mid-20th century alongside the portable transistor radio",
@@ -22,7 +22,7 @@ export const modelData = [
     },
     { // DONE
         name: "Mobile Lock Screens",
-        modelPath: "/3d_models/patty-lock-phone.glb",
+        modelPath: "/3d_models/mom-lock-screen-final.glb",
         textContent: [
             "We identify ourselves through not only personal expression but also who we associate with. When one chooses to depict someone on their lock screen, this otherwise unsaid dynamic is manifested as a physical indicator of one's most important connection.",
             "Intentional announcements of our relationships, especially romantic ones, have been a key tradition for many, dating from the era of <a href='https://www.newstatesman.com/science-tech/2016/02/facebook-official-rise-and-fall-relationship-status' target='_blank'>newspaper ads</a>. First translated to the digital world through features like Facebook's relationship status, symbols of our commitment to our significant other are a key step in the strictly-defined prescribed path to romantic success. In this dynamic, the public nature of the announcement is key -- illuminating a once-private relationship holds both members accountable to their new witnesses.",
@@ -73,7 +73,7 @@ export const modelData = [
     },
     {   //DONE
         name: "Cell Phone Accessories",
-        modelPath: "/3d_models/phone_case.glb",
+        modelPath: "/3d_models/phone-case-test.glb",
         textContent: [
             "The smartphone revolutionized the cell phone not only through its functionality but also its lack thereof – the perceived fragility of glass-wrapped smartphone models accelerated an existing trend of encasing the increasingly valuable devices in protective cases. Today, phone cases have also become a key opportunity for personalization – one can choose their case based on color, texture, included accessories, and, of course, on its protective functionality. However, radical improvements in reinforced glass technology and an increasing availability of flimsy, obviously useless cases have led to the cases' aesthetic role trumping its functional one.",
             "While not everyone will have access to a phone's digital content, the back of the phone faces away from the user and toward their surroundings, making it the most exterior-facing aspect of the device. As cell phones have gained a status as an extension of one's personal space, this public-facing case becomes increasingly representative of a projection of its owner's identity.",
@@ -81,9 +81,9 @@ export const modelData = [
             "Cell phones also communicate a message about their owner through a lack of personal adornment. A growing anti-case trend, for example, <a href='https://www.vox.com/the-goods/2019/5/30/18644637/iphone-no-case-caseless-design' target='_blank'>might suggest</a> that the phone's owner simply doesn't care if their phone breaks as the cost to replace it is negligible. This trend is especially popular among those who express a reverence for the devices' 'beautiful hardware,' perhaps serving to communicate a sort of technical expertise — itself related to the financial stability needed to risk such an expensive item — through their comfort with their bare phones. ",
             "Cell phone manufacturers might have another reason to want customers to add the case – Valente, an <a href='https://www.bbc.com/future/article/20250410-why-your-phone-doesnt-need-a-case-anymore' target='_blank'>iPhone owner</a> interviewed by the BBC, suggested that going caseless 'made me more conscious of the thing, and I find I don't get blindly sucked in as much as I used to. I can't believe I'm saying this but I think I'm actually using my phone less.' Perhaps the appeal of the case, making the phone personalized to each owner's precise needs with stands, finger shelves, and grip texture, contributes to the ease with which the phone has come to act as an extension of our bodies."
         ],
-        camPos: 1,
+        camPos: 0.7,
         light: 1,
-        CS_camPos: 1,
+        CS_camPos: 0.7,
         subtitle: "Aesthetics at the cost of functionality",
         origin: "Popularized in Japan in the late 1990s and early 2000s",
         origin_source: "https://en.wikipedia.org/wiki/Mobile_phone_charm",
