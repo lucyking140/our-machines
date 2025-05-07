@@ -135,7 +135,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                             </div>      
                     </div>
                     <form
-                    name="designs2"
+                    name="designs4"
                     method="POST"
                     data-netlify="true"
                     // encType="multipart-form/data"
@@ -145,7 +145,7 @@ export function SubmissionForm({closeOnSubmit} : {closeOnSubmit: () => void}) {
                     >
                     
                         {/* required input to link form to netlify */}
-                        <input id='name' type="hidden" name="form-name" value="designs2" />
+                        <input id='name' type="hidden" name="form-name" value="designs4" />
 
                         {/* hidden inputs */}
                         <input type="hidden" name="features" value={JSON.stringify(features)} />
