@@ -65,10 +65,14 @@ export default function Home() {
             Our reflections in our digital spaces and the devices we use to access them
         </div>
         {/* Menu with links to other pages */}
-        <div className={styles.menu} onClick={handleOpen}>
-          <div className={open ? styles.menuiconopen : styles.menuicon }>
-            <MenuIcon fill={features.fontColor} />
+        <div className={styles.menuBox} onClick={handleOpen}>
+          <div className={styles.menu}>
+            Table of Contents
+            <div className={open ? styles.menuiconopen : styles.menuicon }>
+              <MenuIcon fill={features.fontColor} />
+            </div>
           </div>
+          
           {open ? (
                 <div className={styles.projDropMenu}>
                   
