@@ -34,7 +34,7 @@ export default function Gallery() {
             // using DESIGNS 2!!
             // designs 4: 681b283c17fab20008e8b80f
             // 3: '681a79a9a98d5a00081d9749'
-            const form_id = '681b283c17fab20008e8b80f'; //'67fe837ccde56500077832c6';
+            const form_id = '681b283c17fab20008e8b80f'; //currently designs 4
             const api_key = process.env.NEXT_PUBLIC_NETLIFY_AUTH_TOKEN;
             //console.log("API key: ", api_key);
             const res = await fetch(`https://api.netlify.com/api/v1/forms/${form_id}/submissions`, {
